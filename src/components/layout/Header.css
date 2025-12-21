@@ -17,25 +17,19 @@
 }
 
 /* Logo */
-.header-logo {
+.logo {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  color: var(--text-primary);
+  color: var(--primary-500);
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-xl);
   text-decoration: none;
+  flex-shrink: 0;
 }
 
-.logo-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: var(--gradient-primary);
-  color: white;
-  border-radius: var(--radius-lg);
+.logo svg {
+  flex-shrink: 0;
 }
 
 .logo-text {
@@ -286,7 +280,11 @@
     display: flex !important;
   }
   
-  .header-logo .logo-text {
+  .logo .logo-text {
+    display: none;
+  }
+  
+  .desktop-cta {
     display: none;
   }
 }

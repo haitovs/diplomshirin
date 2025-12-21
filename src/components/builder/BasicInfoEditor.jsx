@@ -1,4 +1,5 @@
 import { usePortfolio } from '../../context/PortfolioContext';
+import ImageUpload from '../common/ImageUpload';
 import Input from '../common/Input';
 import Textarea from '../common/Textarea';
 import './EditorStyles.css';
@@ -52,19 +53,12 @@ function BasicInfoEditor() {
         placeholder="San Francisco, CA"
       />
 
-      <Input
-        label="Avatar URL"
+      <ImageUpload
+        label="Profile Photo"
         value={basics.avatar}
-        onChange={(e) => handleChange('avatar', e.target.value)}
-        placeholder="https://example.com/avatar.jpg"
-        hint="Leave empty to use auto-generated avatar"
+        onChange={(value) => handleChange('avatar', value)}
+        hint="Upload your profile photo (PNG, JPG up to 5MB)"
       />
-
-      {basics.avatar && (
-        <div className="avatar-preview">
-          <img src={basics.avatar} alt="Avatar preview" />
-        </div>
-      )}
 
       <Textarea
         label="Professional Summary"

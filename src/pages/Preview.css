@@ -49,7 +49,7 @@
 /* Header */
 .portfolio-header {
   padding: var(--space-10);
-  background: linear-gradient(135deg, var(--accent-color, #4F46E5), color-mix(in srgb, var(--accent-color, #4F46E5) 80%, black));
+  background: linear-gradient(135deg, var(--accent-color, #4F46E5) 0%, #3730a3 100%);
   color: white;
 }
 
@@ -74,7 +74,7 @@
 
 .portfolio-name {
   font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-light);
   margin: 0 0 var(--space-2);
 }
 

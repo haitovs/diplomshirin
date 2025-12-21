@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { usePortfolio } from '../../context/PortfolioContext';
 import Badge from '../common/Badge';
 import Button from '../common/Button';
+import ImageUpload from '../common/ImageUpload';
 import Input from '../common/Input';
 import Modal from '../common/Modal';
 import TagInput from '../common/TagInput';
@@ -160,11 +161,11 @@ function ProjectsEditor() {
             placeholder="https://github.com/..."
           />
 
-          <Input
-            label="Image URL"
+          <ImageUpload
+            label="Project Screenshot"
             value={formData.image}
-            onChange={(e) => setFormData(prev => ({ ...prev, image: e.target.value }))}
-            placeholder="https://example.com/screenshot.png"
+            onChange={(value) => setFormData(prev => ({ ...prev, image: value }))}
+            hint="Upload a screenshot of your project"
           />
         </div>
         

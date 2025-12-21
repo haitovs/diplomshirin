@@ -5,12 +5,13 @@ import {
     Github,
     Globe,
     Linkedin,
+    Loader2,
     Mail,
     MapPin,
     Phone,
     Twitter
 } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
@@ -21,58 +22,75 @@ function Preview() {
   const { portfolio, exportJSON } = usePortfolio();
   const { basics, skills, projects, experience, education, certifications, languages, socialLinks, settings } = portfolio;
   const previewRef = useRef(null);
+  const [isExporting, setIsExporting] = useState(false);
 
-  const handleExportPDF = () => {
-    // Use browser's print functionality which can save as PDF
-    // This works without additional dependencies
-    const printContent = previewRef.current;
-    if (!printContent) return;
+  const handleExportPDF = async () => {
+    const element = previewRef.current;
+    if (!element || isExporting) return;
 
-    // Create a new window for printing
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      alert('Please allow popups to export PDF');
-      return;
-    }
+    setIsExporting(true);
 
-    // Get all stylesheets
-    const styles = Array.from(document.styleSheets)
-      .map(styleSheet => {
-        try {
-          return Array.from(styleSheet.cssRules)
-            .map(rule => rule.cssText)
-            .join('');
-        } catch (e) {
-          return '';
+    try {
+      // Dynamic import for PDF libraries
+      const html2canvas = (await import('html2canvas')).default;
+      const { jsPDF } = await import('jspdf');
+
+      // Capture the preview as canvas
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        backgroundColor: '#ffffff',
+        logging: false
+      });
+
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = pdf.internal.pageSize.getHeight();
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
+      
+      // Calculate dimensions to fit page
+      const ratio = pdfWidth / imgWidth;
+      const scaledHeight = imgHeight * ratio;
+
+      // Handle multi-page PDFs
+      let heightLeft = scaledHeight;
+      let position = 0;
+      let page = 0;
+
+      while (heightLeft > 0) {
+        if (page > 0) {
+          pdf.addPage();
         }
-      })
-      .join('\n');
+        
+        pdf.addImage(
+          imgData, 
+          'PNG', 
+          0, 
+          position, 
+          pdfWidth, 
+          scaledHeight
+        );
+        
+        heightLeft -= pdfHeight;
+        position -= pdfHeight;
+        page++;
+      }
 
-    printWindow.document.write(`
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>${basics.name || 'Portfolio'} - Resume</title>
-          <style>
-            ${styles}
-            @media print {
-              body { margin: 0; padding: 20px; }
-              .portfolio-preview { box-shadow: none !important; }
-            }
-          </style>
-        </head>
-        <body>
-          ${printContent.outerHTML}
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
-    
-    // Wait for content to load then print
-    printWindow.onload = () => {
-      printWindow.print();
-      printWindow.close();
-    };
+      pdf.save(`${basics.name || 'portfolio'}_resume.pdf`);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      alert('Error generating PDF. Please try again.');
+    } finally {
+      setIsExporting(false);
+    }
   };
 
   const formatDate = (dateStr) => {
@@ -102,8 +120,13 @@ function Preview() {
           <Button variant="outline" onClick={exportJSON}>
             Export JSON
           </Button>
-          <Button variant="primary" icon={Download} onClick={handleExportPDF}>
-            Download PDF
+          <Button 
+            variant="primary" 
+            icon={isExporting ? Loader2 : Download} 
+            onClick={handleExportPDF}
+            disabled={isExporting}
+          >
+            {isExporting ? 'Generating...' : 'Download PDF'}
           </Button>
         </div>
       </div>
@@ -244,8 +267,8 @@ function Preview() {
                       <p>{project.description}</p>
                       {project.technologies?.length > 0 && (
                         <div className="tech-tags">
-                          {project.technologies.map(tech => (
-                            <Badge key={tech} variant="neutral" size="sm">{tech}</Badge>
+                          {project.technologies.map((tech, idx) => (
+                            <Badge key={`${tech}-${idx}`} variant="neutral" size="sm">{tech}</Badge>
                           ))}
                         </div>
                       )}
