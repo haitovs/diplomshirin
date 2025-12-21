@@ -1,0 +1,118 @@
+.projects-page {
+  padding: var(--space-10) 0 var(--space-20);
+  min-height: 80vh;
+}
+
+/* Page Header */
+.page-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-bottom: var(--space-10);
+}
+
+.page-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: var(--radius-xl);
+}
+
+.page-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-1);
+}
+
+.page-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Projects Grid */
+.projects-container {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.projects-container.grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.projects-container.list {
+  grid-template-columns: 1fr;
+}
+
+.projects-container.list .project-card {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+}
+
+.projects-container.list .project-card-image {
+  aspect-ratio: unset;
+  height: 100%;
+}
+
+.projects-container.list .project-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-20);
+  text-align: center;
+}
+
+.empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: var(--bg-tertiary);
+  color: var(--text-tertiary);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-6);
+}
+
+.empty-state h3 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-2);
+}
+
+.empty-state p {
+  color: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .projects-container.grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .projects-container.list .project-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .projects-container.grid {
+    grid-template-columns: 1fr;
+  }
+}

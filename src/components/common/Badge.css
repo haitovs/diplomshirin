@@ -1,0 +1,114 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+/* Sizes */
+.badge-sm {
+  padding: 2px var(--space-2);
+  font-size: var(--font-size-xs);
+}
+
+.badge-md {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-xs);
+}
+
+.badge-lg {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-sm);
+}
+
+/* Variants */
+.badge-primary {
+  background: var(--primary-100);
+  color: var(--primary-700);
+}
+
+[data-theme="dark"] .badge-primary {
+  background: rgba(99, 102, 241, 0.2);
+  color: var(--primary-400);
+}
+
+.badge-secondary {
+  background: var(--secondary-100);
+  color: var(--secondary-700);
+}
+
+[data-theme="dark"] .badge-secondary {
+  background: rgba(139, 92, 246, 0.2);
+  color: var(--secondary-400);
+}
+
+.badge-accent {
+  background: var(--accent-100);
+  color: var(--accent-700);
+}
+
+[data-theme="dark"] .badge-accent {
+  background: rgba(6, 182, 212, 0.2);
+  color: var(--accent-400);
+}
+
+.badge-success {
+  background: var(--success-50);
+  color: var(--success-600);
+}
+
+[data-theme="dark"] .badge-success {
+  background: rgba(16, 185, 129, 0.2);
+  color: var(--success-500);
+}
+
+.badge-warning {
+  background: var(--warning-50);
+  color: var(--warning-600);
+}
+
+[data-theme="dark"] .badge-warning {
+  background: rgba(245, 158, 11, 0.2);
+  color: var(--warning-500);
+}
+
+.badge-error {
+  background: var(--error-50);
+  color: var(--error-600);
+}
+
+[data-theme="dark"] .badge-error {
+  background: rgba(239, 68, 68, 0.2);
+  color: var(--error-500);
+}
+
+.badge-neutral {
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+
+[data-theme="dark"] .badge-neutral {
+  background: var(--gray-700);
+  color: var(--gray-300);
+}
+
+/* Remove Button */
+.badge-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  margin-left: var(--space-1);
+  font-size: 14px;
+  line-height: 1;
+  border-radius: var(--radius-full);
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
+}
+
+.badge-remove:hover {
+  opacity: 1;
+}

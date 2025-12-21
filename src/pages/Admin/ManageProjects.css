@@ -1,0 +1,230 @@
+.manage-projects,
+.manage-students {
+  max-width: 1200px;
+}
+
+.manage-projects .page-header,
+.manage-students .page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+}
+
+.manage-projects .page-header h1,
+.manage-students .page-header h1 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--space-1);
+}
+
+.manage-projects .page-header p,
+.manage-students .page-header p {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: var(--font-size-sm);
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-6);
+}
+
+.search-bar svg {
+  color: var(--text-tertiary);
+}
+
+.search-bar input {
+  flex: 1;
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.search-bar button {
+  color: var(--text-tertiary);
+  padding: var(--space-1);
+}
+
+.search-bar button:hover {
+  color: var(--text-primary);
+}
+
+/* Table */
+.table-container {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.data-table th {
+  background: var(--bg-tertiary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.data-table tr:hover {
+  background: var(--bg-tertiary);
+}
+
+/* Project Cell */
+.project-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.project-cell img {
+  width: 48px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.project-cell .project-title {
+  display: block;
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.project-cell .project-views {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+}
+
+/* Rating */
+.rating-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--warning-500);
+}
+
+/* Feature Toggle */
+.feature-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--text-tertiary);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.feature-toggle:hover {
+  background: var(--bg-tertiary);
+}
+
+.feature-toggle.active {
+  color: var(--warning-500);
+}
+
+/* Actions */
+.actions-cell {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.action-btn.view {
+  color: var(--accent-500);
+}
+
+.action-btn.edit {
+  color: var(--primary-500);
+}
+
+.action-btn.delete {
+  color: var(--error-500);
+}
+
+.action-btn:hover {
+  background: var(--bg-tertiary);
+}
+
+/* Student Cell */
+.student-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.student-cell img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: var(--radius-full);
+}
+
+.student-cell .student-name {
+  display: block;
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+}
+
+.student-cell .student-dept {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .data-table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .manage-projects .page-header,
+  .manage-students .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+}
+
+/* Empty Table */
+.empty-table {
+  padding: var(--space-16);
+  text-align: center;
+  color: var(--text-tertiary);
+}
+

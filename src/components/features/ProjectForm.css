@@ -1,0 +1,71 @@
+.project-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.form-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 640px) {
+  .form-grid,
+  .form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.section-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.section-label .required {
+  color: var(--error-500);
+}
+
+.screenshots-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.screenshot-row {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+
+.screenshot-row .input-group {
+  flex: 1;
+}
+
+.error-text {
+  font-size: var(--font-size-xs);
+  color: var(--error-500);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-500);
+  cursor: pointer;
+}

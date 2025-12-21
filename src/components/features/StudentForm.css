@@ -1,0 +1,38 @@
+.student-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.student-form .form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.student-form .form-grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 640px) {
+  .student-form .form-grid,
+  .student-form .form-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.student-form .checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  color: var(--text-primary);
+}
+
+.student-form .checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-500);
+  cursor: pointer;
+}

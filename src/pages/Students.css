@@ -1,0 +1,57 @@
+.students-page {
+  padding: var(--space-10) 0 var(--space-20);
+  min-height: 80vh;
+}
+
+.students-page .page-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-bottom: var(--space-10);
+}
+
+.students-page .page-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: var(--radius-xl);
+}
+
+.students-page .page-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--space-1);
+}
+
+.students-page .page-subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.students-page .students-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+@media (max-width: 1024px) {
+  .students-page .students-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .students-page .page-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .students-page .students-grid {
+    grid-template-columns: 1fr;
+  }
+}
