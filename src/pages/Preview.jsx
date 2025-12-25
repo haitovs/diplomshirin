@@ -1,15 +1,15 @@
 import { motion } from 'framer-motion';
 import {
-    ArrowLeft, Download, Edit,
-    ExternalLink,
-    Github,
-    Globe,
-    Linkedin,
-    Loader2,
-    Mail,
-    MapPin,
-    Phone,
-    Twitter
+  ArrowLeft, Download, Edit,
+  ExternalLink,
+  Github,
+  Globe,
+  Linkedin,
+  Loader2,
+  Mail,
+  MapPin,
+  Phone,
+  Twitter
 } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -35,14 +35,126 @@ function Preview() {
       const html2canvas = (await import('html2canvas')).default;
       const { jsPDF } = await import('jspdf');
 
-      // Capture the preview as canvas
-      const canvas = await html2canvas(element, {
+      // Clone the element to apply inline styles
+      const clone = element.cloneNode(true);
+      clone.style.position = 'absolute';
+      clone.style.left = '-9999px';
+      clone.style.width = element.offsetWidth + 'px';
+      document.body.appendChild(clone);
+
+      // Get accent color value
+      const accentColor = settings.primaryColor || '#4F46E5';
+      
+      // Apply inline styles to clone for PDF rendering
+      const header = clone.querySelector('.portfolio-header');
+      if (header) {
+        header.style.background = `linear-gradient(135deg, ${accentColor} 0%, #3730a3 100%)`;
+        header.style.padding = '40px';
+        header.style.color = 'white';
+      }
+
+      // Fix header content flexbox
+      const headerContent = clone.querySelector('.header-content');
+      if (headerContent) {
+        headerContent.style.display = 'flex';
+        headerContent.style.alignItems = 'center';
+        headerContent.style.gap = '32px';
+      }
+
+      // Fix avatar image
+      const avatar = clone.querySelector('.portfolio-avatar');
+      if (avatar) {
+        avatar.style.width = '120px';
+        avatar.style.height = '120px';
+        avatar.style.borderRadius = '50%';
+        avatar.style.objectFit = 'cover';
+        avatar.style.border = '4px solid rgba(255, 255, 255, 0.3)';
+        avatar.style.flexShrink = '0';
+        avatar.style.display = 'block';
+      }
+
+      // Apply skill bar colors
+      const skillFills = clone.querySelectorAll('.skill-fill');
+      skillFills.forEach(fill => {
+        fill.style.backgroundColor = accentColor;
+        fill.style.height = '6px';
+        fill.style.borderRadius = '9999px';
+      });
+
+      // Fix skill items
+      const skillItems = clone.querySelectorAll('.skill-item');
+      skillItems.forEach(item => {
+        item.style.padding = '12px';
+        item.style.background = '#f9fafb';
+        item.style.borderRadius = '8px';
+      });
+
+      // Apply section header colors
+      const sectionHeaders = clone.querySelectorAll('.portfolio-section h2');
+      sectionHeaders.forEach(h2 => {
+        h2.style.color = accentColor;
+        h2.style.borderBottom = `2px solid ${accentColor}`;
+        h2.style.paddingBottom = '12px';
+        h2.style.marginBottom = '20px';
+        h2.style.display = 'inline-block';
+      });
+
+      // Fix badges - center text
+      const badges = clone.querySelectorAll('.badge');
+      badges.forEach(badge => {
+        badge.style.display = 'inline-flex';
+        badge.style.alignItems = 'center';
+        badge.style.justifyContent = 'center';
+        badge.style.padding = '4px 12px';
+        badge.style.borderRadius = '9999px';
+        badge.style.fontSize = '12px';
+        badge.style.fontWeight = '500';
+        badge.style.background = '#f3f4f6';
+        badge.style.color = '#4b5563';
+        badge.style.lineHeight = '1.5';
+      });
+
+      // Fix tech tags container
+      const techTags = clone.querySelectorAll('.tech-tags');
+      techTags.forEach(container => {
+        container.style.display = 'flex';
+        container.style.flexWrap = 'wrap';
+        container.style.gap = '8px';
+      });
+
+      // Apply timeline dot colors
+      const timelineItems = clone.querySelectorAll('.timeline-item');
+      timelineItems.forEach(item => {
+        item.style.position = 'relative';
+        item.style.paddingLeft = '24px';
+        item.style.borderLeft = '2px solid #e5e7eb';
+      });
+
+      // Fix social links
+      const socialLinks = clone.querySelectorAll('.social-links-preview a');
+      socialLinks.forEach(link => {
+        link.style.display = 'flex';
+        link.style.alignItems = 'center';
+        link.style.justifyContent = 'center';
+        link.style.width = '36px';
+        link.style.height = '36px';
+        link.style.background = 'rgba(255, 255, 255, 0.2)';
+        link.style.borderRadius = '50%';
+      });
+
+      // Capture the clone as canvas
+      const canvas = await html2canvas(clone, {
         scale: 2,
         useCORS: true,
         allowTaint: true,
         backgroundColor: '#ffffff',
-        logging: false
+        logging: false,
+        width: element.offsetWidth,
+        height: element.scrollHeight
       });
+
+      // Remove clone
+      document.body.removeChild(clone);
 
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF({
@@ -56,7 +168,7 @@ function Preview() {
       const imgWidth = canvas.width;
       const imgHeight = canvas.height;
       
-      // Calculate dimensions to fit page
+      // Calculate dimensions to fit page width
       const ratio = pdfWidth / imgWidth;
       const scaledHeight = imgHeight * ratio;
 
@@ -87,7 +199,7 @@ function Preview() {
       pdf.save(`${basics.name || 'portfolio'}_resume.pdf`);
     } catch (error) {
       console.error('Error generating PDF:', error);
-      alert('Error generating PDF. Please try again.');
+      alert('Error generating PDF: ' + error.message);
     } finally {
       setIsExporting(false);
     }

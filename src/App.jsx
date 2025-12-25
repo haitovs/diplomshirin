@@ -9,6 +9,15 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import NotFound from './pages/NotFound';
 import Preview from './pages/Preview';
+// Diploma Archive pages
+import Archive from './pages/Archive';
+import DiplomaDetail from './pages/DiplomaDetail';
+import Submit from './pages/Submit';
+// Admin pages
+import AdminLayout from './pages/Admin/AdminLayout';
+import Dashboard from './pages/Admin/Dashboard';
+import ManageProjects from './pages/Admin/ManageProjects';
+import ManageStudents from './pages/Admin/ManageStudents';
 import './styles/index.css';
 
 function App() {
@@ -25,7 +34,17 @@ function App() {
                   <Route path="builder" element={<Builder />} />
                   <Route path="preview" element={<Preview />} />
                   <Route path="login" element={<Login />} />
+                  {/* Diploma Archive Routes */}
+                  <Route path="archive" element={<Archive />} />
+                  <Route path="archive/:id" element={<DiplomaDetail />} />
+                  <Route path="submit" element={<Submit />} />
                   <Route path="*" element={<NotFound />} />
+                </Route>
+                {/* Admin Routes */}
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route index element={<Dashboard />} />
+                  <Route path="projects" element={<ManageProjects />} />
+                  <Route path="students" element={<ManageStudents />} />
                 </Route>
               </Routes>
             </PortfolioProvider>
@@ -37,3 +56,4 @@ function App() {
 }
 
 export default App;
+

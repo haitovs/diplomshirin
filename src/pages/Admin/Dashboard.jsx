@@ -1,206 +1,168 @@
-import { motion } from 'framer-motion';
-import {
-    Activity,
-    Eye,
-    FolderOpen,
-    Star, TrendingUp,
-    Users
-} from 'lucide-react';
-import {
-    Bar,
-    BarChart,
-    CartesianGrid,
-    Cell,
-    Line,
-    LineChart,
-    Pie,
-    PieChart,
-    ResponsiveContainer,
-    Tooltip,
-    XAxis, YAxis
-} from 'recharts';
-import { useData } from '../../context/DataContext';
+import { CheckCircle, Clock, FolderOpen, Users } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { statsAPI } from '../../services/api';
 import './Dashboard.css';
 
 function Dashboard() {
-  const { statistics } = useData();
-  const { overview, projectsByCategory, monthlyViews, topTechnologies, recentActivity } = statistics;
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const statsCards = [
-    { icon: FolderOpen, value: overview.totalProjects, label: 'Total Projects', color: '#4F46E5' },
-    { icon: Users, value: overview.totalStudents, label: 'Students', color: '#7C3AED' },
-    { icon: Eye, value: overview.totalViews.toLocaleString(), label: 'Total Views', color: '#06B6D4' },
-    { icon: Star, value: overview.averageRating.toFixed(1), label: 'Avg Rating', color: '#F59E0B' },
-  ];
+  useEffect(() => {
+    loadStats();
+  }, []);
 
-  const COLORS = projectsByCategory.map(c => c.color);
+  async function loadStats() {
+    try {
+      setLoading(true);
+      const data = await statsAPI.getDashboard();
+      setStats(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (loading) return <div className="dashboard-loading">Loading dashboard...</div>;
+  if (error) return <div className="dashboard-error">Error: {error}</div>;
+  if (!stats) return null;
 
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>Dashboard</h1>
-        <p>Welcome back! Here's what's happening with your projects.</p>
+        <h1>📊 Dashboard</h1>
+        <p>Overview of diploma work archive</p>
       </div>
 
       {/* Stats Cards */}
       <div className="stats-grid">
-        {statsCards.map((stat, index) => (
-          <motion.div
-            key={stat.label}
-            className="stat-card"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-          >
-            <div className="stat-icon" style={{ background: stat.color }}>
-              <stat.icon size={24} />
-            </div>
-            <div className="stat-content">
-              <span className="stat-value">{stat.value}</span>
-              <span className="stat-label">{stat.label}</span>
-            </div>
-          </motion.div>
-        ))}
+        <div className="stat-card">
+          <div className="stat-icon blue">
+            <FolderOpen size={24} />
+          </div>
+          <div className="stat-content">
+            <span className="stat-value">{stats.overview.totalWorks}</span>
+            <span className="stat-label">Total Works</span>
+          </div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-icon green">
+            <CheckCircle size={24} />
+          </div>
+          <div className="stat-content">
+            <span className="stat-value">{stats.overview.approvedWorks}</span>
+            <span className="stat-label">Approved</span>
+          </div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-icon orange">
+            <Clock size={24} />
+          </div>
+          <div className="stat-content">
+            <span className="stat-value">{stats.overview.pendingWorks}</span>
+            <span className="stat-label">Pending</span>
+          </div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-icon purple">
+            <Users size={24} />
+          </div>
+          <div className="stat-content">
+            <span className="stat-value">{stats.overview.totalStudents}</span>
+            <span className="stat-label">Students</span>
+          </div>
+        </div>
       </div>
 
       {/* Charts Row */}
       <div className="charts-row">
-        {/* Views Chart */}
-        <motion.div 
-          className="chart-card"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <h3 className="chart-title">
-            <TrendingUp size={20} />
-            Monthly Views
-          </h3>
-          <div className="chart-container">
-            <ResponsiveContainer width="100%" height={250}>
-              <LineChart data={monthlyViews}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
-                <XAxis dataKey="month" stroke="var(--text-tertiary)" fontSize={12} />
-                <YAxis stroke="var(--text-tertiary)" fontSize={12} />
-                <Tooltip 
-                  contentStyle={{ 
-                    background: 'var(--bg-secondary)', 
-                    border: '1px solid var(--border-color)',
-                    borderRadius: '8px'
-                  }}
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="views" 
-                  stroke="#4F46E5" 
-                  strokeWidth={3}
-                  dot={{ fill: '#4F46E5' }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </motion.div>
-
-        {/* Category Distribution */}
-        <motion.div 
-          className="chart-card"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          <h3 className="chart-title">
-            <Activity size={20} />
-            Projects by Category
-          </h3>
-          <div className="chart-container pie-container">
-            <ResponsiveContainer width="100%" height={250}>
-              <PieChart>
-                <Pie
-                  data={projectsByCategory}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={50}
-                  outerRadius={90}
-                  paddingAngle={2}
-                  dataKey="count"
-                >
-                  {projectsByCategory.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                  ))}
-                </Pie>
-                <Tooltip 
-                  contentStyle={{ 
-                    background: 'var(--bg-secondary)', 
-                    border: '1px solid var(--border-color)',
-                    borderRadius: '8px'
-                  }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-            <div className="pie-legend">
-              {projectsByCategory.slice(0, 5).map((cat, index) => (
-                <div key={cat.name} className="legend-item">
-                  <span className="legend-dot" style={{ background: COLORS[index] }} />
-                  <span className="legend-name">{cat.name}</span>
-                  <span className="legend-value">{cat.count}</span>
+        {/* By Category */}
+        <div className="chart-card">
+          <h3 className="chart-title">📁 By Category</h3>
+          <div className="chart-list">
+            {stats.byCategory.length === 0 ? (
+              <p className="no-data-text">No data yet</p>
+            ) : (
+              stats.byCategory.map(c => (
+                <div key={c.category} className="chart-item">
+                  <span className="chart-label">{c.category}</span>
+                  <div className="chart-bar-container">
+                    <div 
+                      className="chart-bar" 
+                      style={{ width: `${Math.min((c.count / (stats.overview.approvedWorks || 1)) * 100, 100)}%` }}
+                    />
+                  </div>
+                  <span className="chart-value">{c.count}</span>
                 </div>
-              ))}
-            </div>
+              ))
+            )}
           </div>
-        </motion.div>
+        </div>
+
+        {/* By Year */}
+        <div className="chart-card">
+          <h3 className="chart-title">📅 By Year</h3>
+          <div className="chart-list">
+            {stats.byYear.length === 0 ? (
+              <p className="no-data-text">No data yet</p>
+            ) : (
+              stats.byYear.map(y => (
+                <div key={y.year} className="chart-item">
+                  <span className="chart-label">{y.year}</span>
+                  <div className="chart-bar-container">
+                    <div 
+                      className="chart-bar year" 
+                      style={{ width: `${Math.min((y.count / (stats.overview.approvedWorks || 1)) * 100, 100)}%` }}
+                    />
+                  </div>
+                  <span className="chart-value">{y.count}</span>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Bottom Row */}
       <div className="bottom-row">
-        {/* Top Technologies */}
-        <motion.div 
-          className="chart-card"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
-          <h3 className="chart-title">Top Technologies</h3>
-          <div className="chart-container">
-            <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={topTechnologies} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
-                <XAxis type="number" stroke="var(--text-tertiary)" fontSize={12} />
-                <YAxis dataKey="name" type="category" stroke="var(--text-tertiary)" fontSize={12} width={80} />
-                <Tooltip 
-                  contentStyle={{ 
-                    background: 'var(--bg-secondary)', 
-                    border: '1px solid var(--border-color)',
-                    borderRadius: '8px'
-                  }}
-                />
-                <Bar dataKey="usage" fill="#7C3AED" radius={[0, 4, 4, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </motion.div>
-
-        {/* Recent Activity */}
-        <motion.div 
-          className="chart-card activity-card"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-        >
-          <h3 className="chart-title">Recent Activity</h3>
-          <div className="activity-list">
-            {recentActivity.map((activity) => (
-              <div key={activity.id} className="activity-item">
-                <div className={`activity-dot ${activity.type}`} />
-                <div className="activity-content">
-                  <p className="activity-message">{activity.message}</p>
-                  <span className="activity-time">
-                    {new Date(activity.timestamp).toLocaleDateString()}
-                  </span>
+        {/* Recent Submissions */}
+        <div className="chart-card">
+          <h3 className="chart-title">🕐 Recent Submissions</h3>
+          <div className="recent-list">
+            {stats.recentSubmissions.length === 0 ? (
+              <p className="no-data-text">No submissions yet</p>
+            ) : (
+              stats.recentSubmissions.map(sub => (
+                <div key={sub.id} className="recent-item">
+                  <div className="recent-info">
+                    <span className="recent-title">{sub.title}</span>
+                    <span className="recent-author">by {sub.student_name || 'Unknown'}</span>
+                  </div>
+                  <span className={`status-badge ${sub.status}`}>{sub.status}</span>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
-        </motion.div>
+        </div>
+
+        {/* Top Viewed */}
+        <div className="chart-card">
+          <h3 className="chart-title">🔥 Top Viewed Works</h3>
+          <div className="top-list">
+            {stats.topViewed.length === 0 ? (
+              <p className="no-data-text">No views yet</p>
+            ) : (
+              stats.topViewed.map((w, i) => (
+                <div key={w.id} className="top-item">
+                  <span className="top-rank">#{i + 1}</span>
+                  <span className="top-title">{w.title}</span>
+                  <span className="top-views">{w.views} views</span>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

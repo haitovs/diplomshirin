@@ -1,5 +1,4 @@
-import { Briefcase, Menu, Moon, Sun, X } from 'lucide-react';
-import { useState } from 'react';
+import { Briefcase, Moon, Sun } from 'lucide-react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import Button from '../common/Button';
@@ -7,10 +6,11 @@ import './Header.css';
 
 function Header() {
   const { theme, toggleTheme } = useTheme();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
     { to: '/', label: 'Home' },
+    { to: '/archive', label: '📚 Archive' },
+    { to: '/submit', label: '📝 Submit' },
     { to: '/builder', label: 'Builder' },
     { to: '/preview', label: 'Preview' }
   ];
@@ -18,13 +18,13 @@ function Header() {
   return (
     <header className="header">
       <div className="container header-container">
-        {/* Logo - inline with icon and text */}
+        {/* Logo */}
         <Link to="/" className="logo">
           <Briefcase size={24} />
           <span className="logo-text">PortfolioBuilder</span>
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Navigation */}
         <nav className="nav-desktop">
           {navLinks.map(link => (
             <NavLink
@@ -53,36 +53,11 @@ function Header() {
               Start Building
             </Button>
           </Link>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className="mobile-menu-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
-
-        {/* Mobile Navigation */}
-        {mobileMenuOpen && (
-          <nav className="nav-mobile">
-            {navLinks.map(link => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-                onClick={() => setMobileMenuOpen(false)}
-                end={link.to === '/'}
-              >
-                {link.label}
-              </NavLink>
-            ))}
-          </nav>
-        )}
       </div>
     </header>
   );
 }
 
 export default Header;
+

@@ -1,22 +1,43 @@
 @echo off
-echo ======================================
-echo    Portfolio Builder - Starting...
-echo ======================================
+title Shirin Portfolio Builder + Archive
+color 0A
+
+echo.
+echo  ============================================
+echo   📚 SHIRIN PORTFOLIO BUILDER + ARCHIVE
+echo  ============================================
 echo.
 
 cd /d "%~dp0"
 
-echo Installing dependencies if needed...
-@REM call npm install
+echo  [1/2] Starting Backend API...
+cd backend
+start "Backend API" cmd /c "npm install && npm start"
+cd ..
+
+echo  [2/2] Starting Frontend...
+timeout /t 3 /nobreak >nul
+start "Frontend" cmd /c "npm run dev"
+
+timeout /t 5 /nobreak >nul
 
 echo.
-echo Starting development server...
+echo  ============================================
+echo   ✅ Applications Starting!
+echo  ============================================
 echo.
-echo Once started, open your browser to:
-echo    http://localhost:5173
+echo   Frontend:  http://localhost:5173
+echo   Backend:   http://localhost:3001
 echo.
-echo Press Ctrl+C to stop the server.
-echo ======================================
+echo   Routes:
+echo     /          - Home
+echo     /archive   - Diploma Archive
+echo     /submit    - Submit Work
+echo     /builder   - Portfolio Builder
+echo.
+echo  ============================================
 echo.
 
-npm run dev
+start http://localhost:5173
+
+pause
