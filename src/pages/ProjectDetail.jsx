@@ -111,6 +111,7 @@ function ProjectDetail() {
           {/* Main Content */}
           <div className="project-main">
             {/* Image Gallery */}
+            {project.screenshots?.length > 0 && (
             <motion.div 
               className="project-gallery"
               initial={{ opacity: 0, y: 20 }}
@@ -147,6 +148,7 @@ function ProjectDetail() {
                 </div>
               )}
             </motion.div>
+            )}
 
             {/* Description */}
             <motion.div 

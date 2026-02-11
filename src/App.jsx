@@ -13,6 +13,12 @@ import Preview from './pages/Preview';
 import Archive from './pages/Archive';
 import DiplomaDetail from './pages/DiplomaDetail';
 import Submit from './pages/Submit';
+// Portfolio showcase pages
+import Projects from './pages/Projects';
+import ProjectDetail from './pages/ProjectDetail';
+import Students from './pages/Students';
+import StudentPortfolio from './pages/StudentPortfolio';
+import SubmitProject from './pages/SubmitProject';
 // Admin pages
 import AdminLayout from './pages/Admin/AdminLayout';
 import Dashboard from './pages/Admin/Dashboard';
@@ -38,6 +44,12 @@ function App() {
                   <Route path="archive" element={<Archive />} />
                   <Route path="archive/:id" element={<DiplomaDetail />} />
                   <Route path="submit" element={<Submit />} />
+                  {/* Portfolio showcase routes */}
+                  <Route path="projects" element={<Projects />} />
+                  <Route path="projects/:slug" element={<ProjectDetail />} />
+                  <Route path="students" element={<Students />} />
+                  <Route path="students/:id" element={<StudentPortfolio />} />
+                  <Route path="submit-project" element={<SubmitProject />} />
                   <Route path="*" element={<NotFound />} />
                 </Route>
                 {/* Admin Routes */}

@@ -4,16 +4,18 @@
   padding: 2rem;
 }
 
-.page-header {
+.manage-projects .page-header,
+.manage-students .page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 2rem;
 }
 
-.page-header h1 {
+.manage-projects .page-header h1,
+.manage-students .page-header h1 {
   font-size: 1.75rem;
-  color: #f1f5f9;
+  color: var(--text-primary);
 }
 
 .add-btn {
@@ -34,7 +36,8 @@
 }
 
 /* Filters */
-.filters {
+.manage-projects .filters,
+.manage-students .filters {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
@@ -42,8 +45,8 @@
 
 .filter-btn {
   padding: 0.5rem 1rem;
-  background: #334155;
-  color: #94a3b8;
+  background: var(--bg-tertiary);
+  color: var(--text-tertiary);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -56,9 +59,9 @@
 
 /* Table */
 .works-table {
-  background: #1e293b;
+  background: var(--bg-secondary);
   border-radius: 12px;
-  border: 1px solid #334155;
+  border: 1px solid var(--border-color);
   overflow: hidden;
 }
 
@@ -71,12 +74,12 @@
 .works-table td {
   padding: 1rem;
   text-align: left;
-  border-bottom: 1px solid #334155;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .works-table th {
-  background: #0f172a;
-  color: #94a3b8;
+  background: var(--bg-tertiary);
+  color: var(--text-tertiary);
   font-size: 0.85rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -92,7 +95,7 @@
 
 .title-cell {
   font-weight: 500;
-  color: #f1f5f9;
+  color: var(--text-primary);
 }
 
 /* Status Badge */
@@ -105,17 +108,29 @@
 }
 
 .status-badge.approved {
-  background: rgba(16, 185, 129, 0.2);
+  background: rgba(16, 185, 129, 0.15);
+  color: #059669;
+}
+
+[data-theme="dark"] .status-badge.approved {
   color: #6ee7b7;
 }
 
 .status-badge.pending {
-  background: rgba(245, 158, 11, 0.2);
+  background: rgba(245, 158, 11, 0.15);
+  color: #d97706;
+}
+
+[data-theme="dark"] .status-badge.pending {
   color: #fcd34d;
 }
 
 .status-badge.rejected {
-  background: rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
+}
+
+[data-theme="dark"] .status-badge.rejected {
   color: #fca5a5;
 }
 
@@ -125,7 +140,8 @@
   gap: 0.5rem;
 }
 
-.action-btn {
+.manage-projects .action-btn,
+.manage-students .action-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -137,31 +153,39 @@
   background: transparent;
 }
 
-.action-btn.approve {
+.manage-projects .action-btn.approve,
+.manage-students .action-btn.approve {
   color: #10b981;
 }
 
-.action-btn.reject {
+.manage-projects .action-btn.reject,
+.manage-students .action-btn.reject {
   color: #f59e0b;
 }
 
-.action-btn.edit {
+.manage-projects .action-btn.edit,
+.manage-students .action-btn.edit {
   color: #6366f1;
 }
 
-.action-btn.delete {
+.manage-projects .action-btn.delete,
+.manage-students .action-btn.delete {
   color: #ef4444;
 }
 
-.action-btn:hover {
-  background: #334155;
+.manage-projects .action-btn:hover,
+.manage-students .action-btn:hover {
+  background: var(--bg-tertiary);
 }
 
 /* Loading & Empty States */
-.loading, .no-data {
+.manage-projects .loading,
+.manage-projects .no-data,
+.manage-students .loading,
+.manage-students .no-data {
   padding: 3rem;
   text-align: center;
-  color: #94a3b8;
+  color: var(--text-tertiary);
 }
 
 /* Modal */
@@ -179,9 +203,9 @@
 }
 
 .modal-content {
-  background: #1e293b;
+  background: var(--bg-secondary);
   border-radius: 16px;
-  border: 1px solid #334155;
+  border: 1px solid var(--border-color);
   padding: 2rem;
   width: 90%;
   max-width: 600px;
@@ -191,35 +215,43 @@
 
 .modal-content h2 {
   margin-bottom: 1.5rem;
-  color: #f1f5f9;
+  color: var(--text-primary);
 }
 
-.form-group {
+.manage-projects .form-group,
+.manage-students .form-group {
   margin-bottom: 1rem;
 }
 
-.form-group label {
+.manage-projects .form-group label,
+.manage-students .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
   font-size: 0.9rem;
 }
 
-.form-group input,
-.form-group textarea,
-.form-group select {
+.manage-projects .form-group input,
+.manage-projects .form-group textarea,
+.manage-projects .form-group select,
+.manage-students .form-group input,
+.manage-students .form-group textarea,
+.manage-students .form-group select {
   width: 100%;
   padding: 0.75rem;
-  background: #0f172a;
-  border: 2px solid #334155;
+  background: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
   border-radius: 8px;
-  color: #f1f5f9;
+  color: var(--text-primary);
   font-size: 1rem;
 }
 
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
+.manage-projects .form-group input:focus,
+.manage-projects .form-group textarea:focus,
+.manage-projects .form-group select:focus,
+.manage-students .form-group input:focus,
+.manage-students .form-group textarea:focus,
+.manage-students .form-group select:focus {
   outline: none;
   border-color: #6366f1;
 }
@@ -239,8 +271,8 @@
 
 .cancel-btn {
   padding: 0.75rem 1.5rem;
-  background: #334155;
-  color: #f1f5f9;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -258,12 +290,13 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .page-header {
+  .manage-projects .page-header,
+  .manage-students .page-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-  
+
   .works-table {
     overflow-x: auto;
   }

@@ -242,7 +242,7 @@ function WorkForm({ work, students, onSave, onCancel }) {
               <input
                 type="number"
                 value={form.year}
-                onChange={e => setForm({ ...form, year: e.target.value })}
+                onChange={e => setForm({ ...form, year: parseInt(e.target.value, 10) || '' })}
               />
             </div>
             <div className="form-group">

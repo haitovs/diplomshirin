@@ -7,11 +7,11 @@
 .dashboard-error {
   padding: 3rem;
   text-align: center;
-  color: #94a3b8;
+  color: var(--text-tertiary);
 }
 
 .dashboard-error {
-  color: #f87171;
+  color: var(--error-500);
 }
 
 .dashboard-header {
@@ -20,12 +20,12 @@
 
 .dashboard-header h1 {
   font-size: 1.75rem;
-  color: #f1f5f9;
+  color: var(--text-primary);
   margin-bottom: 0.5rem;
 }
 
 .dashboard-header p {
-  color: #64748b;
+  color: var(--text-secondary);
   margin: 0;
 }
 
@@ -42,8 +42,8 @@
   align-items: center;
   gap: 1rem;
   padding: 1.5rem;
-  background: #1e293b;
-  border: 1px solid #334155;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
 }
 
@@ -67,15 +67,15 @@
   flex-direction: column;
 }
 
-.stat-value {
+.dashboard .stat-value {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #f1f5f9;
+  color: var(--text-primary);
 }
 
-.stat-label {
+.dashboard .stat-label {
   font-size: 0.875rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
 }
 
 /* Charts Row */
@@ -89,8 +89,8 @@
 
 .chart-card {
   padding: 1.5rem;
-  background: #1e293b;
-  border: 1px solid #334155;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
 }
 
@@ -98,7 +98,7 @@
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 1.25rem;
-  color: #f1f5f9;
+  color: var(--text-primary);
 }
 
 .chart-list {
@@ -116,14 +116,14 @@
 .chart-label {
   width: 140px;
   font-size: 0.875rem;
-  color: #94a3b8;
+  color: var(--text-secondary);
   flex-shrink: 0;
 }
 
 .chart-bar-container {
   flex: 1;
   height: 8px;
-  background: #334155;
+  background: var(--bg-tertiary);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -144,11 +144,11 @@
   text-align: right;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #f1f5f9;
+  color: var(--text-primary);
 }
 
 .no-data-text {
-  color: #64748b;
+  color: var(--text-tertiary);
   font-size: 0.875rem;
   font-style: italic;
 }
@@ -165,7 +165,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem;
-  background: #0f172a;
+  background: var(--bg-tertiary);
   border-radius: 8px;
   gap: 1rem;
 }
@@ -181,7 +181,7 @@
 .recent-title {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #f1f5f9;
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -189,10 +189,10 @@
 
 .recent-author {
   font-size: 0.8rem;
-  color: #64748b;
+  color: var(--text-tertiary);
 }
 
-.status-badge {
+.dashboard .status-badge {
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.7rem;
@@ -200,18 +200,30 @@
   flex-shrink: 0;
 }
 
-.status-badge.approved {
-  background: rgba(16, 185, 129, 0.2);
+.dashboard .status-badge.approved {
+  background: rgba(16, 185, 129, 0.15);
+  color: #059669;
+}
+
+[data-theme="dark"] .dashboard .status-badge.approved {
   color: #6ee7b7;
 }
 
-.status-badge.pending {
-  background: rgba(245, 158, 11, 0.2);
+.dashboard .status-badge.pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: #d97706;
+}
+
+[data-theme="dark"] .dashboard .status-badge.pending {
   color: #fcd34d;
 }
 
-.status-badge.rejected {
-  background: rgba(239, 68, 68, 0.2);
+.dashboard .status-badge.rejected {
+  background: rgba(239, 68, 68, 0.15);
+  color: #dc2626;
+}
+
+[data-theme="dark"] .dashboard .status-badge.rejected {
   color: #fca5a5;
 }
 
@@ -227,7 +239,7 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem;
-  background: #0f172a;
+  background: var(--bg-tertiary);
   border-radius: 8px;
 }
 
@@ -248,7 +260,7 @@
 .top-title {
   flex: 1;
   font-size: 0.9rem;
-  color: #f1f5f9;
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -256,7 +268,7 @@
 
 .top-views {
   font-size: 0.8rem;
-  color: #64748b;
+  color: var(--text-tertiary);
   flex-shrink: 0;
 }
 
@@ -265,7 +277,7 @@
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .charts-row,
   .bottom-row {
     grid-template-columns: 1fr;
@@ -276,7 +288,7 @@
   .stats-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .dashboard {
     padding: 1rem;
   }

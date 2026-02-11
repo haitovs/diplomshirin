@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { diplomaWorksAPI, searchAPI } from '../services/api';
 import './Archive.css';
@@ -12,6 +12,7 @@ function Archive() {
   const [categories, setCategories] = useState([]);
   const [years, setYears] = useState([]);
   const [filters, setFilters] = useState({ category: '', year: '' });
+  const initialMount = useRef(true);
 
   // Load initial data
   useEffect(() => {
@@ -19,8 +20,12 @@ function Archive() {
     loadFilters();
   }, []);
 
-  // Apply filters
+  // Apply filters (skip on initial mount to avoid double load)
   useEffect(() => {
+    if (initialMount.current) {
+      initialMount.current = false;
+      return;
+    }
     if (!searchQuery) {
       loadData();
     }

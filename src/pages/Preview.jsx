@@ -12,7 +12,7 @@ import {
   Twitter
 } from 'lucide-react';
 import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Badge from '../components/common/Badge';
 import Button from '../components/common/Button';
 import { usePortfolio } from '../context/PortfolioContext';
@@ -23,6 +23,7 @@ function Preview() {
   const { basics, skills, projects, experience, education, certifications, languages, socialLinks, settings } = portfolio;
   const previewRef = useRef(null);
   const [isExporting, setIsExporting] = useState(false);
+  const navigate = useNavigate();
 
   const handleExportPDF = async () => {
     const element = previewRef.current;
@@ -226,7 +227,7 @@ function Preview() {
           Back to Editor
         </Link>
         <div className="action-buttons">
-          <Button variant="outline" icon={Edit} onClick={() => window.location.href = '/builder'}>
+          <Button variant="outline" icon={Edit} onClick={() => navigate('/builder')}>
             Edit
           </Button>
           <Button variant="outline" onClick={exportJSON}>

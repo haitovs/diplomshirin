@@ -185,7 +185,7 @@ function StudentForm({ student, onSave, onCancel }) {
               <input
                 type="number"
                 value={form.graduation_year}
-                onChange={e => setForm({ ...form, graduation_year: e.target.value })}
+                onChange={e => setForm({ ...form, graduation_year: parseInt(e.target.value, 10) || '' })}
               />
             </div>
           </div>

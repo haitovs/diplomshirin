@@ -45,13 +45,13 @@ function Submit() {
   }
 
   function updateForm(field, value) {
-    setForm({ ...form, [field]: value });
+    setForm(prev => ({ ...prev, [field]: value }));
   }
 
   // Check similarity when title/description changes
   async function checkSimilarity() {
     if (!form.title.trim()) return;
-    
+
     setChecking(true);
     try {
       const result = await searchAPI.checkIdea(form.title, form.description);
@@ -164,16 +164,21 @@ function Submit() {
                   required
                 >
                   <option value="">Select category</option>
-                  {categories.map(c => (
-                    <option key={c.category} value={c.category}>{c.category}</option>
-                  ))}
-                  <option value="Web Development">Web Development</option>
-                  <option value="Mobile Development">Mobile Development</option>
-                  <option value="Machine Learning">Machine Learning</option>
-                  <option value="IoT">IoT</option>
-                  <option value="Game Development">Game Development</option>
-                  <option value="Security">Security</option>
-                  <option value="Other">Other</option>
+                  {categories.length > 0 ? (
+                    categories.map(c => (
+                      <option key={c.category} value={c.category}>{c.category}</option>
+                    ))
+                  ) : (
+                    <>
+                      <option value="Web Development">Web Development</option>
+                      <option value="Mobile Development">Mobile Development</option>
+                      <option value="Machine Learning">Machine Learning</option>
+                      <option value="IoT">IoT</option>
+                      <option value="Game Development">Game Development</option>
+                      <option value="Security">Security</option>
+                      <option value="Other">Other</option>
+                    </>
+                  )}
                 </select>
               </div>
 
@@ -190,7 +195,14 @@ function Submit() {
               </div>
             </div>
 
-            <button type="button" className="next-btn" onClick={() => setStep(2)}>
+            <button type="button" className="next-btn" onClick={() => {
+              if (!form.title.trim() || !form.description.trim() || !form.student_id || !form.category) {
+                setError('Please fill in all required fields (Title, Description, Student, Category)');
+                return;
+              }
+              setError(null);
+              setStep(2);
+            }}>
               Next →
             </button>
           </div>

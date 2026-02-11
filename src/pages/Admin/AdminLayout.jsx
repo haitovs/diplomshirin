@@ -9,9 +9,9 @@ import { useAuth } from '../../context/AuthContext';
 import './Admin.css';
 
 function AdminLayout() {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, isAdmin, user, logout } = useAuth();
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !isAdmin) {
     return <Navigate to="/login" replace />;
   }
 

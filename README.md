@@ -1,16 +1,80 @@
-# React + Vite
+# Shirin Portfolio Builder 🎓
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive platform for students to build professional portfolios and for the university to manage and archive diploma works. This application serves two main purposes: empowering students to create resumes/portfolios and maintaining a searchable database of student projects.
 
-Currently, two official plugins are available:
+## 🌟 Core Functionalities
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 1. Portfolio Builder 🛠️
 
-## React Compiler
+A client-side tool that allows students to create professional resumes and portfolios without needing to sign up.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Features**:
+  - **Dynamic Sections**: Manage Personal Info, Skills, Projects, Experience, Education, etc.
+  - **Live Preview**: See changes in real-time.
+  - **Export to JSON**: Save your progress locally.
+  - **Sample Data**: Load a sample portfolio to get started quickly.
+- **Access**: Click "Builder" in the navigation menu or "Start Building" on the homepage.
 
-## Expanding the ESLint configuration
+### 2. Diploma Archive & Admin Panel 📚
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+A centralized database for storing and showcasing final year diploma works. This system is managed via a dedicated Admin Panel.
+
+#### For Students & Public
+
+- **Archive**: Browse approved diploma works, filter by category, year, or student.
+- **Submit**: Students can submit their diploma works for review. The submission process collects project details, screenshots, and repository links.
+
+#### For Administrators (Admin Panel)
+
+- **Access**: Click the **"Admin Login"** link in the footer or navigate to `/login`.
+- **Credentials**: (Demo) `admin` / `admin123`.
+- **Capabilities**:
+  - **Dashboard**: View high-level statistics (Total Projects, Views, etc.).
+  - **Manage Projects**: Review pending submissions. Approve or Reject works. Edit existing entries.
+  - **Manage Students**: View registered students (mock data in this version).
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v18+ recommended)
+- NPM
+
+### Installation
+
+1. **Clone the repository**
+
+   ```bash
+   git clone <repository_url>
+   cd shirin-portfolio-builder
+   ```
+
+2. **Install Dependencies**
+
+   ```bash
+   # Install root dependencies (includes concurrent launch script)
+   npm install
+   
+   # Install Backend dependencies
+   cd backend
+   npm install
+   cd ..
+   ```
+
+3. **Run the Application**
+
+   ```bash
+   # Starts both Frontend (Vite) and Backend (Express)
+   ./run.sh
+   # OR
+   npm run dev
+   ```
+
+   - Frontend: `http://localhost:5173`
+   - Backend: `http://localhost:3001`
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React, Vite, Framer Motion, Lucide React
+- **Backend**: Node.js, Express, Better-SQLite3
+- **Database**: SQLite (file-based)

@@ -36,12 +36,12 @@ function Footer() {
               <span className="logo-text">PortfolioBuilder</span>
             </Link>
             <p className="footer-description">
-              Create professional portfolios in minutes. Free, no account required, 
+              Create professional portfolios in minutes. Free, no account required,
               export to PDF instantly.
             </p>
             <div className="footer-social">
               {socialLinks.map(({ icon: Icon, href, label }) => (
-                <a 
+                <a
                   key={label}
                   href={href}
                   target="_blank"
@@ -89,6 +89,7 @@ function Footer() {
           <p className="footer-note">
             Diploma project by Shirin Mamedova
           </p>
+          <Link to="/login" className="admin-link">Admin Login</Link>
         </div>
       </div>
     </footer>
