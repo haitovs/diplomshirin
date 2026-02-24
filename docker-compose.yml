@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    container_name: shirin-portfolio
+    ports:
+      - "4085:4085"
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=4085
