@@ -87,7 +87,7 @@ function Footer() {
             © {currentYear} PortfolioBuilder. Made with <Heart size={14} className="heart-icon" /> for students.
           </p>
           <p className="footer-note">
-            Diploma project by Shirin Mamedova
+            Diploma Project
           </p>
           <Link to="/login" className="admin-link">Admin Login</Link>
         </div>

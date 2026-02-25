@@ -32,13 +32,13 @@ const defaultPortfolio = {
 // Sample portfolio for demo/inspiration
 const samplePortfolio = {
   basics: {
-    name: 'Shirin Mamedova',
+    name: 'Jane Smith',
     title: 'Full-Stack Developer',
-    email: 'shirin.mamedova@example.com',
+    email: 'jane.smith@example.com',
     phone: '+1 (555) 123-4567',
     location: 'San Francisco, CA',
     summary: 'Passionate full-stack developer with 3+ years of experience building modern web applications. Specialized in React, Node.js, and cloud technologies. Graduate of Computer Science with a focus on creating user-friendly, scalable solutions.',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Shirin'
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Jane'
   },
   skills: [
     { name: 'React', level: 90 },
@@ -125,10 +125,10 @@ const samplePortfolio = {
     { id: 'lang3', name: 'Russian', level: 'Native' }
   ],
   socialLinks: [
-    { id: 'social1', platform: 'GitHub', url: 'https://github.com/shirindev' },
-    { id: 'social2', platform: 'LinkedIn', url: 'https://linkedin.com/in/shirindev' },
-    { id: 'social3', platform: 'Twitter', url: 'https://twitter.com/shirindev' },
-    { id: 'social4', platform: 'Portfolio', url: 'https://shirin.dev' }
+    { id: 'social1', platform: 'GitHub', url: 'https://github.com/janedev' },
+    { id: 'social2', platform: 'LinkedIn', url: 'https://linkedin.com/in/janedev' },
+    { id: 'social3', platform: 'Twitter', url: 'https://twitter.com/janedev' },
+    { id: 'social4', platform: 'Portfolio', url: 'https://janesmith.dev' }
   ],
   settings: {
     template: 'modern',
