@@ -15,7 +15,7 @@ const MOCK_ADMIN = {
 // Mock credentials
 const MOCK_CREDENTIALS = {
   username: 'admin',
-  password: 'admin123'
+  password: 'admin'
 };
 
 export function AuthProvider({ children }) {

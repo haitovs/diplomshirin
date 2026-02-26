@@ -95,7 +95,7 @@ function Login() {
 
         <div className="login-footer">
           <p className="demo-credentials">
-            Demo credentials: <code>admin</code> / <code>admin123</code>
+            Demo credentials: <code>admin</code> / <code>admin</code>
           </p>
           <Link to="/" className="back-home">
             ← Back to Home
