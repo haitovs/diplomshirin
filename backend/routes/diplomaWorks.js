@@ -96,7 +96,8 @@ router.post('/', (req, res) => {
   try {
     const {
       title, description, full_description, student_id, category, year,
-      technologies, screenshots, demo_url, github_url, documentation_url
+      technologies, screenshots, demo_url, github_url, documentation_url,
+      supervisor, abstract: abstractText, methodology, key_findings, defense_date
     } = req.body;
 
     if (!title || !description || !student_id || !category || !year) {
@@ -112,16 +113,20 @@ router.post('/', (req, res) => {
     const similarity_hash = createSearchHash(title + ' ' + description);
 
     const result = db.prepare(`
-      INSERT INTO diploma_works 
-      (title, slug, description, full_description, student_id, category, year, 
-       technologies, screenshots, demo_url, github_url, documentation_url, similarity_hash, status)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')
+      INSERT INTO diploma_works
+      (title, slug, description, full_description, student_id, category, year,
+       technologies, screenshots, demo_url, github_url, documentation_url,
+       supervisor, abstract, methodology, key_findings, defense_date,
+       similarity_hash, status)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')
     `).run(
       title, slug, description, full_description || '', parseInt(student_id),
       category, parseInt(year),
       JSON.stringify(technologies || []),
       JSON.stringify(screenshots || []),
       demo_url || null, github_url || null, documentation_url || null,
+      supervisor || null, abstractText || null, methodology || null,
+      key_findings || null, defense_date || null,
       similarity_hash
     );
 
@@ -148,8 +153,9 @@ router.put('/:id', (req, res) => {
 
     const allowedFields = [
       'title', 'description', 'full_description', 'category', 'year',
-      'technologies', 'screenshots', 'demo_url', 'github_url', 
-      'documentation_url', 'status', 'featured'
+      'technologies', 'screenshots', 'demo_url', 'github_url',
+      'documentation_url', 'supervisor', 'abstract', 'methodology',
+      'key_findings', 'defense_date', 'status', 'featured'
     ];
 
     for (const field of allowedFields) {
