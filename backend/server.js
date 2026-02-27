@@ -10,6 +10,7 @@ const diplomaWorksRoutes = require('./routes/diplomaWorks');
 const studentsRoutes = require('./routes/students');
 const searchRoutes = require('./routes/search');
 const statsRoutes = require('./routes/stats');
+const authRoutes = require('./routes/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -23,6 +24,7 @@ app.use('/api/diploma-works', diplomaWorksRoutes);
 app.use('/api/students', studentsRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/stats', statsRoutes);
+app.use('/api/auth', authRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useState } from 'react';
+import { authAPI } from '../services/api';
 
 const AuthContext = createContext();
 
@@ -31,17 +32,18 @@ export function AuthProvider({ children }) {
     }
     return null;
   });
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Admin login (mock)
   const login = useCallback(async (username, password) => {
     setIsLoading(true);
     setError(null);
-    
+
     // Simulate API call delay
     await new Promise(resolve => setTimeout(resolve, 800));
-    
+
     if (username === MOCK_CREDENTIALS.username && password === MOCK_CREDENTIALS.password) {
       setUser(MOCK_ADMIN);
       localStorage.setItem('portfolio-auth', JSON.stringify(MOCK_ADMIN));
@@ -54,6 +56,25 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  // Student login (via API)
+  const loginAsStudent = useCallback(async (email, password) => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const student = await authAPI.studentLogin(email, password);
+      setUser(student);
+      localStorage.setItem('portfolio-auth', JSON.stringify(student));
+      setIsLoading(false);
+      return { success: true };
+    } catch (err) {
+      const msg = err.message || 'Invalid email or password';
+      setError(msg);
+      setIsLoading(false);
+      return { success: false, error: msg };
+    }
+  }, []);
+
   const logout = useCallback(() => {
     setUser(null);
     localStorage.removeItem('portfolio-auth');
@@ -63,9 +84,11 @@ export function AuthProvider({ children }) {
     user,
     isAuthenticated: !!user,
     isAdmin: user?.role === 'admin',
+    isStudent: user?.role === 'student',
     isLoading,
     error,
     login,
+    loginAsStudent,
     logout,
     clearError: () => setError(null)
   };

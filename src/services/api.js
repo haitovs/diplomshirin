@@ -94,6 +94,14 @@ export const searchAPI = {
   getYears: () => fetchAPI('/search/years'),
 };
 
+// Auth API
+export const authAPI = {
+  studentLogin: (email, password) => fetchAPI('/auth/student-login', {
+    method: 'POST',
+    body: JSON.stringify({ email, password }),
+  }),
+};
+
 // Stats API
 export const statsAPI = {
   getDashboard: () => fetchAPI('/stats'),
@@ -103,5 +111,6 @@ export default {
   diplomaWorks: diplomaWorksAPI,
   students: studentsAPI,
   search: searchAPI,
+  auth: authAPI,
   stats: statsAPI,
 };

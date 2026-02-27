@@ -28,7 +28,7 @@
 }
 
 .hero-content {
-  max-width: 540px;
+  max-width: 560px;
 }
 
 .hero-badge {
@@ -45,10 +45,15 @@
 }
 
 .hero h1 {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-size: clamp(2rem, 4.5vw, 3rem);
   font-weight: var(--font-weight-extrabold);
-  line-height: 1.1;
+  line-height: 1.15;
   margin-bottom: var(--space-6);
+}
+
+.hero-ampersand {
+  color: var(--text-tertiary);
+  font-weight: var(--font-weight-normal);
 }
 
 .gradient-text {
@@ -131,6 +136,23 @@
 .mockup-main {
   flex: 1;
   padding: var(--space-6);
+}
+
+.mockup-stats {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.mock-stat {
+  flex: 1;
+  height: 36px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+}
+
+.mock-stat.accent {
+  background: rgba(99, 102, 241, 0.15);
 }
 
 .mockup-form {
@@ -285,34 +307,86 @@
   opacity: 0.9;
 }
 
+/* Secondary Section - Portfolio Builder */
+.secondary-section {
+  padding: var(--space-12) 0 var(--space-16);
+}
+
+.secondary-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-10);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+}
+
+.secondary-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: rgba(139, 92, 246, 0.1);
+  color: var(--secondary-500);
+  border-radius: var(--radius-lg);
+  flex-shrink: 0;
+}
+
+.secondary-content {
+  flex: 1;
+}
+
+.secondary-content h3 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-2);
+}
+
+.secondary-content p {
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: var(--line-height-relaxed);
+}
+
+.secondary-actions {
+  flex-shrink: 0;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .hero .container {
     grid-template-columns: 1fr;
     text-align: center;
   }
-  
+
   .hero-content {
     max-width: 100%;
   }
-  
+
   .hero-actions {
     justify-content: center;
   }
-  
+
   .hero-visual {
     max-width: 500px;
     margin: 0 auto;
   }
-  
+
   .steps-grid {
     grid-template-columns: 1fr;
     max-width: 400px;
     margin: 0 auto;
   }
-  
+
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .secondary-card {
+    flex-direction: column;
+    text-align: center;
   }
 }
 
@@ -320,15 +394,15 @@
   .hero {
     padding: var(--space-10) 0 var(--space-16);
   }
-  
+
   .features-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .cta-content {
     padding: var(--space-10);
   }
-  
+
   .cta-features {
     flex-direction: column;
     gap: var(--space-3);

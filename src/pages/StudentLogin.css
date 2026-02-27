@@ -1,0 +1,15 @@
+.student-icon {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+}
+
+.login-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.link-separator {
+  color: var(--text-tertiary);
+  font-size: var(--font-size-sm);
+}

@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { diplomaWorksAPI, searchAPI, studentsAPI } from '../services/api';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { diplomaWorksAPI, searchAPI } from '../services/api';
 import './Submit.css';
 
 function Submit() {
   const navigate = useNavigate();
+  const { isAuthenticated, isStudent, user } = useAuth();
   const [step, setStep] = useState(1);
-  const [students, setStudents] = useState([]);
   const [categories, setCategories] = useState([]);
   const [similarityCheck, setSimilarityCheck] = useState(null);
   const [checking, setChecking] = useState(false);
@@ -17,7 +18,6 @@ function Submit() {
     title: '',
     description: '',
     full_description: '',
-    student_id: '',
     category: '',
     year: new Date().getFullYear(),
     technologies: '',
@@ -33,11 +33,7 @@ function Submit() {
 
   async function loadData() {
     try {
-      const [studs, cats] = await Promise.all([
-        studentsAPI.getAll(),
-        searchAPI.getCategories()
-      ]);
-      setStudents(studs);
+      const cats = await searchAPI.getCategories();
       setCategories(cats);
     } catch (err) {
       console.error('Failed to load data', err);
@@ -71,6 +67,7 @@ function Submit() {
     try {
       const data = {
         ...form,
+        student_id: user.id,
         technologies: form.technologies.split(',').map(t => t.trim()).filter(Boolean),
         screenshots: form.screenshots.split(',').map(s => s.trim()).filter(Boolean)
       };
@@ -84,10 +81,27 @@ function Submit() {
     }
   }
 
+  // Require student authentication
+  if (!isAuthenticated || !isStudent) {
+    return (
+      <div className="submit-page">
+        <div className="submit-auth-required">
+          <h1>Login Required</h1>
+          <p>You must be logged in as a student to submit a diploma work.</p>
+          <Link to="/student-login" className="submit-login-btn">
+            Student Login
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="submit-page">
-      <h1>📝 Submit Diploma Work</h1>
-      <p className="subtitle">Share your diploma project with the community</p>
+      <h1>Submit Diploma Work</h1>
+      <p className="subtitle">
+        Submitting as <strong>{user.name}</strong> ({user.email})
+      </p>
 
       {/* Progress Steps */}
       <div className="steps">
@@ -127,7 +141,7 @@ function Submit() {
             </div>
 
             {/* Similarity Check Result */}
-            {checking && <div className="checking">🔍 Checking for similar works...</div>}
+            {checking && <div className="checking">Checking for similar works...</div>}
             {similarityCheck && (
               <div className={`similarity-result ${similarityCheck.ideaExists ? 'danger' : similarityCheck.warning ? 'warning' : 'success'}`}>
                 <strong>{similarityCheck.message}</strong>
@@ -142,20 +156,6 @@ function Submit() {
             )}
 
             <div className="form-row">
-              <div className="form-group">
-                <label>Student *</label>
-                <select
-                  value={form.student_id}
-                  onChange={(e) => updateForm('student_id', e.target.value)}
-                  required
-                >
-                  <option value="">Select student</option>
-                  {students.map(s => (
-                    <option key={s.id} value={s.id}>{s.name}</option>
-                  ))}
-                </select>
-              </div>
-
               <div className="form-group">
                 <label>Category *</label>
                 <select
@@ -196,14 +196,14 @@ function Submit() {
             </div>
 
             <button type="button" className="next-btn" onClick={() => {
-              if (!form.title.trim() || !form.description.trim() || !form.student_id || !form.category) {
-                setError('Please fill in all required fields (Title, Description, Student, Category)');
+              if (!form.title.trim() || !form.description.trim() || !form.category) {
+                setError('Please fill in all required fields (Title, Description, Category)');
                 return;
               }
               setError(null);
               setStep(2);
             }}>
-              Next →
+              Next
             </button>
           </div>
         )}
@@ -265,10 +265,10 @@ function Submit() {
 
             <div className="btn-group">
               <button type="button" className="back-btn" onClick={() => setStep(1)}>
-                ← Back
+                Back
               </button>
               <button type="button" className="next-btn" onClick={() => setStep(3)}>
-                Next →
+                Next
               </button>
             </div>
           </div>
@@ -279,6 +279,9 @@ function Submit() {
           <div className="form-step review">
             <h2>Review Your Submission</h2>
 
+            <div className="review-item">
+              <strong>Student:</strong> {user.name} ({user.email})
+            </div>
             <div className="review-item">
               <strong>Title:</strong> {form.title}
             </div>
@@ -292,12 +295,16 @@ function Submit() {
               <strong>Technologies:</strong> {form.technologies || 'Not specified'}
             </div>
 
+            <p className="review-notice">
+              Your submission will be reviewed by an administrator before it appears in the archive.
+            </p>
+
             <div className="btn-group">
               <button type="button" className="back-btn" onClick={() => setStep(2)}>
-                ← Back
+                Back
               </button>
               <button type="submit" className="submit-btn" disabled={submitting}>
-                {submitting ? 'Submitting...' : '✓ Submit for Review'}
+                {submitting ? 'Submitting...' : 'Submit for Review'}
               </button>
             </div>
           </div>

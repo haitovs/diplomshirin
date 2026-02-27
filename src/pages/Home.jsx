@@ -1,11 +1,17 @@
 import { motion } from 'framer-motion';
 import {
-    ArrowRight, CheckCircle,
-    Download,
-    FileText, Palette,
-    Shield, Smartphone,
-    Star,
-    Zap
+    ArrowRight,
+    BookOpen,
+    CheckCircle,
+    Database,
+    FileSearch,
+    GraduationCap,
+    Layers,
+    Palette,
+    Search,
+    Shield,
+    Upload,
+    Users
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Button from '../components/common/Button';
@@ -13,41 +19,41 @@ import './Home.css';
 
 const features = [
   {
-    icon: FileText,
-    title: 'Rich Content Sections',
-    description: 'Add skills, projects, experience, education, certifications, and more'
-  },
-  {
-    icon: Palette,
-    title: 'Beautiful Templates',
-    description: 'Choose from modern, classic, or minimal designs with custom colors'
-  },
-  {
-    icon: Download,
-    title: 'Export to PDF',
-    description: 'Download your portfolio as a professional PDF ready to share'
-  },
-  {
-    icon: Zap,
-    title: 'Real-time Preview',
-    description: 'See changes instantly as you build your portfolio'
-  },
-  {
     icon: Shield,
-    title: 'Privacy First',
-    description: 'Your data stays in your browser - no account needed'
+    title: 'Similarity Detection',
+    description: 'Advanced multi-algorithm analysis to identify overlapping content across all submissions'
   },
   {
-    icon: Smartphone,
-    title: 'Responsive Design',
-    description: 'Looks great on any device, from mobile to desktop'
+    icon: Database,
+    title: 'Centralized Archive',
+    description: 'A single, searchable repository for all student diploma works across departments and years'
+  },
+  {
+    icon: FileSearch,
+    title: 'Deep Comparison',
+    description: 'TF-IDF, n-gram, and LCS algorithms provide detailed field-by-field similarity breakdowns'
+  },
+  {
+    icon: Users,
+    title: 'Student Profiles',
+    description: 'Each submission is bound to the student\'s account for full traceability'
+  },
+  {
+    icon: Layers,
+    title: 'Admin Approval',
+    description: 'Review workflow ensures only verified works enter the archive, with approve/reject controls'
+  },
+  {
+    icon: Search,
+    title: 'Smart Search',
+    description: 'Full-text search with relevance scoring across titles, descriptions, and technologies'
   }
 ];
 
 const steps = [
-  { num: 1, title: 'Add Your Info', desc: 'Fill in your personal details, skills, and experience' },
-  { num: 2, title: 'Customize Design', desc: 'Pick a template and accent color that fits your style' },
-  { num: 3, title: 'Export & Share', desc: 'Download as PDF or share your portfolio link' }
+  { num: 1, title: 'Submit Your Work', desc: 'Log in as a student and submit your diploma project with details and description', icon: Upload },
+  { num: 2, title: 'Similarity Check', desc: 'The system analyzes your submission against all existing works for originality', icon: Shield },
+  { num: 3, title: 'Admin Review', desc: 'An administrator reviews and approves your work for the public archive', icon: CheckCircle }
 ];
 
 function Home() {
@@ -56,38 +62,41 @@ function Home() {
       {/* Hero Section */}
       <section className="hero">
         <div className="container">
-          <motion.div 
+          <motion.div
             className="hero-content"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <span className="hero-badge">
-              <Star size={14} /> Free Portfolio Builder
+              <GraduationCap size={14} /> Diploma Work Archive
             </span>
             <h1>
-              Build Your Professional
-              <span className="gradient-text"> Portfolio</span>
+              Student Diploma
+              <span className="gradient-text"> Repository</span>
+              <span className="hero-ampersand"> & </span>
+              Similarity
+              <span className="gradient-text"> Checker</span>
             </h1>
             <p className="hero-subtitle">
-              Create a stunning portfolio in minutes. Add your skills, projects, and experience, 
-              then export as a beautiful PDF. No account required.
+              A centralized platform for storing, searching, and verifying the originality
+              of student diploma works. Submit your project, check for similarity, and explore the archive.
             </p>
             <div className="hero-actions">
-              <Link to="/builder">
+              <Link to="/archive">
                 <Button variant="primary" size="lg" icon={ArrowRight} iconPosition="right">
-                  Start Building
+                  Browse Archive
                 </Button>
               </Link>
-              <Link to="/preview">
+              <Link to="/student-login">
                 <Button variant="outline" size="lg">
-                  View Demo
+                  Student Login
                 </Button>
               </Link>
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="hero-visual"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -105,8 +114,12 @@ function Home() {
                   <div className="sidebar-item"></div>
                 </div>
                 <div className="mockup-main">
+                  <div className="mockup-stats">
+                    <div className="mock-stat"></div>
+                    <div className="mock-stat accent"></div>
+                    <div className="mock-stat"></div>
+                  </div>
                   <div className="mockup-form">
-                    <div className="form-field"></div>
                     <div className="form-field"></div>
                     <div className="form-field large"></div>
                   </div>
@@ -123,7 +136,7 @@ function Home() {
           <h2 className="section-title">How It Works</h2>
           <div className="steps-grid">
             {steps.map((step, index) => (
-              <motion.div 
+              <motion.div
                 key={step.num}
                 className="step-card"
                 initial={{ opacity: 0, y: 20 }}
@@ -143,10 +156,10 @@ function Home() {
       {/* Features */}
       <section className="features">
         <div className="container">
-          <h2 className="section-title">Everything You Need</h2>
+          <h2 className="section-title">Platform Capabilities</h2>
           <div className="features-grid">
             {features.map((feature, index) => (
-              <motion.div 
+              <motion.div
                 key={feature.title}
                 className="feature-card"
                 initial={{ opacity: 0, y: 20 }}
@@ -165,26 +178,56 @@ function Home() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA - Primary */}
       <section className="cta">
         <div className="container">
-          <motion.div 
+          <motion.div
             className="cta-content"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <h2>Ready to Build Your Portfolio?</h2>
-            <p>Join thousands of professionals who've created stunning portfolios</p>
-            <Link to="/builder">
+            <h2>Ready to Submit Your Diploma Work?</h2>
+            <p>Log in, submit your project, and have it archived for your university</p>
+            <Link to="/student-login">
               <Button variant="primary" size="lg" icon={ArrowRight} iconPosition="right">
-                Get Started Free
+                Get Started
               </Button>
             </Link>
             <div className="cta-features">
-              <span><CheckCircle size={16} /> No account needed</span>
-              <span><CheckCircle size={16} /> 100% free</span>
-              <span><CheckCircle size={16} /> Export to PDF</span>
+              <span><CheckCircle size={16} /> Similarity checking</span>
+              <span><CheckCircle size={16} /> Full-text search</span>
+              <span><CheckCircle size={16} /> Admin review</span>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Secondary: Portfolio Builder */}
+      <section className="secondary-section">
+        <div className="container">
+          <motion.div
+            className="secondary-card"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="secondary-icon">
+              <Palette size={28} />
+            </div>
+            <div className="secondary-content">
+              <h3>Portfolio Builder</h3>
+              <p>
+                Need a professional portfolio? Use our free builder to create a polished PDF
+                portfolio with your skills, projects, and experience.
+              </p>
+            </div>
+            <div className="secondary-actions">
+              <Link to="/builder">
+                <Button variant="outline" size="lg" icon={BookOpen} iconPosition="left">
+                  Build Portfolio
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </div>

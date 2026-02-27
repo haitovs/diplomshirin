@@ -201,3 +201,44 @@
 [data-theme="dark"] .error-msg {
   color: #fca5a5;
 }
+
+/* Auth Required */
+.submit-auth-required {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.submit-auth-required h1 {
+  margin-bottom: 0.75rem;
+}
+
+.submit-auth-required p {
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.submit-login-btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: opacity var(--transition-fast);
+}
+
+.submit-login-btn:hover {
+  opacity: 0.9;
+}
+
+/* Review notice */
+.review-notice {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: rgba(99, 102, 241, 0.08);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}

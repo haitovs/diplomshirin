@@ -12,6 +12,7 @@ import Preview from './pages/Preview';
 // Diploma Archive pages
 import Archive from './pages/Archive';
 import DiplomaDetail from './pages/DiplomaDetail';
+import StudentLogin from './pages/StudentLogin';
 import Submit from './pages/Submit';
 // Portfolio showcase pages
 import Projects from './pages/Projects';
@@ -41,6 +42,7 @@ function App() {
                   <Route path="builder" element={<Builder />} />
                   <Route path="preview" element={<Preview />} />
                   <Route path="login" element={<Login />} />
+                  <Route path="student-login" element={<StudentLogin />} />
                   {/* Diploma Archive Routes */}
                   <Route path="archive" element={<Archive />} />
                   <Route path="archive/:id" element={<DiplomaDetail />} />

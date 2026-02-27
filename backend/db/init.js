@@ -15,6 +15,7 @@ db.exec(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
+    password TEXT DEFAULT 'student123',
     department TEXT,
     graduation_year INTEGER,
     avatar TEXT,
@@ -58,6 +59,14 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_diploma_status ON diploma_works(status);
   CREATE INDEX IF NOT EXISTS idx_students_name ON students(name);
 `);
+
+// Migration: add password column if missing (for existing databases)
+try {
+  db.prepare("SELECT password FROM students LIMIT 1").get();
+} catch {
+  db.exec("ALTER TABLE students ADD COLUMN password TEXT DEFAULT 'student123'");
+  console.log('✅ Added password column to students table');
+}
 
 // Check if tables are empty and seed with sample data
 const studentCount = db.prepare('SELECT COUNT(*) as count FROM students').get();
