@@ -1,5 +1,5 @@
 // API Service for Diploma Work Archive
-const API_BASE = 'http://localhost:3001/api';
+const API_BASE = '/api';
 
 // Helper for fetch requests
 async function fetchAPI(endpoint, options = {}) {
