@@ -1,5 +1,5 @@
 # ── Stage 1: Build Frontend ──────────────────────────────
-FROM node:18-alpine AS frontend-builder
+FROM node:20-alpine AS frontend-builder
 WORKDIR /app
 
 COPY package.json package-lock.json ./
@@ -9,7 +9,7 @@ COPY . .
 RUN npm run build
 
 # ── Stage 2: Production Runtime ─────────────────────────
-FROM node:18-alpine
+FROM node:20-alpine
 
 RUN apk add --no-cache python3 make g++
 
