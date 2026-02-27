@@ -24,6 +24,7 @@ import AdminLayout from './pages/Admin/AdminLayout';
 import Dashboard from './pages/Admin/Dashboard';
 import ManageProjects from './pages/Admin/ManageProjects';
 import ManageStudents from './pages/Admin/ManageStudents';
+import SimilarityChecker from './pages/Admin/SimilarityChecker';
 import './styles/index.css';
 
 function App() {
@@ -54,7 +55,8 @@ function App() {
                 </Route>
                 {/* Admin Routes */}
                 <Route path="/admin" element={<AdminLayout />}>
-                  <Route index element={<Dashboard />} />
+                  <Route index element={<SimilarityChecker />} />
+                  <Route path="dashboard" element={<Dashboard />} />
                   <Route path="projects" element={<ManageProjects />} />
                   <Route path="students" element={<ManageStudents />} />
                 </Route>

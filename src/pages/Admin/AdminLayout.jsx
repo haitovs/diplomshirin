@@ -2,6 +2,7 @@ import {
     FolderOpen,
     LayoutDashboard,
     LogOut,
+    Shield,
     Users
 } from 'lucide-react';
 import { Navigate, NavLink, Outlet } from 'react-router-dom';
@@ -16,7 +17,8 @@ function AdminLayout() {
   }
 
   const navItems = [
-    { to: '/admin', icon: LayoutDashboard, label: 'Dashboard', end: true },
+    { to: '/admin', icon: Shield, label: 'Similarity Checker', end: true },
+    { to: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
     { to: '/admin/projects', icon: FolderOpen, label: 'Projects' },
     { to: '/admin/students', icon: Users, label: 'Students' },
   ];

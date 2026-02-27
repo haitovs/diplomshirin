@@ -84,6 +84,11 @@ export const searchAPI = {
     body: JSON.stringify({ title, description }),
   }),
 
+  deepCheck: (data) => fetchAPI('/search/deep-check', {
+    method: 'POST',
+    body: JSON.stringify(data),
+  }),
+
   getCategories: () => fetchAPI('/search/categories'),
 
   getYears: () => fetchAPI('/search/years'),

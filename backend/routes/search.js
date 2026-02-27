@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db/init');
-const { calculateSimilarity } = require('../utils/similarity');
+const { calculateSimilarity, tokenizeEnhanced, compareFields } = require('../utils/similarity');
 
 // Full-text search across diploma works
 router.get('/', (req, res) => {
@@ -114,6 +114,110 @@ router.post('/check-idea', (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to check idea' });
+  }
+});
+
+// Deep similarity check for admin
+router.post('/deep-check', (req, res) => {
+  try {
+    const { title, description, fullText, compareAgainst = 'all' } = req.body;
+
+    if (!title && !description && !fullText) {
+      return res.status(400).json({ error: 'At least one field (title, description, or fullText) is required' });
+    }
+
+    // Fetch works based on filter
+    let statusFilter = '';
+    if (compareAgainst === 'approved') {
+      statusFilter = "WHERE dw.status = 'approved'";
+    } else if (compareAgainst === 'default') {
+      statusFilter = "WHERE dw.status IN ('approved', 'pending')";
+    }
+    // 'all' = no filter
+
+    const works = db.prepare(`
+      SELECT dw.id, dw.title, dw.description, dw.full_description, dw.category,
+             dw.year, dw.technologies, dw.status, s.name as student_name
+      FROM diploma_works dw
+      LEFT JOIN students s ON dw.student_id = s.id
+      ${statusFilter}
+    `).all();
+
+    if (works.length === 0) {
+      return res.json({
+        summary: {
+          maxSimilarity: 0,
+          totalCompared: 0,
+          highRiskCount: 0,
+          mediumRiskCount: 0,
+          lowRiskCount: 0,
+          verdict: 'NO_DATA',
+        },
+        results: [],
+      });
+    }
+
+    // Build corpus for IDF
+    const allDocumentTokens = works.map(w =>
+      tokenizeEnhanced([w.title, w.description, w.full_description].filter(Boolean).join(' '))
+    );
+    // Include input text in corpus
+    const inputText = [title, description, fullText].filter(Boolean).join(' ');
+    allDocumentTokens.push(tokenizeEnhanced(inputText));
+
+    const inputFields = { title: title || '', description: description || '', fullText: fullText || '' };
+
+    // Compare against each work
+    const results = works
+      .map(w => {
+        const dbFields = {
+          title: w.title || '',
+          description: w.description || '',
+          fullText: w.full_description || '',
+        };
+        const fieldBreakdown = compareFields(inputFields, dbFields, allDocumentTokens);
+        const overallSimilarity = fieldBreakdown.combined.score;
+
+        return {
+          id: w.id,
+          title: w.title,
+          studentName: w.student_name || 'Unknown',
+          category: w.category,
+          year: w.year,
+          status: w.status,
+          technologies: JSON.parse(w.technologies || '[]'),
+          overallSimilarity,
+          fieldBreakdown,
+        };
+      })
+      .filter(r => r.overallSimilarity >= 10)
+      .sort((a, b) => b.overallSimilarity - a.overallSimilarity)
+      .slice(0, 20);
+
+    const maxSimilarity = results.length > 0 ? results[0].overallSimilarity : 0;
+    const highRiskCount = results.filter(r => r.overallSimilarity >= 60).length;
+    const mediumRiskCount = results.filter(r => r.overallSimilarity >= 35 && r.overallSimilarity < 60).length;
+    const lowRiskCount = results.filter(r => r.overallSimilarity >= 10 && r.overallSimilarity < 35).length;
+
+    let verdict = 'UNIQUE';
+    if (highRiskCount > 0) verdict = 'HIGH_SIMILARITY';
+    else if (mediumRiskCount > 0) verdict = 'MEDIUM_SIMILARITY';
+    else if (lowRiskCount > 0) verdict = 'LOW_SIMILARITY';
+
+    res.json({
+      summary: {
+        maxSimilarity,
+        totalCompared: works.length,
+        highRiskCount,
+        mediumRiskCount,
+        lowRiskCount,
+        verdict,
+      },
+      results,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Deep similarity check failed' });
   }
 });
 
