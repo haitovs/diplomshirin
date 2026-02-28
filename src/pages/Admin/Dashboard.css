@@ -1,6 +1,5 @@
 .dashboard {
   max-width: 1200px;
-  padding: 2rem;
 }
 
 .dashboard-loading,
@@ -290,6 +289,6 @@
   }
 
   .dashboard {
-    padding: 1rem;
+    max-width: 100%;
   }
 }

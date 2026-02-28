@@ -11,10 +11,12 @@ import {
   X,
 } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { searchAPI } from '../../services/api';
 import './SimilarityChecker.css';
 
 function SimilarityChecker() {
+  const { t } = useTranslation();
   const [mode, setMode] = useState('text'); // 'text' | 'file'
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -32,13 +34,13 @@ function SimilarityChecker() {
       const text = await file.text();
       setFullText(text);
     } catch {
-      setError('Failed to read file');
+      setError(t('admin.similarityChecker.fileReadError'));
     }
   }
 
   async function handleCheck() {
     if (!title && !description && !fullText) {
-      setError('Please enter at least a title, description, or full text');
+      setError(t('admin.similarityChecker.noInput'));
       return;
     }
     setLoading(true);
@@ -66,17 +68,17 @@ function SimilarityChecker() {
   function getVerdictConfig(verdict) {
     switch (verdict) {
       case 'HIGH_SIMILARITY':
-        return { color: 'red', label: 'High Similarity Detected', icon: AlertTriangle };
+        return { color: 'red', label: t('admin.similarityChecker.verdicts.highSimilarity'), icon: AlertTriangle };
       case 'MEDIUM_SIMILARITY':
-        return { color: 'amber', label: 'Moderate Similarity Found', icon: AlertTriangle };
+        return { color: 'amber', label: t('admin.similarityChecker.verdicts.mediumSimilarity'), icon: AlertTriangle };
       case 'LOW_SIMILARITY':
-        return { color: 'blue', label: 'Low Similarity Found', icon: Search };
+        return { color: 'blue', label: t('admin.similarityChecker.verdicts.lowSimilarity'), icon: Search };
       case 'UNIQUE':
-        return { color: 'green', label: 'Appears Unique', icon: CheckCircle };
+        return { color: 'green', label: t('admin.similarityChecker.verdicts.unique'), icon: CheckCircle };
       case 'NO_DATA':
-        return { color: 'blue', label: 'No Works to Compare', icon: Search };
+        return { color: 'blue', label: t('admin.similarityChecker.verdicts.noData'), icon: Search };
       default:
-        return { color: 'blue', label: 'Unknown', icon: Search };
+        return { color: 'blue', label: verdict, icon: Search };
     }
   }
 
@@ -86,29 +88,35 @@ function SimilarityChecker() {
     return 'low';
   }
 
+  const fieldLabelMap = {
+    title: t('admin.similarityChecker.fieldTitle'),
+    description: t('admin.similarityChecker.fieldDescription'),
+    combined: t('admin.similarityChecker.fieldCombined'),
+  };
+
   return (
     <div className="similarity-checker">
       <div className="sc-header">
-        <h1><Shield size={28} /> Similarity Checker</h1>
-        <p>Check diploma works for similarity against the entire database</p>
+        <h1><Shield size={28} /> {t('admin.similarityChecker.title')}</h1>
+        <p>{t('admin.similarityChecker.subtitle')}</p>
       </div>
 
       {/* Input Section */}
       <div className="sc-card">
         <div className="sc-card-header">
-          <h2><FileText size={20} /> Input Work</h2>
+          <h2><FileText size={20} /> {t('admin.similarityChecker.inputSection')}</h2>
           <div className="sc-mode-toggle">
             <button
               className={`sc-mode-btn ${mode === 'text' ? 'active' : ''}`}
               onClick={() => setMode('text')}
             >
-              Text Input
+              {t('admin.similarityChecker.textInput')}
             </button>
             <button
               className={`sc-mode-btn ${mode === 'file' ? 'active' : ''}`}
               onClick={() => setMode('file')}
             >
-              <Upload size={14} /> File Upload
+              <Upload size={14} /> {t('admin.similarityChecker.fileUpload')}
             </button>
           </div>
         </div>
@@ -117,59 +125,59 @@ function SimilarityChecker() {
           <div className="sc-file-upload">
             <label className="sc-file-label">
               <Upload size={20} />
-              <span>Choose a .txt file</span>
+              <span>{t('admin.similarityChecker.chooseFile')}</span>
               <input type="file" accept=".txt" onChange={handleFileUpload} />
             </label>
-            {fullText && <span className="sc-file-loaded">File loaded ({fullText.length} characters)</span>}
+            {fullText && <span className="sc-file-loaded">{t('admin.similarityChecker.fileLoaded', { length: fullText.length })}</span>}
           </div>
         )}
 
         <div className="sc-fields">
           <div className="sc-field">
-            <label>Title</label>
+            <label>{t('admin.similarityChecker.titleLabel')}</label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Enter diploma work title..."
+              placeholder={t('admin.similarityChecker.titlePlaceholder')}
             />
           </div>
           <div className="sc-field">
-            <label>Description</label>
+            <label>{t('admin.similarityChecker.descriptionLabel')}</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Enter description or abstract..."
+              placeholder={t('admin.similarityChecker.descriptionPlaceholder')}
               rows={3}
             />
           </div>
           {mode === 'text' && (
             <div className="sc-field">
-              <label>Full Text</label>
+              <label>{t('admin.similarityChecker.fullTextLabel')}</label>
               <textarea
                 value={fullText}
                 onChange={(e) => setFullText(e.target.value)}
-                placeholder="Paste the full text of the diploma work..."
+                placeholder={t('admin.similarityChecker.fullTextPlaceholder')}
                 rows={6}
               />
             </div>
           )}
           <div className="sc-field">
-            <label>Compare Against</label>
+            <label>{t('admin.similarityChecker.compareAgainst')}</label>
             <select value={compareAgainst} onChange={(e) => setCompareAgainst(e.target.value)}>
-              <option value="all">All Works</option>
-              <option value="approved">Approved Only</option>
-              <option value="default">Approved + Pending</option>
+              <option value="all">{t('admin.similarityChecker.allWorks')}</option>
+              <option value="approved">{t('admin.similarityChecker.approvedOnly')}</option>
+              <option value="default">{t('admin.similarityChecker.approvedPending')}</option>
             </select>
           </div>
         </div>
 
         <div className="sc-actions">
           <button className="sc-btn primary" onClick={handleCheck} disabled={loading}>
-            {loading ? <><Loader2 size={16} className="sc-spinner" /> Checking...</> : <><Search size={16} /> Check Similarity</>}
+            {loading ? <><Loader2 size={16} className="sc-spinner" /> {t('admin.similarityChecker.checking')}</> : <><Search size={16} /> {t('admin.similarityChecker.checkButton')}</>}
           </button>
           <button className="sc-btn secondary" onClick={handleClear} disabled={loading}>
-            <X size={16} /> Clear
+            <X size={16} /> {t('admin.similarityChecker.clearButton')}
           </button>
         </div>
 
@@ -191,18 +199,18 @@ function SimilarityChecker() {
                 <div className="sc-verdict-content">
                   <h3>{vc.label}</h3>
                   <div className="sc-verdict-stats">
-                    <span className="sc-verdict-max">Max similarity: <strong>{results.summary.maxSimilarity}%</strong></span>
-                    <span>Compared against: <strong>{results.summary.totalCompared}</strong> works</span>
+                    <span className="sc-verdict-max">{t('admin.similarityChecker.maxSimilarity', { value: results.summary.maxSimilarity })}</span>
+                    <span>{t('admin.similarityChecker.comparedAgainst', { count: results.summary.totalCompared })}</span>
                   </div>
                   <div className="sc-risk-counts">
                     {results.summary.highRiskCount > 0 && (
-                      <span className="sc-risk high">{results.summary.highRiskCount} high risk</span>
+                      <span className="sc-risk high">{t('admin.similarityChecker.highRisk', { count: results.summary.highRiskCount })}</span>
                     )}
                     {results.summary.mediumRiskCount > 0 && (
-                      <span className="sc-risk medium">{results.summary.mediumRiskCount} medium risk</span>
+                      <span className="sc-risk medium">{t('admin.similarityChecker.mediumRisk', { count: results.summary.mediumRiskCount })}</span>
                     )}
                     {results.summary.lowRiskCount > 0 && (
-                      <span className="sc-risk low">{results.summary.lowRiskCount} low risk</span>
+                      <span className="sc-risk low">{t('admin.similarityChecker.lowRisk', { count: results.summary.lowRiskCount })}</span>
                     )}
                   </div>
                 </div>
@@ -213,7 +221,7 @@ function SimilarityChecker() {
           {/* Results List */}
           {results.results.length > 0 && (
             <div className="sc-results-list">
-              <h3>Matching Works ({results.results.length})</h3>
+              <h3>{t('admin.similarityChecker.matchingWorks', { count: results.results.length })}</h3>
               {results.results.map((r) => (
                 <div key={r.id} className="sc-result-card">
                   <div
@@ -241,7 +249,7 @@ function SimilarityChecker() {
                         return (
                           <div key={field} className="sc-field-breakdown">
                             <div className="sc-field-header">
-                              <span className="sc-field-name">{field.charAt(0).toUpperCase() + field.slice(1)}</span>
+                              <span className="sc-field-name">{fieldLabelMap[field] || field}</span>
                               <span className={`sc-field-score ${getSimilarityColor(fb.score)}`}>{fb.score}%</span>
                             </div>
                             <div className="sc-methods">
@@ -280,7 +288,7 @@ function SimilarityChecker() {
           {results.results.length === 0 && results.summary.verdict !== 'NO_DATA' && (
             <div className="sc-no-matches">
               <CheckCircle size={32} />
-              <p>No matches found above 10% threshold. This work appears to be unique!</p>
+              <p>{t('admin.similarityChecker.noMatches')}</p>
             </div>
           )}
         </div>

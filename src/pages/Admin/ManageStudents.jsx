@@ -1,9 +1,11 @@
 import { Edit, Plus, Trash2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { studentsAPI } from '../../services/api';
 import './ManageProjects.css'; // Reuse same styles
 
 function ManageStudents() {
+  const { t } = useTranslation();
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editingStudent, setEditingStudent] = useState(null);
@@ -26,7 +28,7 @@ function ManageStudents() {
   }
 
   async function handleDelete(id) {
-    if (!confirm('Are you sure you want to delete this student?')) return;
+    if (!confirm(t('admin.students.confirmDelete'))) return;
     try {
       await studentsAPI.delete(id);
       loadStudents();
@@ -54,35 +56,35 @@ function ManageStudents() {
   return (
     <div className="manage-projects">
       <div className="page-header">
-        <h1>👥 Manage Students</h1>
+        <h1>{t('admin.students.title')}</h1>
         <button className="add-btn" onClick={() => { setEditingStudent(null); setShowForm(true); }}>
-          <Plus size={20} /> Add Student
+          <Plus size={20} /> {t('admin.students.addStudent')}
         </button>
       </div>
 
       {/* Students Table */}
       {loading ? (
-        <div className="loading">Loading...</div>
+        <div className="loading">{t('admin.students.loading')}</div>
       ) : (
         <div className="works-table">
           <table>
             <thead>
               <tr>
-                <th>Avatar</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Department</th>
-                <th>Year</th>
-                <th>Skills</th>
-                <th>Actions</th>
+                <th>{t('admin.students.avatar')}</th>
+                <th>{t('admin.students.name')}</th>
+                <th>{t('admin.students.email')}</th>
+                <th>{t('admin.students.department')}</th>
+                <th>{t('admin.students.year')}</th>
+                <th>{t('admin.students.skills')}</th>
+                <th>{t('admin.students.actions')}</th>
               </tr>
             </thead>
             <tbody>
               {students.map(student => (
                 <tr key={student.id}>
                   <td>
-                    <img 
-                      src={student.avatar} 
+                    <img
+                      src={student.avatar}
                       alt={student.name}
                       style={{ width: 40, height: 40, borderRadius: '50%' }}
                     />
@@ -98,10 +100,10 @@ function ManageStudents() {
                     {student.skills?.length > 3 && <span>+{student.skills.length - 3}</span>}
                   </td>
                   <td className="actions-cell">
-                    <button className="action-btn edit" onClick={() => { setEditingStudent(student); setShowForm(true); }} title="Edit">
+                    <button className="action-btn edit" onClick={() => { setEditingStudent(student); setShowForm(true); }} title={t('admin.students.editTitle')}>
                       <Edit size={18} />
                     </button>
-                    <button className="action-btn delete" onClick={() => handleDelete(student.id)} title="Delete">
+                    <button className="action-btn delete" onClick={() => handleDelete(student.id)} title={t('admin.students.confirmDelete')}>
                       <Trash2 size={18} />
                     </button>
                   </td>
@@ -109,13 +111,13 @@ function ManageStudents() {
               ))}
             </tbody>
           </table>
-          {students.length === 0 && <div className="no-data">No students found</div>}
+          {students.length === 0 && <div className="no-data">{t('admin.students.noData')}</div>}
         </div>
       )}
 
       {/* Edit/Add Form Modal */}
       {showForm && (
-        <StudentForm 
+        <StudentForm
           student={editingStudent}
           onSave={handleSave}
           onCancel={() => { setShowForm(false); setEditingStudent(null); }}
@@ -126,6 +128,7 @@ function ManageStudents() {
 }
 
 function StudentForm({ student, onSave, onCancel }) {
+  const { t } = useTranslation();
   const [form, setForm] = useState({
     name: student?.name || '',
     email: student?.email || '',
@@ -149,11 +152,11 @@ function StudentForm({ student, onSave, onCancel }) {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>{student ? 'Edit Student' : 'Add New Student'}</h2>
+        <h2>{student ? t('admin.students.editTitle') : t('admin.students.addTitle')}</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
-              <label>Name *</label>
+              <label>{t('admin.students.nameLabel')}</label>
               <input
                 type="text"
                 value={form.name}
@@ -162,7 +165,7 @@ function StudentForm({ student, onSave, onCancel }) {
               />
             </div>
             <div className="form-group">
-              <label>Email *</label>
+              <label>{t('admin.students.emailLabel')}</label>
               <input
                 type="email"
                 value={form.email}
@@ -173,7 +176,7 @@ function StudentForm({ student, onSave, onCancel }) {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label>Department</label>
+              <label>{t('admin.students.departmentLabel')}</label>
               <input
                 type="text"
                 value={form.department}
@@ -181,7 +184,7 @@ function StudentForm({ student, onSave, onCancel }) {
               />
             </div>
             <div className="form-group">
-              <label>Graduation Year</label>
+              <label>{t('admin.students.graduationYearLabel')}</label>
               <input
                 type="number"
                 value={form.graduation_year}
@@ -190,7 +193,7 @@ function StudentForm({ student, onSave, onCancel }) {
             </div>
           </div>
           <div className="form-group">
-            <label>Bio</label>
+            <label>{t('admin.students.bioLabel')}</label>
             <textarea
               value={form.bio}
               onChange={e => setForm({ ...form, bio: e.target.value })}
@@ -198,17 +201,17 @@ function StudentForm({ student, onSave, onCancel }) {
             />
           </div>
           <div className="form-group">
-            <label>Skills (comma-separated)</label>
+            <label>{t('admin.students.skillsLabel')}</label>
             <input
               type="text"
               value={form.skills}
               onChange={e => setForm({ ...form, skills: e.target.value })}
-              placeholder="React, Python, Machine Learning..."
+              placeholder={t('admin.students.skillsPlaceholder')}
             />
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label>LinkedIn</label>
+              <label>{t('admin.students.linkedinLabel')}</label>
               <input
                 type="url"
                 value={form.linkedin}
@@ -216,7 +219,7 @@ function StudentForm({ student, onSave, onCancel }) {
               />
             </div>
             <div className="form-group">
-              <label>GitHub</label>
+              <label>{t('admin.students.githubLabel')}</label>
               <input
                 type="url"
                 value={form.github}
@@ -225,8 +228,8 @@ function StudentForm({ student, onSave, onCancel }) {
             </div>
           </div>
           <div className="form-actions">
-            <button type="button" className="cancel-btn" onClick={onCancel}>Cancel</button>
-            <button type="submit" className="save-btn">Save</button>
+            <button type="button" className="cancel-btn" onClick={onCancel}>{t('admin.students.cancel')}</button>
+            <button type="submit" className="save-btn">{t('admin.students.save')}</button>
           </div>
         </form>
       </div>

@@ -1,7 +1,6 @@
 .manage-projects,
 .manage-students {
   max-width: 1200px;
-  padding: 2rem;
 }
 
 .manage-projects .page-header,
@@ -145,12 +144,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   background: transparent;
+  transition: background var(--transition-fast);
 }
 
 .manage-projects .action-btn.approve,

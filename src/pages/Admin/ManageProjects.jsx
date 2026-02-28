@@ -1,9 +1,11 @@
 import { CheckCircle, Edit, Plus, Trash2, XCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { diplomaWorksAPI, studentsAPI } from '../../services/api';
 import './ManageProjects.css';
 
 function ManageProjects() {
+  const { t } = useTranslation();
   const [works, setWorks] = useState([]);
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,7 +53,7 @@ function ManageProjects() {
   }
 
   async function handleDelete(id) {
-    if (!confirm('Are you sure you want to delete this work?')) return;
+    if (!confirm(t('admin.projects.confirmDelete'))) return;
     try {
       await diplomaWorksAPI.delete(id);
       loadData();
@@ -83,49 +85,49 @@ function ManageProjects() {
   return (
     <div className="manage-projects">
       <div className="page-header">
-        <h1>📁 Manage Diploma Works</h1>
+        <h1>{t('admin.projects.title')}</h1>
         <button className="add-btn" onClick={() => { setEditingWork(null); setShowForm(true); }}>
-          <Plus size={20} /> Add New
+          <Plus size={20} /> {t('admin.projects.addNew')}
         </button>
       </div>
 
       {/* Filters */}
       <div className="filters">
-        <button 
+        <button
           className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
           onClick={() => setFilter('all')}
         >
-          All
+          {t('admin.projects.all')}
         </button>
-        <button 
+        <button
           className={`filter-btn ${filter === 'pending' ? 'active' : ''}`}
           onClick={() => setFilter('pending')}
         >
-          Pending
+          {t('admin.projects.pending')}
         </button>
-        <button 
+        <button
           className={`filter-btn ${filter === 'approved' ? 'active' : ''}`}
           onClick={() => setFilter('approved')}
         >
-          Approved
+          {t('admin.projects.approved')}
         </button>
       </div>
 
       {/* Works Table */}
       {loading ? (
-        <div className="loading">Loading...</div>
+        <div className="loading">{t('admin.projects.loading')}</div>
       ) : (
         <div className="works-table">
           <table>
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Student</th>
-                <th>Category</th>
-                <th>Year</th>
-                <th>Status</th>
-                <th>Views</th>
-                <th>Actions</th>
+                <th>{t('admin.projects.tableTitle')}</th>
+                <th>{t('admin.projects.tableStudent')}</th>
+                <th>{t('admin.projects.tableCategory')}</th>
+                <th>{t('admin.projects.tableYear')}</th>
+                <th>{t('admin.projects.tableStatus')}</th>
+                <th>{t('admin.projects.tableViews')}</th>
+                <th>{t('admin.projects.tableActions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -143,31 +145,31 @@ function ManageProjects() {
                     {work.status === 'pending' && (
                       <>
                         <button className="action-btn approve" onClick={() => handleApprove(work.id)} title="Approve">
-                          <CheckCircle size={18} />
+                          <CheckCircle size={20} />
                         </button>
                         <button className="action-btn reject" onClick={() => handleReject(work.id)} title="Reject">
-                          <XCircle size={18} />
+                          <XCircle size={20} />
                         </button>
                       </>
                     )}
                     <button className="action-btn edit" onClick={() => { setEditingWork(work); setShowForm(true); }} title="Edit">
-                      <Edit size={18} />
+                      <Edit size={20} />
                     </button>
                     <button className="action-btn delete" onClick={() => handleDelete(work.id)} title="Delete">
-                      <Trash2 size={18} />
+                      <Trash2 size={20} />
                     </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          {works.length === 0 && <div className="no-data">No diploma works found</div>}
+          {works.length === 0 && <div className="no-data">{t('admin.projects.noData')}</div>}
         </div>
       )}
 
       {/* Edit/Add Form Modal */}
       {showForm && (
-        <WorkForm 
+        <WorkForm
           work={editingWork}
           students={students}
           onSave={handleSave}
@@ -179,6 +181,7 @@ function ManageProjects() {
 }
 
 function WorkForm({ work, students, onSave, onCancel }) {
+  const { t } = useTranslation();
   const [form, setForm] = useState({
     title: work?.title || '',
     description: work?.description || '',
@@ -203,10 +206,10 @@ function WorkForm({ work, students, onSave, onCancel }) {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <h2>{work ? 'Edit Work' : 'Add New Work'}</h2>
+        <h2>{work ? t('admin.projects.editTitle') : t('admin.projects.addTitle')}</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Title *</label>
+            <label>{t('admin.projects.titleLabel')}</label>
             <input
               type="text"
               value={form.title}
@@ -215,13 +218,13 @@ function WorkForm({ work, students, onSave, onCancel }) {
             />
           </div>
           <div className="form-group">
-            <label>Student *</label>
+            <label>{t('admin.projects.studentLabel')}</label>
             <select
               value={form.student_id}
               onChange={e => setForm({ ...form, student_id: e.target.value })}
               required
             >
-              <option value="">Select student</option>
+              <option value="">{t('admin.projects.selectStudent')}</option>
               {students.map(s => (
                 <option key={s.id} value={s.id}>{s.name}</option>
               ))}
@@ -229,7 +232,7 @@ function WorkForm({ work, students, onSave, onCancel }) {
           </div>
           <div className="form-row">
             <div className="form-group">
-              <label>Category *</label>
+              <label>{t('admin.projects.categoryLabel')}</label>
               <input
                 type="text"
                 value={form.category}
@@ -238,7 +241,7 @@ function WorkForm({ work, students, onSave, onCancel }) {
               />
             </div>
             <div className="form-group">
-              <label>Year</label>
+              <label>{t('admin.projects.yearLabel')}</label>
               <input
                 type="number"
                 value={form.year}
@@ -246,19 +249,19 @@ function WorkForm({ work, students, onSave, onCancel }) {
               />
             </div>
             <div className="form-group">
-              <label>Status</label>
+              <label>{t('admin.projects.statusLabel')}</label>
               <select
                 value={form.status}
                 onChange={e => setForm({ ...form, status: e.target.value })}
               >
-                <option value="pending">Pending</option>
-                <option value="approved">Approved</option>
+                <option value="pending">{t('admin.projects.pending')}</option>
+                <option value="approved">{t('admin.projects.approved')}</option>
                 <option value="rejected">Rejected</option>
               </select>
             </div>
           </div>
           <div className="form-group">
-            <label>Description *</label>
+            <label>{t('admin.projects.descriptionLabel')}</label>
             <textarea
               value={form.description}
               onChange={e => setForm({ ...form, description: e.target.value })}
@@ -267,7 +270,7 @@ function WorkForm({ work, students, onSave, onCancel }) {
             />
           </div>
           <div className="form-group">
-            <label>Technologies (comma-separated)</label>
+            <label>{t('admin.projects.technologiesLabel')}</label>
             <input
               type="text"
               value={form.technologies}
@@ -275,8 +278,8 @@ function WorkForm({ work, students, onSave, onCancel }) {
             />
           </div>
           <div className="form-actions">
-            <button type="button" className="cancel-btn" onClick={onCancel}>Cancel</button>
-            <button type="submit" className="save-btn">Save</button>
+            <button type="button" className="cancel-btn" onClick={onCancel}>{t('admin.projects.cancel')}</button>
+            <button type="submit" className="save-btn">{t('admin.projects.save')}</button>
           </div>
         </form>
       </div>

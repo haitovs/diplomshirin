@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { diplomaWorksAPI, searchAPI } from '../services/api';
 import './Archive.css';
 
 function Archive() {
+  const { t } = useTranslation();
   const [works, setWorks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -90,8 +92,8 @@ function Archive() {
   return (
     <div className="archive-page">
       <header className="archive-header">
-        <h1>📚 Diploma Work Archive</h1>
-        <p>Browse and discover diploma projects from students</p>
+        <h1>{t('archive.title')}</h1>
+        <p>{t('archive.subtitle')}</p>
       </header>
 
       {/* Search Bar */}
@@ -99,14 +101,14 @@ function Archive() {
         <form onSubmit={handleSearch} className="search-form">
           <input
             type="text"
-            placeholder="Search by title, description, or technology..."
+            placeholder={t('archive.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="search-input"
           />
-          <button type="submit" className="search-btn">🔍 Search</button>
+          <button type="submit" className="search-btn">{t('archive.searchButton')}</button>
           {searchQuery && (
-            <button type="button" onClick={clearSearch} className="clear-btn">✕</button>
+            <button type="button" onClick={clearSearch} className="clear-btn">{t('archive.clearSearch')}</button>
           )}
         </form>
 
@@ -115,7 +117,7 @@ function Archive() {
             value={filters.category}
             onChange={(e) => setFilters({ ...filters, category: e.target.value })}
           >
-            <option value="">All Categories</option>
+            <option value="">{t('archive.allCategories')}</option>
             {categories.map(c => (
               <option key={c.category} value={c.category}>
                 {c.category} ({c.count})
@@ -127,7 +129,7 @@ function Archive() {
             value={filters.year}
             onChange={(e) => setFilters({ ...filters, year: e.target.value })}
           >
-            <option value="">All Years</option>
+            <option value="">{t('archive.allYears')}</option>
             {years.map(y => (
               <option key={y.year} value={y.year}>
                 {y.year} ({y.count})
@@ -140,19 +142,40 @@ function Archive() {
       {/* Results Info */}
       {searchResults && (
         <div className="search-info">
-          Found <strong>{searchResults.count}</strong> results for "<em>{searchResults.query}</em>"
+          Found <strong>{searchResults.count}</strong> results for &ldquo;<em>{searchResults.query}</em>&rdquo;
         </div>
       )}
 
       {/* Loading/Error States */}
-      {loading && <div className="loading">Loading...</div>}
-      {error && <div className="error">Error: {error}</div>}
+      {loading && (
+        <div className="works-grid">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="work-card skeleton-card">
+              <div className="work-image skeleton-shimmer" />
+              <div className="work-info">
+                <div className="skeleton-line skeleton-shimmer" style={{ width: '80%', height: 18 }} />
+                <div className="skeleton-line skeleton-shimmer" style={{ width: '100%', height: 14, marginTop: 8 }} />
+                <div className="skeleton-line skeleton-shimmer" style={{ width: '60%', height: 14, marginTop: 4 }} />
+                <div style={{ display: 'flex', gap: '0.5rem', marginTop: 12 }}>
+                  <div className="skeleton-badge skeleton-shimmer" />
+                  <div className="skeleton-badge skeleton-shimmer" />
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: 12 }}>
+                  <div className="skeleton-avatar skeleton-shimmer" />
+                  <div className="skeleton-line skeleton-shimmer" style={{ width: 100, height: 12 }} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      {error && <div className="error">{t('archive.error', { error })}</div>}
 
       {/* Works Grid */}
       {!loading && !error && (
         <div className="works-grid">
           {displayWorks.length === 0 ? (
-            <div className="no-results">No diploma works found</div>
+            <div className="no-results">{t('archive.noResults')}</div>
           ) : (
             displayWorks.map(work => (
               <Link to={`/archive/${work.id}`} key={work.id} className="work-card">
@@ -170,7 +193,7 @@ function Archive() {
                     <span className="category">{work.category}</span>
                     <span className="year">{work.year}</span>
                     {work.relevance && (
-                      <span className="relevance">{work.relevance}% match</span>
+                      <span className="relevance">{t('archive.match', { value: work.relevance })}</span>
                     )}
                   </div>
                   <div className="work-author">
@@ -192,8 +215,8 @@ function Archive() {
 
       {/* Submit CTA */}
       <section className="submit-cta">
-        <h2>Have a diploma work to share?</h2>
-        <Link to="/submit" className="submit-btn">📝 Submit Your Work</Link>
+        <h2>{t('archive.ctaTitle')}</h2>
+        <Link to="/submit" className="submit-btn">{t('archive.ctaButton')}</Link>
       </section>
     </div>
   );

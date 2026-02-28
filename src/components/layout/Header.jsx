@@ -1,4 +1,5 @@
-import { Briefcase, Moon, Sun } from 'lucide-react';
+import { GraduationCap, Moon, Sun } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Link, NavLink } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import Button from '../common/Button';
@@ -6,13 +7,14 @@ import './Header.css';
 
 function Header() {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useTranslation();
 
   const navLinks = [
-    { to: '/', label: 'Home' },
-    { to: '/archive', label: '📚 Archive' },
-    { to: '/submit', label: '📝 Submit' },
-    { to: '/builder', label: 'Builder' },
-    { to: '/preview', label: 'Preview' }
+    { to: '/', label: t('header.nav.home') },
+    { to: '/archive', label: t('header.nav.archive') },
+    { to: '/submit', label: t('header.nav.submit') },
+    { to: '/builder', label: t('header.nav.builder') },
+    { to: '/preview', label: t('header.nav.preview') }
   ];
 
   return (
@@ -20,8 +22,8 @@ function Header() {
       <div className="container header-container">
         {/* Logo */}
         <Link to="/" className="logo">
-          <Briefcase size={24} />
-          <span className="logo-text">PortfolioBuilder</span>
+          <GraduationCap size={24} />
+          <span className="logo-text">{t('header.logo')}</span>
         </Link>
 
         {/* Navigation */}
@@ -43,14 +45,14 @@ function Header() {
           <button
             className="theme-toggle"
             onClick={toggleTheme}
-            aria-label="Toggle theme"
+            aria-label={t('header.toggleTheme')}
           >
             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
           </button>
 
-          <Link to="/builder" className="desktop-cta">
+          <Link to="/archive" className="desktop-cta">
             <Button variant="primary" size="sm">
-              Start Building
+              {t('header.browseArchive')}
             </Button>
           </Link>
         </div>
@@ -60,4 +62,3 @@ function Header() {
 }
 
 export default Header;
-

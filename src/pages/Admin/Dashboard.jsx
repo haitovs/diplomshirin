@@ -1,9 +1,11 @@
 import { CheckCircle, Clock, FolderOpen, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { statsAPI } from '../../services/api';
 import './Dashboard.css';
 
 function Dashboard() {
+  const { t } = useTranslation();
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,15 +26,15 @@ function Dashboard() {
     }
   }
 
-  if (loading) return <div className="dashboard-loading">Loading dashboard...</div>;
-  if (error) return <div className="dashboard-error">Error: {error}</div>;
+  if (loading) return <div className="dashboard-loading">{t('admin.dashboard.loading')}</div>;
+  if (error) return <div className="dashboard-error">{t('admin.dashboard.error', { error })}</div>;
   if (!stats) return null;
 
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>📊 Dashboard</h1>
-        <p>Overview of diploma work archive</p>
+        <h1>{t('admin.dashboard.title')}</h1>
+        <p>{t('admin.dashboard.subtitle')}</p>
       </div>
 
       {/* Stats Cards */}
@@ -43,7 +45,7 @@ function Dashboard() {
           </div>
           <div className="stat-content">
             <span className="stat-value">{stats.overview.totalWorks}</span>
-            <span className="stat-label">Total Works</span>
+            <span className="stat-label">{t('admin.dashboard.totalWorks')}</span>
           </div>
         </div>
         <div className="stat-card">
@@ -52,7 +54,7 @@ function Dashboard() {
           </div>
           <div className="stat-content">
             <span className="stat-value">{stats.overview.approvedWorks}</span>
-            <span className="stat-label">Approved</span>
+            <span className="stat-label">{t('admin.dashboard.approved')}</span>
           </div>
         </div>
         <div className="stat-card">
@@ -61,7 +63,7 @@ function Dashboard() {
           </div>
           <div className="stat-content">
             <span className="stat-value">{stats.overview.pendingWorks}</span>
-            <span className="stat-label">Pending</span>
+            <span className="stat-label">{t('admin.dashboard.pending')}</span>
           </div>
         </div>
         <div className="stat-card">
@@ -70,7 +72,7 @@ function Dashboard() {
           </div>
           <div className="stat-content">
             <span className="stat-value">{stats.overview.totalStudents}</span>
-            <span className="stat-label">Students</span>
+            <span className="stat-label">{t('admin.dashboard.students')}</span>
           </div>
         </div>
       </div>
@@ -79,17 +81,17 @@ function Dashboard() {
       <div className="charts-row">
         {/* By Category */}
         <div className="chart-card">
-          <h3 className="chart-title">📁 By Category</h3>
+          <h3 className="chart-title">{t('admin.dashboard.byCategory')}</h3>
           <div className="chart-list">
             {stats.byCategory.length === 0 ? (
-              <p className="no-data-text">No data yet</p>
+              <p className="no-data-text">{t('admin.dashboard.noData')}</p>
             ) : (
               stats.byCategory.map(c => (
                 <div key={c.category} className="chart-item">
                   <span className="chart-label">{c.category}</span>
                   <div className="chart-bar-container">
-                    <div 
-                      className="chart-bar" 
+                    <div
+                      className="chart-bar"
                       style={{ width: `${Math.min((c.count / (stats.overview.approvedWorks || 1)) * 100, 100)}%` }}
                     />
                   </div>
@@ -102,17 +104,17 @@ function Dashboard() {
 
         {/* By Year */}
         <div className="chart-card">
-          <h3 className="chart-title">📅 By Year</h3>
+          <h3 className="chart-title">{t('admin.dashboard.byYear')}</h3>
           <div className="chart-list">
             {stats.byYear.length === 0 ? (
-              <p className="no-data-text">No data yet</p>
+              <p className="no-data-text">{t('admin.dashboard.noData')}</p>
             ) : (
               stats.byYear.map(y => (
                 <div key={y.year} className="chart-item">
                   <span className="chart-label">{y.year}</span>
                   <div className="chart-bar-container">
-                    <div 
-                      className="chart-bar year" 
+                    <div
+                      className="chart-bar year"
                       style={{ width: `${Math.min((y.count / (stats.overview.approvedWorks || 1)) * 100, 100)}%` }}
                     />
                   </div>
@@ -128,10 +130,10 @@ function Dashboard() {
       <div className="bottom-row">
         {/* Recent Submissions */}
         <div className="chart-card">
-          <h3 className="chart-title">🕐 Recent Submissions</h3>
+          <h3 className="chart-title">{t('admin.dashboard.recentSubmissions')}</h3>
           <div className="recent-list">
             {stats.recentSubmissions.length === 0 ? (
-              <p className="no-data-text">No submissions yet</p>
+              <p className="no-data-text">{t('admin.dashboard.noData')}</p>
             ) : (
               stats.recentSubmissions.map(sub => (
                 <div key={sub.id} className="recent-item">
@@ -148,16 +150,16 @@ function Dashboard() {
 
         {/* Top Viewed */}
         <div className="chart-card">
-          <h3 className="chart-title">🔥 Top Viewed Works</h3>
+          <h3 className="chart-title">{t('admin.dashboard.topViewed')}</h3>
           <div className="top-list">
             {stats.topViewed.length === 0 ? (
-              <p className="no-data-text">No views yet</p>
+              <p className="no-data-text">{t('admin.dashboard.noData')}</p>
             ) : (
               stats.topViewed.map((w, i) => (
                 <div key={w.id} className="top-item">
                   <span className="top-rank">#{i + 1}</span>
                   <span className="top-title">{w.title}</span>
-                  <span className="top-views">{w.views} views</span>
+                  <span className="top-views">{t('admin.dashboard.viewsCount', { count: w.views })}</span>
                 </div>
               ))
             )}

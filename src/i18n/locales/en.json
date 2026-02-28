@@ -1,0 +1,384 @@
+{
+  "header": {
+    "logo": "Diploma Archive",
+    "nav": {
+      "home": "Home",
+      "archive": "Archive",
+      "submit": "Submit",
+      "builder": "Builder",
+      "preview": "Preview"
+    },
+    "browseArchive": "Browse Archive",
+    "toggleTheme": "Toggle theme"
+  },
+  "footer": {
+    "brand": "Diploma Archive",
+    "description": "A centralized platform for storing, searching, and verifying the originality of student diploma works.",
+    "product": "Product",
+    "resources": "Resources",
+    "productLinks": {
+      "builder": "Builder",
+      "preview": "Preview",
+      "templates": "Templates"
+    },
+    "resourceLinks": {
+      "howItWorks": "How It Works",
+      "features": "Features"
+    },
+    "social": {
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "email": "Email"
+    },
+    "copyright": "\u00a9 {{year}} Diploma Archive. Made with \u2764 for students.",
+    "note": "Diploma Project",
+    "adminLogin": "Admin Login"
+  },
+  "home": {
+    "badge": "Diploma Work Archive",
+    "heroTitle1": "Student Diploma",
+    "heroTitle2": "Repository",
+    "heroAmpersand": " & ",
+    "heroTitle3": "Similarity",
+    "heroTitle4": "Checker",
+    "subtitle": "A centralized platform for storing, searching, and verifying the originality of student diploma works. Submit your project, check for similarity, and explore the archive.",
+    "browseArchive": "Browse Archive",
+    "studentLogin": "Student Login",
+    "howItWorks": "How It Works",
+    "platformCapabilities": "Platform Capabilities",
+    "features": {
+      "similarityDetection": {
+        "title": "Similarity Detection",
+        "description": "Advanced multi-algorithm analysis to identify overlapping content across all submissions"
+      },
+      "centralizedArchive": {
+        "title": "Centralized Archive",
+        "description": "A single, searchable repository for all student diploma works across departments and years"
+      },
+      "deepComparison": {
+        "title": "Deep Comparison",
+        "description": "TF-IDF, n-gram, and LCS algorithms provide detailed field-by-field similarity breakdowns"
+      },
+      "studentProfiles": {
+        "title": "Student Profiles",
+        "description": "Each submission is bound to the student's account for full traceability"
+      },
+      "adminApproval": {
+        "title": "Admin Approval",
+        "description": "Review workflow ensures only verified works enter the archive, with approve/reject controls"
+      },
+      "smartSearch": {
+        "title": "Smart Search",
+        "description": "Full-text search with relevance scoring across titles, descriptions, and technologies"
+      }
+    },
+    "steps": {
+      "submit": {
+        "title": "Submit Your Work",
+        "description": "Log in as a student and submit your diploma project with details and description"
+      },
+      "similarity": {
+        "title": "Similarity Check",
+        "description": "The system analyzes your submission against all existing works for originality"
+      },
+      "review": {
+        "title": "Admin Review",
+        "description": "An administrator reviews and approves your work for the public archive"
+      }
+    },
+    "cta": {
+      "title": "Ready to Submit Your Diploma Work?",
+      "description": "Log in, submit your project, and have it archived for your university",
+      "button": "Get Started",
+      "similarityChecking": "Similarity checking",
+      "fullTextSearch": "Full-text search",
+      "adminReview": "Admin review"
+    },
+    "portfolio": {
+      "title": "Portfolio Builder",
+      "description": "Need a professional portfolio? Use our free builder to create a polished PDF portfolio with your skills, projects, and experience.",
+      "button": "Build Portfolio"
+    }
+  },
+  "archive": {
+    "title": "Diploma Work Archive",
+    "subtitle": "Browse and discover diploma projects from students",
+    "searchPlaceholder": "Search by title, description, or technology...",
+    "searchButton": "Search",
+    "clearSearch": "\u2715",
+    "allCategories": "All Categories",
+    "allYears": "All Years",
+    "foundResults": "Found <strong>{{count}}</strong> results for \"<em>{{query}}</em>\"",
+    "noResults": "No diploma works found",
+    "views": "{{count}} views",
+    "match": "{{value}}% match",
+    "ctaTitle": "Have a diploma work to share?",
+    "ctaButton": "Submit Your Work",
+    "error": "Error: {{error}}"
+  },
+  "submit": {
+    "authRequired": "Student Login Required",
+    "authMessage": "You must be signed in with your student account to submit a diploma work.",
+    "authButton": "Student Login",
+    "backHome": "Back to Home",
+    "title": "Submit Diploma Work",
+    "submittingAs": "Submitting as {{name}} ({{email}})",
+    "steps": {
+      "basicInfo": "Basic Info",
+      "academicDetails": "Academic Details",
+      "mediaLinks": "Media & Links",
+      "review": "Review"
+    },
+    "step1": {
+      "heading": "Basic Information",
+      "titleLabel": "Title",
+      "titlePlaceholder": "e.g. Smart Campus Navigation System Using IoT",
+      "titleRequired": "Title is required",
+      "descriptionLabel": "Short Description",
+      "descriptionPlaceholder": "A concise summary of what your diploma work is about (1-3 sentences)",
+      "descriptionRequired": "Description is required",
+      "categoryLabel": "Category",
+      "categoryPlaceholder": "Select category",
+      "categoryRequired": "Category is required",
+      "yearLabel": "Year",
+      "checking": "Checking for similar works..."
+    },
+    "step2": {
+      "heading": "Academic Details",
+      "supervisorLabel": "Supervisor / Advisor",
+      "supervisorPlaceholder": "Prof. Dr. Name Surname",
+      "supervisorRequired": "Supervisor name is required",
+      "defenseDateLabel": "Defense Date",
+      "abstractLabel": "Abstract",
+      "abstractPlaceholder": "Provide a formal abstract summarizing the problem, approach, and results of your diploma work...",
+      "abstractRequired": "Abstract is required",
+      "fullDescriptionLabel": "Full Description",
+      "fullDescriptionPlaceholder": "A detailed description of your project \u2014 features, architecture, implementation details...",
+      "fullDescriptionHint": "Optional but recommended for a thorough review",
+      "methodologyLabel": "Methodology",
+      "methodologyPlaceholder": "Describe the research methodology, tools, frameworks, and approach used...",
+      "keyFindingsLabel": "Key Findings / Results",
+      "keyFindingsPlaceholder": "Summarize the main results, metrics, and outcomes of your work..."
+    },
+    "step3": {
+      "heading": "Technical & Media",
+      "technologiesLabel": "Technologies Used",
+      "technologiesPlaceholder": "React, Node.js, Python, TensorFlow, MongoDB...",
+      "technologiesHint": "Separate multiple technologies with commas",
+      "screenshotsLabel": "Screenshot URLs",
+      "screenshotsPlaceholder": "https://example.com/image1.jpg, https://...",
+      "screenshotsHint": "Separate multiple URLs with commas",
+      "demoUrlLabel": "Demo URL",
+      "demoPlaceholder": "https://your-demo.com",
+      "githubUrlLabel": "GitHub URL",
+      "githubPlaceholder": "https://github.com/...",
+      "documentationUrlLabel": "Documentation URL",
+      "documentationPlaceholder": "https://docs.google.com/... or link to uploaded PDF"
+    },
+    "step4": {
+      "heading": "Review & Submit",
+      "reviewNotice": "Your submission will enter a Pending state and must be approved by an administrator before appearing in the public archive.",
+      "submitButton": "Submit for Review",
+      "submitting": "Submitting...",
+      "successTitle": "Submission Received!",
+      "successMessage": "Your diploma work has been submitted and is awaiting administrator review. You will be notified once it is approved.",
+      "browseArchive": "Browse Archive",
+      "submitAnother": "Submit Another"
+    },
+    "nav": {
+      "back": "Back",
+      "next": "Next",
+      "review": "Review"
+    },
+    "similarity": {
+      "unique": "Your title appears unique \u2014 no close matches found!",
+      "warningTitle": "Similar works detected:",
+      "dangerTitle": "Highly similar works found:",
+      "matchPercent": "{{title}} ({{similarity}}%)"
+    },
+    "submitError": "Failed to submit. Please try again.",
+    "charCount": "{{current}} / {{max}}"
+  },
+  "login": {
+    "title": "Admin Login",
+    "subtitle": "Sign in to access the admin dashboard",
+    "username": "Username",
+    "usernamePlaceholder": "Enter username",
+    "password": "Password",
+    "passwordPlaceholder": "Enter password",
+    "signIn": "Sign In",
+    "signingIn": "Signing in...",
+    "demo": "Demo credentials: admin / admin",
+    "backHome": "\u2190 Back to Home"
+  },
+  "studentLogin": {
+    "title": "Student Login",
+    "subtitle": "Sign in to submit your diploma work",
+    "email": "Email",
+    "emailPlaceholder": "your.email@university.edu",
+    "password": "Password",
+    "passwordPlaceholder": "Enter password",
+    "signIn": "Sign In",
+    "signingIn": "Signing in...",
+    "demo": "Demo: shirin@university.edu / student123",
+    "adminLogin": "Admin Login",
+    "backHome": "Back to Home"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Page Not Found",
+    "message": "Oops! The page you're looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home",
+    "browseProjects": "Browse Projects"
+  },
+  "diplomaDetail": {
+    "backToArchive": "\u2190 Back to Archive",
+    "about": "About This Project",
+    "technologies": "Technologies Used",
+    "projectLinks": "Project Links",
+    "author": "Author",
+    "loading": "Loading...",
+    "error": "Error: {{error}}",
+    "notFound": "Work not found",
+    "liveDemo": "Live Demo",
+    "sourceCode": "Source Code",
+    "documentation": "Documentation",
+    "views": "{{count}} views",
+    "supervisor": "Supervisor",
+    "abstract": "Abstract",
+    "methodology": "Methodology",
+    "keyFindings": "Key Findings",
+    "defenseDate": "Defense Date"
+  },
+  "admin": {
+    "sidebar": {
+      "similarityChecker": "Similarity Checker",
+      "dashboard": "Dashboard",
+      "projects": "Projects",
+      "students": "Students",
+      "logout": "Logout"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Overview of diploma work archive",
+      "totalWorks": "Total Works",
+      "approved": "Approved",
+      "pending": "Pending",
+      "students": "Students",
+      "byCategory": "By Category",
+      "byYear": "By Year",
+      "recentSubmissions": "Recent Submissions",
+      "topViewed": "Top Viewed Works",
+      "noData": "No data yet",
+      "loading": "Loading dashboard...",
+      "error": "Error: {{error}}",
+      "viewsCount": "{{count}} views"
+    },
+    "projects": {
+      "title": "Manage Diploma Works",
+      "addNew": "Add New",
+      "all": "All",
+      "pending": "Pending",
+      "approved": "Approved",
+      "tableTitle": "Title",
+      "tableStudent": "Student",
+      "tableCategory": "Category",
+      "tableYear": "Year",
+      "tableStatus": "Status",
+      "tableViews": "Views",
+      "tableActions": "Actions",
+      "noData": "No diploma works found",
+      "editTitle": "Edit Work",
+      "addTitle": "Add New Work",
+      "titleLabel": "Title *",
+      "studentLabel": "Student *",
+      "selectStudent": "Select student",
+      "categoryLabel": "Category *",
+      "yearLabel": "Year",
+      "statusLabel": "Status",
+      "descriptionLabel": "Description *",
+      "technologiesLabel": "Technologies (comma-separated)",
+      "cancel": "Cancel",
+      "save": "Save",
+      "confirmDelete": "Are you sure you want to delete this work?",
+      "loading": "Loading..."
+    },
+    "students": {
+      "title": "Manage Students",
+      "addStudent": "Add Student",
+      "avatar": "Avatar",
+      "name": "Name",
+      "email": "Email",
+      "department": "Department",
+      "year": "Year",
+      "skills": "Skills",
+      "actions": "Actions",
+      "noData": "No students found",
+      "editTitle": "Edit Student",
+      "addTitle": "Add New Student",
+      "nameLabel": "Name *",
+      "emailLabel": "Email *",
+      "departmentLabel": "Department",
+      "graduationYearLabel": "Graduation Year",
+      "bioLabel": "Bio",
+      "skillsLabel": "Skills (comma-separated)",
+      "skillsPlaceholder": "React, Python, Machine Learning...",
+      "linkedinLabel": "LinkedIn",
+      "githubLabel": "GitHub",
+      "cancel": "Cancel",
+      "save": "Save",
+      "confirmDelete": "Are you sure you want to delete this student?",
+      "loading": "Loading..."
+    },
+    "similarityChecker": {
+      "title": "Similarity Checker",
+      "subtitle": "Check diploma works for similarity against the entire database",
+      "inputSection": "Input Work",
+      "textInput": "Text Input",
+      "fileUpload": "File Upload",
+      "chooseFile": "Choose a .txt file",
+      "fileLoaded": "File loaded ({{length}} characters)",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Enter diploma work title...",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Enter description or abstract...",
+      "fullTextLabel": "Full Text",
+      "fullTextPlaceholder": "Paste the full text of the diploma work...",
+      "compareAgainst": "Compare Against",
+      "allWorks": "All Works",
+      "approvedOnly": "Approved Only",
+      "approvedPending": "Approved + Pending",
+      "checkButton": "Check Similarity",
+      "checking": "Checking...",
+      "clearButton": "Clear",
+      "noInput": "Please enter at least a title, description, or full text",
+      "fileReadError": "Failed to read file",
+      "verdicts": {
+        "highSimilarity": "High Similarity Detected",
+        "mediumSimilarity": "Moderate Similarity Found",
+        "lowSimilarity": "Low Similarity Found",
+        "unique": "Appears Unique",
+        "noData": "No Works to Compare"
+      },
+      "maxSimilarity": "Max similarity: {{value}}%",
+      "comparedAgainst": "Compared against: {{count}} works",
+      "hig
+      
+      
+      
+      hRisk": "{{count}} high risk",
+      "mediumRisk": "{{count}} medium risk",
+      "lowRisk": "{{count}} low risk",
+      "matchingWorks": "Matching Works ({{count}})",
+      "noMatches": "No matches found above 10% threshold. This work appears to be unique!",
+      "fieldTitle": "Title",
+      "fieldDescription": "Description",
+      "fieldCombined": "Combined"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "required": "*"
+  }
+}

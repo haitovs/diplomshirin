@@ -17,17 +17,18 @@ import {
   User,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { useAuth } from '../context/AuthContext';
 import { diplomaWorksAPI, searchAPI } from '../services/api';
 import './Submit.css';
 
 const STEP_CONFIG = [
-  { num: 1, label: 'Basic Info', icon: FileText },
-  { num: 2, label: 'Academic Details', icon: BookOpen },
-  { num: 3, label: 'Media & Links', icon: LinkIcon },
-  { num: 4, label: 'Review', icon: CheckCircle },
+  { num: 1, key: 'basicInfo', icon: FileText },
+  { num: 2, key: 'academicDetails', icon: BookOpen },
+  { num: 3, key: 'mediaLinks', icon: LinkIcon },
+  { num: 4, key: 'review', icon: CheckCircle },
 ];
 
 const FALLBACK_CATEGORIES = [
@@ -37,7 +38,7 @@ const FALLBACK_CATEGORIES = [
 ];
 
 function Submit() {
-  const navigate = useNavigate();
+  const { t } = useTranslation();
   const { isAuthenticated, isStudent, user } = useAuth();
   const [step, setStep] = useState(1);
   const [categories, setCategories] = useState([]);
@@ -94,13 +95,13 @@ function Submit() {
   function validateStep(stepNum) {
     const newErrors = {};
     if (stepNum === 1) {
-      if (!form.title.trim()) newErrors.title = 'Title is required';
-      if (!form.description.trim()) newErrors.description = 'Description is required';
-      if (!form.category) newErrors.category = 'Category is required';
+      if (!form.title.trim()) newErrors.title = t('submit.step1.titleRequired');
+      if (!form.description.trim()) newErrors.description = t('submit.step1.descriptionRequired');
+      if (!form.category) newErrors.category = t('submit.step1.categoryRequired');
     }
     if (stepNum === 2) {
-      if (!form.supervisor.trim()) newErrors.supervisor = 'Supervisor name is required';
-      if (!form.abstract.trim()) newErrors.abstract = 'Abstract is required';
+      if (!form.supervisor.trim()) newErrors.supervisor = t('submit.step2.supervisorRequired');
+      if (!form.abstract.trim()) newErrors.abstract = t('submit.step2.abstractRequired');
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -150,14 +151,14 @@ function Submit() {
           <div className="auth-icon-wrap">
             <Lock size={32} />
           </div>
-          <h1>Student Login Required</h1>
-          <p>You must be signed in with your student account to submit a diploma work.</p>
+          <h1>{t('submit.authRequired')}</h1>
+          <p>{t('submit.authMessage')}</p>
           <Link to="/student-login">
             <Button variant="primary" size="lg" icon={GraduationCap}>
-              Student Login
+              {t('submit.authButton')}
             </Button>
           </Link>
-          <Link to="/" className="auth-home-link">Back to Home</Link>
+          <Link to="/" className="auth-home-link">{t('submit.backHome')}</Link>
         </motion.div>
       </div>
     );
@@ -176,11 +177,11 @@ function Submit() {
           <div className="success-icon-wrap">
             <Check size={48} />
           </div>
-          <h1>Submission Received!</h1>
-          <p>Your diploma work has been submitted and is awaiting administrator review. You will be notified once it is approved.</p>
+          <h1>{t('submit.step4.successTitle')}</h1>
+          <p>{t('submit.step4.successMessage')}</p>
           <div className="success-actions">
             <Link to="/archive">
-              <Button variant="primary">Browse Archive</Button>
+              <Button variant="primary">{t('submit.step4.browseArchive')}</Button>
             </Link>
             <Button variant="outline" onClick={() => {
               setSubmitted(false);
@@ -194,7 +195,7 @@ function Submit() {
               setSimilarityCheck(null);
               setErrors({});
             }}>
-              Submit Another
+              {t('submit.step4.submitAnother')}
             </Button>
           </div>
         </motion.div>
@@ -220,10 +221,10 @@ function Submit() {
             <div className="submit-header-icon">
               <GraduationCap size={28} />
             </div>
-            <h1>Submit Diploma Work</h1>
+            <h1>{t('submit.title')}</h1>
             <p className="submit-user-info">
               <User size={14} />
-              <span>Submitting as <strong>{user.name}</strong> ({user.email})</span>
+              <span>{t('submit.submittingAs', { name: user.name, email: user.email })}</span>
             </p>
           </div>
 
@@ -242,7 +243,7 @@ function Submit() {
                   >
                     {step > s.num ? <Check size={14} /> : <StepIcon size={14} />}
                   </div>
-                  <span className={`step-label ${isActive ? 'active' : ''}`}>{s.label}</span>
+                  <span className={`step-label ${isActive ? 'active' : ''}`}>{t('submit.steps.' + s.key)}</span>
                 </div>
               );
             })}
@@ -260,48 +261,54 @@ function Submit() {
             {/* Step 1: Basic Info */}
             {step === 1 && (
               <motion.div className="form-section" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                <h2 className="section-heading"><FileText size={18} /> Basic Information</h2>
+                <h2 className="section-heading"><FileText size={18} /> {t('submit.step1.heading')}</h2>
 
                 <div className="field">
-                  <label>Title <span className="req">*</span></label>
+                  <label>{t('submit.step1.titleLabel')} <span className="req">*</span></label>
                   <input
                     type="text"
                     value={form.title}
                     onChange={e => updateForm('title', e.target.value)}
                     onBlur={checkSimilarity}
-                    placeholder="e.g. Smart Campus Navigation System Using IoT"
+                    placeholder={t('submit.step1.titlePlaceholder')}
                     className={errors.title ? 'has-error' : ''}
                   />
                   {errors.title && <span className="field-error">{errors.title}</span>}
                 </div>
 
                 <div className="field">
-                  <label>Short Description <span className="req">*</span></label>
+                  <label>{t('submit.step1.descriptionLabel')} <span className="req">*</span></label>
                   <textarea
                     value={form.description}
                     onChange={e => updateForm('description', e.target.value)}
                     onBlur={checkSimilarity}
-                    placeholder="A concise summary of what your diploma work is about (1-3 sentences)"
+                    placeholder={t('submit.step1.descriptionPlaceholder')}
                     rows={3}
                     className={errors.description ? 'has-error' : ''}
                   />
                   <div className="field-footer">
                     {errors.description && <span className="field-error">{errors.description}</span>}
-                    <span className="char-count">{form.description.length} / 500</span>
+                    <span className="char-count">{t('submit.charCount', { current: form.description.length, max: 500 })}</span>
                   </div>
                 </div>
 
                 {/* Similarity alert */}
                 {checking && (
                   <div className="similarity-alert checking">
-                    <Loader2 size={16} className="spin" /> Checking for similar works...
+                    <Loader2 size={16} className="spin" /> {t('submit.step1.checking')}
                   </div>
                 )}
                 {similarityCheck && !checking && (
                   <div className={`similarity-alert ${similarityCheck.ideaExists ? 'danger' : similarityCheck.warning ? 'warning' : 'success'}`}>
                     <AlertCircle size={16} />
                     <div>
-                      <strong>{similarityCheck.message}</strong>
+                      <strong>
+                        {similarityCheck.ideaExists
+                          ? t('submit.similarity.dangerTitle')
+                          : similarityCheck.warning
+                            ? t('submit.similarity.warningTitle')
+                            : t('submit.similarity.unique')}
+                      </strong>
                       {similarityCheck.matches?.length > 0 && (
                         <ul>
                           {similarityCheck.matches.slice(0, 3).map(m => (
@@ -315,13 +322,13 @@ function Submit() {
 
                 <div className="field-row two-col">
                   <div className="field">
-                    <label>Category <span className="req">*</span></label>
+                    <label>{t('submit.step1.categoryLabel')} <span className="req">*</span></label>
                     <select
                       value={form.category}
                       onChange={e => updateForm('category', e.target.value)}
                       className={errors.category ? 'has-error' : ''}
                     >
-                      <option value="">Select category</option>
+                      <option value="">{t('submit.step1.categoryPlaceholder')}</option>
                       {categoryList.map(c => (
                         <option key={c} value={c}>{c}</option>
                       ))}
@@ -329,7 +336,7 @@ function Submit() {
                     {errors.category && <span className="field-error">{errors.category}</span>}
                   </div>
                   <div className="field">
-                    <label>Year <span className="req">*</span></label>
+                    <label>{t('submit.step1.yearLabel')} <span className="req">*</span></label>
                     <input
                       type="number"
                       value={form.year}
@@ -342,7 +349,7 @@ function Submit() {
                 <div className="form-nav">
                   <div />
                   <Button type="button" variant="primary" icon={ChevronRight} iconPosition="right" onClick={goNext}>
-                    Next
+                    {t('submit.nav.next')}
                   </Button>
                 </div>
               </motion.div>
@@ -351,22 +358,22 @@ function Submit() {
             {/* Step 2: Academic Details */}
             {step === 2 && (
               <motion.div className="form-section" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                <h2 className="section-heading"><BookOpen size={18} /> Academic Details</h2>
+                <h2 className="section-heading"><BookOpen size={18} /> {t('submit.step2.heading')}</h2>
 
                 <div className="field-row two-col">
                   <div className="field">
-                    <label>Supervisor / Advisor <span className="req">*</span></label>
+                    <label>{t('submit.step2.supervisorLabel')} <span className="req">*</span></label>
                     <input
                       type="text"
                       value={form.supervisor}
                       onChange={e => updateForm('supervisor', e.target.value)}
-                      placeholder="Prof. Dr. Name Surname"
+                      placeholder={t('submit.step2.supervisorPlaceholder')}
                       className={errors.supervisor ? 'has-error' : ''}
                     />
                     {errors.supervisor && <span className="field-error">{errors.supervisor}</span>}
                   </div>
                   <div className="field">
-                    <label><Calendar size={13} /> Defense Date</label>
+                    <label><Calendar size={13} /> {t('submit.step2.defenseDateLabel')}</label>
                     <input
                       type="date"
                       value={form.defense_date}
@@ -376,60 +383,60 @@ function Submit() {
                 </div>
 
                 <div className="field">
-                  <label>Abstract <span className="req">*</span></label>
+                  <label>{t('submit.step2.abstractLabel')} <span className="req">*</span></label>
                   <textarea
                     value={form.abstract}
                     onChange={e => updateForm('abstract', e.target.value)}
-                    placeholder="Provide a formal abstract summarizing the problem, approach, and results of your diploma work..."
+                    placeholder={t('submit.step2.abstractPlaceholder')}
                     rows={5}
                     className={errors.abstract ? 'has-error' : ''}
                   />
                   <div className="field-footer">
                     {errors.abstract && <span className="field-error">{errors.abstract}</span>}
-                    <span className="char-count">{form.abstract.length} / 2000</span>
+                    <span className="char-count">{t('submit.charCount', { current: form.abstract.length, max: 2000 })}</span>
                   </div>
                 </div>
 
                 <div className="field">
-                  <label>Full Description</label>
+                  <label>{t('submit.step2.fullDescriptionLabel')}</label>
                   <textarea
                     value={form.full_description}
                     onChange={e => updateForm('full_description', e.target.value)}
-                    placeholder="A detailed description of your project — features, architecture, implementation details..."
+                    placeholder={t('submit.step2.fullDescriptionPlaceholder')}
                     rows={5}
                   />
                   <div className="field-footer">
-                    <span className="field-hint">Optional but recommended for a thorough review</span>
+                    <span className="field-hint">{t('submit.step2.fullDescriptionHint')}</span>
                     <span className="char-count">{form.full_description.length}</span>
                   </div>
                 </div>
 
                 <div className="field">
-                  <label>Methodology</label>
+                  <label>{t('submit.step2.methodologyLabel')}</label>
                   <textarea
                     value={form.methodology}
                     onChange={e => updateForm('methodology', e.target.value)}
-                    placeholder="Describe the research methodology, tools, frameworks, and approach used..."
+                    placeholder={t('submit.step2.methodologyPlaceholder')}
                     rows={3}
                   />
                 </div>
 
                 <div className="field">
-                  <label>Key Findings / Results</label>
+                  <label>{t('submit.step2.keyFindingsLabel')}</label>
                   <textarea
                     value={form.key_findings}
                     onChange={e => updateForm('key_findings', e.target.value)}
-                    placeholder="Summarize the main results, metrics, and outcomes of your work..."
+                    placeholder={t('submit.step2.keyFindingsPlaceholder')}
                     rows={3}
                   />
                 </div>
 
                 <div className="form-nav">
                   <Button type="button" variant="secondary" icon={ChevronLeft} onClick={goBack}>
-                    Back
+                    {t('submit.nav.back')}
                   </Button>
                   <Button type="button" variant="primary" icon={ChevronRight} iconPosition="right" onClick={goNext}>
-                    Next
+                    {t('submit.nav.next')}
                   </Button>
                 </div>
               </motion.div>
@@ -438,67 +445,67 @@ function Submit() {
             {/* Step 3: Media & Links */}
             {step === 3 && (
               <motion.div className="form-section" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                <h2 className="section-heading"><Code size={18} /> Technical & Media</h2>
+                <h2 className="section-heading"><Code size={18} /> {t('submit.step3.heading')}</h2>
 
                 <div className="field">
-                  <label>Technologies Used</label>
+                  <label>{t('submit.step3.technologiesLabel')}</label>
                   <input
                     type="text"
                     value={form.technologies}
                     onChange={e => updateForm('technologies', e.target.value)}
-                    placeholder="React, Node.js, Python, TensorFlow, MongoDB..."
+                    placeholder={t('submit.step3.technologiesPlaceholder')}
                   />
-                  <span className="field-hint">Separate multiple technologies with commas</span>
+                  <span className="field-hint">{t('submit.step3.technologiesHint')}</span>
                 </div>
 
                 <div className="field">
-                  <label>Screenshot URLs</label>
+                  <label>{t('submit.step3.screenshotsLabel')}</label>
                   <input
                     type="text"
                     value={form.screenshots}
                     onChange={e => updateForm('screenshots', e.target.value)}
-                    placeholder="https://example.com/image1.jpg, https://..."
+                    placeholder={t('submit.step3.screenshotsPlaceholder')}
                   />
-                  <span className="field-hint">Separate multiple URLs with commas</span>
+                  <span className="field-hint">{t('submit.step3.screenshotsHint')}</span>
                 </div>
 
                 <div className="field-row two-col">
                   <div className="field">
-                    <label><LinkIcon size={13} /> Demo URL</label>
+                    <label><LinkIcon size={13} /> {t('submit.step3.demoUrlLabel')}</label>
                     <input
                       type="url"
                       value={form.demo_url}
                       onChange={e => updateForm('demo_url', e.target.value)}
-                      placeholder="https://your-demo.com"
+                      placeholder={t('submit.step3.demoPlaceholder')}
                     />
                   </div>
                   <div className="field">
-                    <label><Code size={13} /> GitHub URL</label>
+                    <label><Code size={13} /> {t('submit.step3.githubUrlLabel')}</label>
                     <input
                       type="url"
                       value={form.github_url}
                       onChange={e => updateForm('github_url', e.target.value)}
-                      placeholder="https://github.com/..."
+                      placeholder={t('submit.step3.githubPlaceholder')}
                     />
                   </div>
                 </div>
 
                 <div className="field">
-                  <label><FileText size={13} /> Documentation URL</label>
+                  <label><FileText size={13} /> {t('submit.step3.documentationUrlLabel')}</label>
                   <input
                     type="url"
                     value={form.documentation_url}
                     onChange={e => updateForm('documentation_url', e.target.value)}
-                    placeholder="https://docs.google.com/... or link to uploaded PDF"
+                    placeholder={t('submit.step3.documentationPlaceholder')}
                   />
                 </div>
 
                 <div className="form-nav">
                   <Button type="button" variant="secondary" icon={ChevronLeft} onClick={goBack}>
-                    Back
+                    {t('submit.nav.back')}
                   </Button>
                   <Button type="button" variant="primary" icon={ChevronRight} iconPosition="right" onClick={() => { setStep(4); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
-                    Review
+                    {t('submit.nav.review')}
                   </Button>
                 </div>
               </motion.div>
@@ -507,7 +514,7 @@ function Submit() {
             {/* Step 4: Review */}
             {step === 4 && (
               <motion.div className="form-section" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
-                <h2 className="section-heading"><CheckCircle size={18} /> Review & Submit</h2>
+                <h2 className="section-heading"><CheckCircle size={18} /> {t('submit.step4.heading')}</h2>
 
                 <div className="review-grid">
                   <ReviewCard label="Student" value={`${user.name} (${user.email})`} />
@@ -527,15 +534,15 @@ function Submit() {
 
                 <div className="review-notice">
                   <AlertCircle size={16} />
-                  <span>Your submission will enter a <strong>Pending</strong> state and must be approved by an administrator before appearing in the public archive.</span>
+                  <span>{t('submit.step4.reviewNotice')}</span>
                 </div>
 
                 <div className="form-nav">
                   <Button type="button" variant="secondary" icon={ChevronLeft} onClick={goBack}>
-                    Back
+                    {t('submit.nav.back')}
                   </Button>
                   <Button type="submit" variant="primary" icon={Send} iconPosition="right" loading={submitting}>
-                    Submit for Review
+                    {submitting ? t('submit.step4.submitting') : t('submit.step4.submitButton')}
                   </Button>
                 </div>
               </motion.div>

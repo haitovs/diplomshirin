@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import { diplomaWorksAPI } from '../services/api';
 import './DiplomaDetail.css';
 
 function DiplomaDetail() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const [work, setWork] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -25,20 +27,20 @@ function DiplomaDetail() {
     }
   }
 
-  if (loading) return <div className="loading">Loading...</div>;
-  if (error) return <div className="error">Error: {error}</div>;
-  if (!work) return <div className="not-found">Work not found</div>;
+  if (loading) return <div className="loading">{t('diplomaDetail.loading')}</div>;
+  if (error) return <div className="error">{t('diplomaDetail.error', { error })}</div>;
+  if (!work) return <div className="not-found">{t('diplomaDetail.notFound')}</div>;
 
   return (
     <div className="diploma-detail">
-      <Link to="/archive" className="back-link">← Back to Archive</Link>
+      <Link to="/archive" className="back-link">{t('diplomaDetail.backToArchive')}</Link>
 
       <header className="detail-header">
         <h1>{work.title}</h1>
         <div className="meta">
           <span className="category">{work.category}</span>
           <span className="year">{work.year}</span>
-          <span className="views">👁 {work.views} views</span>
+          <span className="views">{t('diplomaDetail.views', { count: work.views })}</span>
           {work.rating > 0 && <span className="rating">⭐ {work.rating}</span>}
         </div>
       </header>
@@ -54,7 +56,7 @@ function DiplomaDetail() {
 
       {/* Description */}
       <section className="description">
-        <h2>About This Project</h2>
+        <h2>{t('diplomaDetail.about')}</h2>
         <p>{work.description}</p>
         {work.full_description && (
           <div className="full-description">
@@ -68,7 +70,7 @@ function DiplomaDetail() {
       {/* Technologies */}
       {work.technologies?.length > 0 && (
         <section className="technologies">
-          <h2>Technologies Used</h2>
+          <h2>{t('diplomaDetail.technologies')}</h2>
           <div className="tech-list">
             {work.technologies.map((tech, i) => (
               <span key={i} className="tech-tag">{tech}</span>
@@ -79,21 +81,21 @@ function DiplomaDetail() {
 
       {/* Links */}
       <section className="links">
-        <h2>Project Links</h2>
+        <h2>{t('diplomaDetail.projectLinks')}</h2>
         <div className="link-buttons">
           {work.demo_url && (
             <a href={work.demo_url} target="_blank" rel="noopener noreferrer" className="link-btn demo">
-              🌐 Live Demo
+              {t('diplomaDetail.liveDemo')}
             </a>
           )}
           {work.github_url && (
             <a href={work.github_url} target="_blank" rel="noopener noreferrer" className="link-btn github">
-              📁 Source Code
+              {t('diplomaDetail.sourceCode')}
             </a>
           )}
           {work.documentation_url && (
             <a href={work.documentation_url} target="_blank" rel="noopener noreferrer" className="link-btn docs">
-              📄 Documentation
+              {t('diplomaDetail.documentation')}
             </a>
           )}
         </div>
@@ -101,7 +103,7 @@ function DiplomaDetail() {
 
       {/* Author */}
       <section className="author">
-        <h2>Author</h2>
+        <h2>{t('diplomaDetail.author')}</h2>
         <div className="author-card">
           {work.student_avatar && (
             <img src={work.student_avatar} alt="" className="author-avatar" />

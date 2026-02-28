@@ -13,50 +13,29 @@ import {
     Upload,
     Users
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Button from '../components/common/Button';
 import './Home.css';
 
-const features = [
-  {
-    icon: Shield,
-    title: 'Similarity Detection',
-    description: 'Advanced multi-algorithm analysis to identify overlapping content across all submissions'
-  },
-  {
-    icon: Database,
-    title: 'Centralized Archive',
-    description: 'A single, searchable repository for all student diploma works across departments and years'
-  },
-  {
-    icon: FileSearch,
-    title: 'Deep Comparison',
-    description: 'TF-IDF, n-gram, and LCS algorithms provide detailed field-by-field similarity breakdowns'
-  },
-  {
-    icon: Users,
-    title: 'Student Profiles',
-    description: 'Each submission is bound to the student\'s account for full traceability'
-  },
-  {
-    icon: Layers,
-    title: 'Admin Approval',
-    description: 'Review workflow ensures only verified works enter the archive, with approve/reject controls'
-  },
-  {
-    icon: Search,
-    title: 'Smart Search',
-    description: 'Full-text search with relevance scoring across titles, descriptions, and technologies'
-  }
+const featureKeys = [
+  { key: 'similarityDetection', icon: Shield },
+  { key: 'centralizedArchive', icon: Database },
+  { key: 'deepComparison', icon: FileSearch },
+  { key: 'studentProfiles', icon: Users },
+  { key: 'adminApproval', icon: Layers },
+  { key: 'smartSearch', icon: Search },
 ];
 
-const steps = [
-  { num: 1, title: 'Submit Your Work', desc: 'Log in as a student and submit your diploma project with details and description', icon: Upload },
-  { num: 2, title: 'Similarity Check', desc: 'The system analyzes your submission against all existing works for originality', icon: Shield },
-  { num: 3, title: 'Admin Review', desc: 'An administrator reviews and approves your work for the public archive', icon: CheckCircle }
+const stepKeys = [
+  { num: 1, key: 'submit', icon: Upload },
+  { num: 2, key: 'similarity', icon: Shield },
+  { num: 3, key: 'review', icon: CheckCircle },
 ];
 
 function Home() {
+  const { t } = useTranslation();
+
   return (
     <div className="home-page">
       {/* Hero Section */}
@@ -69,28 +48,27 @@ function Home() {
             transition={{ duration: 0.6 }}
           >
             <span className="hero-badge">
-              <GraduationCap size={14} /> Diploma Work Archive
+              <GraduationCap size={14} /> {t('home.badge')}
             </span>
             <h1>
-              Student Diploma
-              <span className="gradient-text"> Repository</span>
-              <span className="hero-ampersand"> & </span>
-              Similarity
-              <span className="gradient-text"> Checker</span>
+              {t('home.heroTitle1')}
+              <span className="gradient-text"> {t('home.heroTitle2')}</span>
+              <span className="hero-ampersand">{t('home.heroAmpersand')}</span>
+              {t('home.heroTitle3')}
+              <span className="gradient-text"> {t('home.heroTitle4')}</span>
             </h1>
             <p className="hero-subtitle">
-              A centralized platform for storing, searching, and verifying the originality
-              of student diploma works. Submit your project, check for similarity, and explore the archive.
+              {t('home.subtitle')}
             </p>
             <div className="hero-actions">
               <Link to="/archive">
                 <Button variant="primary" size="lg" icon={ArrowRight} iconPosition="right">
-                  Browse Archive
+                  {t('home.browseArchive')}
                 </Button>
               </Link>
               <Link to="/student-login">
                 <Button variant="outline" size="lg">
-                  Student Login
+                  {t('home.studentLogin')}
                 </Button>
               </Link>
             </div>
@@ -133,9 +111,9 @@ function Home() {
       {/* How It Works */}
       <section className="how-it-works">
         <div className="container">
-          <h2 className="section-title">How It Works</h2>
+          <h2 className="section-title">{t('home.howItWorks')}</h2>
           <div className="steps-grid">
-            {steps.map((step, index) => (
+            {stepKeys.map((step, index) => (
               <motion.div
                 key={step.num}
                 className="step-card"
@@ -145,8 +123,8 @@ function Home() {
                 transition={{ delay: index * 0.15 }}
               >
                 <span className="step-number">{step.num}</span>
-                <h3>{step.title}</h3>
-                <p>{step.desc}</p>
+                <h3>{t(`home.steps.${step.key}.title`)}</h3>
+                <p>{t(`home.steps.${step.key}.description`)}</p>
               </motion.div>
             ))}
           </div>
@@ -156,22 +134,22 @@ function Home() {
       {/* Features */}
       <section className="features">
         <div className="container">
-          <h2 className="section-title">Platform Capabilities</h2>
+          <h2 className="section-title">{t('home.platformCapabilities')}</h2>
           <div className="features-grid">
-            {features.map((feature, index) => (
+            {featureKeys.map((feature, index) => (
               <motion.div
-                key={feature.title}
+                key={feature.key}
                 className="feature-card"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.4, delay: index * 0.05, ease: "easeOut" }}
               >
                 <div className="feature-icon">
                   <feature.icon size={24} />
                 </div>
-                <h3>{feature.title}</h3>
-                <p>{feature.description}</p>
+                <h3>{t(`home.features.${feature.key}.title`)}</h3>
+                <p>{t(`home.features.${feature.key}.description`)}</p>
               </motion.div>
             ))}
           </div>
@@ -187,17 +165,17 @@ function Home() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
           >
-            <h2>Ready to Submit Your Diploma Work?</h2>
-            <p>Log in, submit your project, and have it archived for your university</p>
+            <h2>{t('home.cta.title')}</h2>
+            <p>{t('home.cta.description')}</p>
             <Link to="/student-login">
-              <Button variant="primary" size="lg" icon={ArrowRight} iconPosition="right">
-                Get Started
+              <Button variant="outline" size="lg" className="cta-btn-white" icon={ArrowRight} iconPosition="right">
+                {t('home.cta.button')}
               </Button>
             </Link>
             <div className="cta-features">
-              <span><CheckCircle size={16} /> Similarity checking</span>
-              <span><CheckCircle size={16} /> Full-text search</span>
-              <span><CheckCircle size={16} /> Admin review</span>
+              <span><CheckCircle size={16} /> {t('home.cta.similarityChecking')}</span>
+              <span><CheckCircle size={16} /> {t('home.cta.fullTextSearch')}</span>
+              <span><CheckCircle size={16} /> {t('home.cta.adminReview')}</span>
             </div>
           </motion.div>
         </div>
@@ -216,16 +194,13 @@ function Home() {
               <Palette size={28} />
             </div>
             <div className="secondary-content">
-              <h3>Portfolio Builder</h3>
-              <p>
-                Need a professional portfolio? Use our free builder to create a polished PDF
-                portfolio with your skills, projects, and experience.
-              </p>
+              <h3>{t('home.portfolio.title')}</h3>
+              <p>{t('home.portfolio.description')}</p>
             </div>
             <div className="secondary-actions">
               <Link to="/builder">
                 <Button variant="outline" size="lg" icon={BookOpen} iconPosition="left">
-                  Build Portfolio
+                  {t('home.portfolio.button')}
                 </Button>
               </Link>
             </div>

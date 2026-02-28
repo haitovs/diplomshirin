@@ -1,0 +1,380 @@
+{
+  "header": {
+    "logo": "Diplom Arhiwi",
+    "nav": {
+      "home": "Baş sahypa",
+      "archive": "Arhiw",
+      "submit": "Tabşyrmak",
+      "builder": "Gurluşykçy",
+      "preview": "Syn"
+    },
+    "browseArchive": "Arhiwi gözden geçirmek",
+    "toggleTheme": "Temany üýtgetmek"
+  },
+  "footer": {
+    "brand": "Diplom Arhiwi",
+    "description": "Talyplaryň diplom işlerini saklamak, gözlemek we özboluşlylygyny barlamak üçin merkezleşdirilen platforma.",
+    "product": "Önüm",
+    "resources": "Çeşmeler",
+    "productLinks": {
+      "builder": "Gurluşykçy",
+      "preview": "Syn",
+      "templates": "Şablonlar"
+    },
+    "resourceLinks": {
+      "howItWorks": "Nädip işleýär",
+      "features": "Aýratynlyklar"
+    },
+    "social": {
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "email": "E-poçta"
+    },
+    "copyright": "© {{year}} Diplom Arhiwi. Talyplar üçin ❤ bilen ýasaldy.",
+    "note": "Diplom Taslamasy",
+    "adminLogin": "Dolandyryjy girişi"
+  },
+  "home": {
+    "badge": "Diplom işleriniň arhiwi",
+    "heroTitle1": "Talyp Diplom",
+    "heroTitle2": "Ammary",
+    "heroAmpersand": " we ",
+    "heroTitle3": "Meňzeşlik",
+    "heroTitle4": "Barlagçysy",
+    "subtitle": "Talyplaryň diplom işlerini saklamak, gözlemek we özboluşlylygyny barlamak üçin merkezleşdirilen platforma. Taslamaňyzy tabşyryň, meňzeşligini barlaň we arhiwi öwreniň.",
+    "browseArchive": "Arhiwi gözden geçirmek",
+    "studentLogin": "Talyp girişi",
+    "howItWorks": "Nädip işleýär",
+    "platformCapabilities": "Platformanyň mümkinçilikleri",
+    "features": {
+      "similarityDetection": {
+        "title": "Meňzeşligi ýüze çykarmak",
+        "description": "Ähli tabşyrmalaryň arasynda gabat gelýän mazmuny kesgitlemek üçin ösen köp algoritmli derňew"
+      },
+      "centralizedArchive": {
+        "title": "Merkezleşdirilen arhiw",
+        "description": "Kafedralar we ýyllar boýunça ähli talyplaryň diplom işleri üçin ýeke-täk, gözlegli ammar"
+      },
+      "deepComparison": {
+        "title": "Çuňňur deňeşdirme",
+        "description": "TF-IDF, n-gram we LCS algoritmleri meňzeşligiň meýdança boýunça jikme-jik bölünişini üpjün edýär"
+      },
+      "studentProfiles": {
+        "title": "Talyp profilleri",
+        "description": "Doly yzarlanmagy üçin her bir tabşyrma talybyň hasabyna birikdirilendir"
+      },
+      "adminApproval": {
+        "title": "Dolandyryjynyň tassyklamagy",
+        "description": "Gözden geçiriş iş akymy, tassyklamak/ret etmek gözegçilikleri bilen diňe barlanylan işleriň arhiwe girmegini üpjün edýär"
+      },
+      "smartSearch": {
+        "title": "Akylly gözleg",
+        "description": "Sözbaşylar, düşündirişler we tehnologiýalar boýunça ähmiýetlilik baly bilen doly tekstli gözleg"
+      }
+    },
+    "steps": {
+      "submit": {
+        "title": "Işiňizi tabşyryň",
+        "description": "Talyp hökmünde giriň we jikme-jiklikler hem-de düşündiriş bilen diplom taslamaňyzy tabşyryň"
+      },
+      "similarity": {
+        "title": "Meňzeşligi barlamak",
+        "description": "Ulgam siziň tabşyrmaňyzy özboluşlylyk üçin ähli bar bolan işler bilen deňeşdirýär"
+      },
+      "review": {
+        "title": "Gözden geçirmek",
+        "description": "Dolandyryjy köpçülik arhiwi üçin işiňizi gözden geçirýär we tassyklaýar"
+      }
+    },
+    "cta": {
+      "title": "Diplom işiňizi tabşyrmaga taýýarmy?",
+      "description": "Giriň, taslamaňyzy tabşyryň we uniwersitetiňiz üçin arhiwlediň",
+      "button": "Başla",
+      "similarityChecking": "Meňzeşlik barlagy",
+      "fullTextSearch": "Doly tekstli gözleg",
+      "adminReview": "Dolandyryjynyň gözden geçirmegi"
+    },
+    "portfolio": {
+      "title": "Portfolio gurluşykçy",
+      "description": "Hünärmen portfelini gerekmi? Başarnyklaryňyz, taslamalaryňyz we tejribäňiz bilen kämil PDF portfelini döretmek üçin mugt gurluşykçymyzy ulanyň.",
+      "button": "Portfeli gurmak"
+    }
+  },
+  "archive": {
+    "title": "Diplom işleriniň arhiwi",
+    "subtitle": "Talyplaryň diplom taslamalaryny gözden geçiriň we tapyň",
+    "searchPlaceholder": "Sözbaşy, düşündiriş ýa-da tehnologiýa boýunça gözläň...",
+    "searchButton": "Gözle",
+    "clearSearch": "✕",
+    "allCategories": "Ähli kategoriýalar",
+    "allYears": "Ähli ýyllar",
+    "foundResults": "\"<em>{{query}}</em>\" üçin <strong>{{count}}</strong> netije tapyldy",
+    "noResults": "Diplom işleri tapylmady",
+    "views": "{{count}} gezek görüldi",
+    "match": "{{value}}% gabat gelýär",
+    "ctaTitle": "Paýlaşmaga diplom işiňiz barmy?",
+    "ctaButton": "Işiňizi tabşyryň",
+    "error": "Ýalňyşlyk: {{error}}"
+  },
+  "submit": {
+    "authRequired": "Talyp hökmünde girmeli",
+    "authMessage": "Diplom işini tabşyrmak üçin talyp hasabyňyz bilen girmeli.",
+    "authButton": "Talyp girişi",
+    "backHome": "Baş sahypa dolanmak",
+    "title": "Diplom işini tabşyrmak",
+    "submittingAs": "{{name}} ({{email}}) hökmünde tabşyrmak",
+    "steps": {
+      "basicInfo": "Esasy maglumat",
+      "academicDetails": "Akademiki jikme-jiklikler",
+      "mediaLinks": "Media we siltemeler",
+      "review": "Gözden geçirmek"
+    },
+    "step1": {
+      "heading": "Esasy maglumat",
+      "titleLabel": "Sözbaşy",
+      "titlePlaceholder": "Meselem, IoT ulanyp akylly kampus nawigasiýa ulgamy",
+      "titleRequired": "Sözbaşy hökman",
+      "descriptionLabel": "Gysgaça düşündiriş",
+      "descriptionPlaceholder": "Diplom işiňiziň näme hakdadygy barada gysgaça mazmun (1-3 sözlem)",
+      "descriptionRequired": "Düşündiriş hökman",
+      "categoryLabel": "Kategoriýa",
+      "categoryPlaceholder": "Kategoriýany saýlaň",
+      "categoryRequired": "Kategoriýa hökman",
+      "yearLabel": "Ýyl",
+      "checking": "Meňzeş işler barlanýar..."
+    },
+    "step2": {
+      "heading": "Akademiki jikme-jiklikler",
+      "supervisorLabel": "Ylmy ýolbaşçy / Maslahatçy",
+      "supervisorPlaceholder": "Prof. Dr. Ady Familiýasy",
+      "supervisorRequired": "Ylmy ýolbaşçynyň ady hökman",
+      "defenseDateLabel": "Gorag senesi",
+      "abstractLabel": "Anotasiýa (Gysgaça mazmun)",
+      "abstractPlaceholder": "Diplom işiňiziň meselesini, çemeleşmesini we netijelerini jemleýän resmi anotasiýa beriň...",
+      "abstractRequired": "Anotasiýa hökman",
+      "fullDescriptionLabel": "Doly düşündiriş",
+      "fullDescriptionPlaceholder": "Taslamaňyzyň jikme-jik düşündirişi - aýratynlyklar, arhitektura, ýerine ýetiriş jikme-jiklikleri...",
+      "fullDescriptionHint": "Meýletin, ýöne içgin gözden geçirmek üçin maslahat berilýär",
+      "methodologyLabel": "Metodologiýa",
+      "methodologyPlaceholder": "Ulanylan gözleg metodologiýasyny, gurallary, çarçuwalary we çemeleşmäni beýan ediň...",
+      "keyFindingsLabel": "Esasy netijeler / Açyşlar",
+      "keyFindingsPlaceholder": "Işiňiziň esasy netijelerini, ölçeglerini we netijelerini jemläň..."
+    },
+    "step3": {
+      "heading": "Tehniki we Media",
+      "technologiesLabel": "Ulanylan tehnologiýalar",
+      "technologiesPlaceholder": "React, Node.js, Python, TensorFlow, MongoDB...",
+      "technologiesHint": "Köp tehnologiýalary otur bilen aýryň",
+      "screenshotsLabel": "Ekranyň suratynyň URL-leri",
+      "screenshotsPlaceholder": "https://example.com/image1.jpg, https://...",
+      "screenshotsHint": "Köp URL-leri otur bilen aýryň",
+      "demoUrlLabel": "Demo URL",
+      "demoPlaceholder": "https://your-demo.com",
+      "githubUrlLabel": "GitHub URL",
+      "githubPlaceholder": "https://github.com/...",
+      "documentationUrlLabel": "Dokumentasiýa URL",
+      "documentationPlaceholder": "https://docs.google.com/... ýa-da ýüklenen PDF-e silteme"
+    },
+    "step4": {
+      "heading": "Gözden geçirmek we tabşyrmak",
+      "reviewNotice": "Siziň tabşyrmaňyz garaşylýan ýagdaýa geçer we köpçülik arhiwinde görünmezden ozal dolandyryjy tarapyndan tassyklanmalydyr.",
+      "submitButton": "Gözden geçirmek üçin tabşyr",
+      "submitting": "Tabşyrylýar...",
+      "successTitle": "Tabşyryldy!",
+      "successMessage": "Siziň diplom işiňiz tabşyryldy we dolandyryjynyň gözden geçirmegine garaşýar. Tassyklanandan soň size habar berler.",
+      "browseArchive": "Arhiwi gözden geçirmek",
+      "submitAnother": "Başga birini tabşyrmak"
+    },
+    "nav": {
+      "back": "Yza",
+      "next": "Indiki",
+      "review": "Gözden geçirmek"
+    },
+    "similarity": {
+      "unique": "Sözbaşyňyz üýtgeşik ýaly görünýär - ýakyn meňzeşlikler tapylmady!",
+      "warningTitle": "Meňzeş işler ýüze çykaryldy:",
+      "dangerTitle": "Gaty meňzeş işler tapyldy:",
+      "matchPercent": "{{title}} ({{similarity}}%)"
+    },
+    "submitError": "Tabşyryp bolmady. Täzeden synanyşyň.",
+    "charCount": "{{current}} / {{max}}"
+  },
+  "login": {
+    "title": "Dolandyryjy girişi",
+    "subtitle": "Dolandyryjy panelina girmek üçin giriň",
+    "username": "Ulanyjy ady",
+    "usernamePlaceholder": "Ulanyjy adyny giriziň",
+    "password": "Açar sözi",
+    "passwordPlaceholder": "Açar sözüni giriziň",
+    "signIn": "Girmek",
+    "signingIn": "Girilýär...",
+    "demo": "Demo maglumatlary: admin / admin",
+    "backHome": "← Baş sahypa dolanmak"
+  },
+  "studentLogin": {
+    "title": "Talyp girişi",
+    "subtitle": "Diplom işiňizi tabşyrmak üçin giriň",
+    "email": "E-poçta",
+    "emailPlaceholder": "siziň.epoctanyz@uniwersitet.edu",
+    "password": "Açar sözi",
+    "passwordPlaceholder": "Açar sözüni giriziň",
+    "signIn": "Girmek",
+    "signingIn": "Girilýär...",
+    "demo": "Demo: shirin@university.edu / student123",
+    "adminLogin": "Dolandyryjy girişi",
+    "backHome": "Baş sahypa dolanmak"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Sahypa tapylmady",
+    "message": "Bagyşlaň! Gözleýän sahypaňyz ýok ýa-da göçürilipdir.",
+    "backHome": "Baş sahypa dolanmak",
+    "browseProjects": "Taslamalary gözden geçirmek"
+  },
+  "diplomaDetail": {
+    "backToArchive": "← Arhiwe dolanmak",
+    "about": "Bu taslama hakda",
+    "technologies": "Ulanylan tehnologiýalar",
+    "projectLinks": "Taslama siltemeleri",
+    "author": "Awtor",
+    "loading": "Ýüklenýär...",
+    "error": "Ýalňyşlyk: {{error}}",
+    "notFound": "Iş tapylmady",
+    "liveDemo": "Jangly Demo",
+    "sourceCode": "Çeşme kody",
+    "documentation": "Dokumentasiýa",
+    "views": "{{count}} gezek görüldi",
+    "supervisor": "Ylmy ýolbaşçy",
+    "abstract": "Anotasiýa (Gysgaça mazmun)",
+    "methodology": "Metodologiýa",
+    "keyFindings": "Esasy netijeler",
+    "defenseDate": "Gorag senesi"
+  },
+  "admin": {
+    "sidebar": {
+      "similarityChecker": "Meňzeşlik barlagçysy",
+      "dashboard": "Panel",
+      "projects": "Taslamalar",
+      "students": "Talyplar",
+      "logout": "Çykmak"
+    },
+    "dashboard": {
+      "title": "Panel",
+      "subtitle": "Diplom işleriniň arhiwine syn",
+      "totalWorks": "Jemi işler",
+      "approved": "Tassyklanan",
+      "pending": "Garaşylýan",
+      "students": "Talyplar",
+      "byCategory": "Kategoriýalar boýunça",
+      "byYear": "Ýyllar boýunça",
+      "recentSubmissions": "Soňky tabşyrylanlar",
+      "topViewed": "Iň köp görülen dilleri",
+      "noData": "Häzirlikçe maglumat ýok",
+      "loading": "Panel ýüklenýär...",
+      "error": "Ýalňyşlyk: {{error}}",
+      "viewsCount": "{{count}} gezek görüldi"
+    },
+    "projects": {
+      "title": "Diplom işlerini dolandyrmak",
+      "addNew": "Täze goşmak",
+      "all": "Ählisi",
+      "pending": "Garaşylýan",
+      "approved": "Tassyklanan",
+      "tableTitle": "Sözbaşy",
+      "tableStudent": "Talyp",
+      "tableCategory": "Kategoriýa",
+      "tableYear": "Ýyl",
+      "tableStatus": "Ýagdaýy",
+      "tableViews": "Görülenler",
+      "tableActions": "Hereketler",
+      "noData": "Diplom işleri tapylmady",
+      "editTitle": "Işi üýtgetmek",
+      "addTitle": "Täze iş goşmak",
+      "titleLabel": "Sözbaşy *",
+      "studentLabel": "Talyp *",
+      "selectStudent": "Talyby saýlaň",
+      "categoryLabel": "Kategoriýa *",
+      "yearLabel": "Ýyl",
+      "statusLabel": "Ýagdaýy",
+      "descriptionLabel": "Düşündiriş *",
+      "technologiesLabel": "Tehnologiýalar (otur bilen aýrylan)",
+      "cancel": "Ýatyrmak",
+      "save": "Ýatda saklamak",
+      "confirmDelete": "Siz bu işi öçürmek isleýändigiňize ynamyňyz barmy?",
+      "loading": "Ýüklenýär..."
+    },
+    "students": {
+      "title": "Talyplary dolandyrmak",
+      "addStudent": "Talyp goşmak",
+      "avatar": "Surat",
+      "name": "Ady",
+      "email": "E-poçta",
+      "department": "Bölüm",
+      "year": "Ýyl",
+      "skills": "Başarnyklary",
+      "actions": "Hereketler",
+      "noData": "Talyplar tapylmady",
+      "editTitle": "Talyby üýtgetmek",
+      "addTitle": "Täze talyp goşmak",
+      "nameLabel": "Ady *",
+      "emailLabel": "E-poçta *",
+      "departmentLabel": "Bölüm",
+      "graduationYearLabel": "Tamamlaýan ýyly",
+      "bioLabel": "Gysgaça maglumat (Bio)",
+      "skillsLabel": "Başarnyklary (otur bilen aýrylan)",
+      "skillsPlaceholder": "React, Python, Machine Learning...",
+      "linkedinLabel": "LinkedIn",
+      "githubLabel": "GitHub",
+      "cancel": "Ýatyrmak",
+      "save": "Ýatda saklamak",
+      "confirmDelete": "Siz bu talyby öçürmek isleýändigiňize ynamyňyz barmy?",
+      "loading": "Ýüklenýär..."
+    },
+    "similarityChecker": {
+      "title": "Meňzeşlik barlagçysy",
+      "subtitle": "Diplom işleriniň meňzeşligini tutuş maglumat bazasyndaky işler bilen barlaň",
+      "inputSection": "Girizilen iş",
+      "textInput": "Tekst girizmek",
+      "fileUpload": "Faýl ýüklemek",
+      "chooseFile": ".txt faýlyny saýlaň",
+      "fileLoaded": "Faýl ýüklendi ({{length}} belgi)",
+      "titleLabel": "Sözbaşy",
+      "titlePlaceholder": "Diplom işiniň sözbaşysyny giriziň...",
+      "descriptionLabel": "Düşündiriş",
+      "descriptionPlaceholder": "Düşündiriş ýa-da anotasiýany giriziň...",
+      "fullTextLabel": "Doly tekst",
+      "fullTextPlaceholder": "Diplom işiniň doly tekstini goýuň...",
+      "compareAgainst": "Deňeşdirilýän ýer",
+      "allWorks": "Ähli işler",
+      "approvedOnly": "Diňe tassyklananlar",
+      "approvedPending": "Tassyklanan + Garaşylýan",
+      "checkButton": "Meňzeşligi barla",
+      "checking": "Barlanýar...",
+      "clearButton": "Arassala",
+      "noInput": "Iň bolmanda sözbaşy, düşündiriş ýa-da doly tekst giriziň",
+      "fileReadError": "Faýly okap bolmady",
+      "verdicts": {
+        "highSimilarity": "Ýokary meňzeşlik ýüze çykaryldy",
+        "mediumSimilarity": "Aram meňzeşlik tapyldy",
+        "lowSimilarity": "Pes meňzeşlik tapyldy",
+        "unique": "Üýtgeşik ýaly görünýär",
+        "noData": "Deňeşdirmek üçin iş ýok"
+      },
+      "maxSimilarity": "Iň ýokary meňzeşlik: {{value}}%",
+      "comparedAgainst": "Deňeşdirildi: {{count}} iş bilen",
+      "highRisk": "{{count}} ýokary töwekgelçilik",
+      "mediumRisk": "{{count}} aram töwekgelçilik",
+      "lowRisk": "{{count}} pes töwekgelçilik",
+      "matchingWorks": "Gabat gelýän işler ({{count}})",
+      "noMatches": "10% çäginden ýokary gabat gelme tapylmady. Bu iş üýtgeşik ýaly görünýär!",
+      "fieldTitle": "Sözbaşy",
+      "fieldDescription": "Düşündiriş",
+      "fieldCombined": "Birleşdirilen"
+    }
+  },
+  "common": {
+    "loading": "Ýüklenýär...",
+    "error": "Ýalňyşlyk",
+    "required": "*"
+  }
+}

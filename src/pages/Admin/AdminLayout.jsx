@@ -5,11 +5,13 @@ import {
     Shield,
     Users
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Navigate, NavLink, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import './Admin.css';
 
 function AdminLayout() {
+  const { t } = useTranslation();
   const { isAuthenticated, isAdmin, user, logout } = useAuth();
 
   if (!isAuthenticated || !isAdmin) {
@@ -17,10 +19,10 @@ function AdminLayout() {
   }
 
   const navItems = [
-    { to: '/admin', icon: Shield, label: 'Similarity Checker', end: true },
-    { to: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-    { to: '/admin/projects', icon: FolderOpen, label: 'Projects' },
-    { to: '/admin/students', icon: Users, label: 'Students' },
+    { to: '/admin', icon: Shield, label: t('admin.sidebar.similarityChecker'), end: true },
+    { to: '/admin/dashboard', icon: LayoutDashboard, label: t('admin.sidebar.dashboard') },
+    { to: '/admin/projects', icon: FolderOpen, label: t('admin.sidebar.projects') },
+    { to: '/admin/students', icon: Users, label: t('admin.sidebar.students') },
   ];
 
   return (
@@ -53,7 +55,7 @@ function AdminLayout() {
         <div className="sidebar-footer">
           <button className="sidebar-link" onClick={logout}>
             <LogOut size={20} />
-            <span>Logout</span>
+            <span>{t('admin.sidebar.logout')}</span>
           </button>
         </div>
       </aside>

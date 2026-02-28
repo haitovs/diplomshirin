@@ -284,11 +284,25 @@
 .cta h2 {
   font-size: var(--font-size-2xl);
   margin-bottom: var(--space-4);
+  color: white;
 }
 
 .cta p {
   opacity: 0.9;
   margin-bottom: var(--space-8);
+  color: white;
+}
+
+.cta-btn-white {
+  background: white !important;
+  color: var(--primary-600) !important;
+  border-color: white !important;
+  font-weight: var(--font-weight-semibold);
+}
+
+.cta-btn-white:hover {
+  background: rgba(255, 255, 255, 0.9) !important;
+  transform: translateY(-2px);
 }
 
 .cta-features {

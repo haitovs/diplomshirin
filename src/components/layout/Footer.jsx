@@ -1,26 +1,28 @@
 import { FolderOpen, Github, Heart, Mail, Twitter } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import './Footer.css';
 
 function Footer() {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
     product: [
-      { label: 'Builder', to: '/builder' },
-      { label: 'Preview', to: '/preview' },
-      { label: 'Templates', to: '/builder' }
+      { label: t('footer.productLinks.builder'), to: '/builder' },
+      { label: t('footer.productLinks.preview'), to: '/preview' },
+      { label: t('footer.productLinks.templates'), to: '/builder' }
     ],
     resources: [
-      { label: 'How It Works', to: '/#how-it-works' },
-      { label: 'Features', to: '/#features' }
+      { label: t('footer.resourceLinks.howItWorks'), to: '/#how-it-works' },
+      { label: t('footer.resourceLinks.features'), to: '/#features' }
     ]
   };
 
   const socialLinks = [
-    { icon: Github, href: 'https://github.com', label: 'GitHub' },
-    { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
-    { icon: Mail, href: 'mailto:contact@portfoliobuilder.com', label: 'Email' }
+    { icon: Github, href: 'https://github.com', label: t('footer.social.github') },
+    { icon: Twitter, href: 'https://twitter.com', label: t('footer.social.twitter') },
+    { icon: Mail, href: 'mailto:contact@portfoliobuilder.com', label: t('footer.social.email') }
   ];
 
   return (
@@ -33,11 +35,10 @@ function Footer() {
               <div className="logo-icon">
                 <FolderOpen size={24} />
               </div>
-              <span className="logo-text">PortfolioBuilder</span>
+              <span className="logo-text">{t('footer.brand')}</span>
             </Link>
             <p className="footer-description">
-              Create professional portfolios in minutes. Free, no account required,
-              export to PDF instantly.
+              {t('footer.description')}
             </p>
             <div className="footer-social">
               {socialLinks.map(({ icon: Icon, href, label }) => (
@@ -58,7 +59,7 @@ function Footer() {
           {/* Links */}
           <div className="footer-links">
             <div className="footer-column">
-              <h4 className="footer-title">Product</h4>
+              <h4 className="footer-title">{t('footer.product')}</h4>
               <ul className="footer-list">
                 {footerLinks.product.map(link => (
                   <li key={link.label}>
@@ -69,7 +70,7 @@ function Footer() {
             </div>
 
             <div className="footer-column">
-              <h4 className="footer-title">Resources</h4>
+              <h4 className="footer-title">{t('footer.resources')}</h4>
               <ul className="footer-list">
                 {footerLinks.resources.map(link => (
                   <li key={link.label}>
@@ -84,12 +85,12 @@ function Footer() {
         {/* Bottom */}
         <div className="footer-bottom">
           <p className="footer-copyright">
-            © {currentYear} PortfolioBuilder. Made with <Heart size={14} className="heart-icon" /> for students.
+            {t('footer.copyright', { year: currentYear })} <Heart size={14} className="heart-icon" />
           </p>
           <p className="footer-note">
-            Diploma Project
+            {t('footer.note')}
           </p>
-          <Link to="/login" className="admin-link">Admin Login</Link>
+          <Link to="/login" className="admin-link">{t('footer.adminLogin')}</Link>
         </div>
       </div>
     </footer>

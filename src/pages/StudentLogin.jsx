@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion';
 import { AlertCircle, Eye, EyeOff, GraduationCap } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { useAuth } from '../context/AuthContext';
 import './StudentLogin.css';
 
 function StudentLogin() {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -40,8 +42,8 @@ function StudentLogin() {
           <div className="login-icon student-icon">
             <GraduationCap size={28} />
           </div>
-          <h1>Student Login</h1>
-          <p>Sign in to submit your diploma work</p>
+          <h1>{t('studentLogin.title')}</h1>
+          <p>{t('studentLogin.subtitle')}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">
@@ -53,27 +55,27 @@ function StudentLogin() {
           )}
 
           <div className="form-group">
-            <label htmlFor="student-email">Email</label>
+            <label htmlFor="student-email">{t('studentLogin.email')}</label>
             <input
               type="email"
               id="student-email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="your.email@university.edu"
+              placeholder={t('studentLogin.emailPlaceholder')}
               className="input"
               required
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="student-password">Password</label>
+            <label htmlFor="student-password">{t('studentLogin.password')}</label>
             <div className="password-input">
               <input
                 type={showPassword ? 'text' : 'password'}
                 id="student-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter password"
+                placeholder={t('studentLogin.passwordPlaceholder')}
                 className="input"
                 required
               />
@@ -94,21 +96,21 @@ function StudentLogin() {
             loading={isLoading}
             className="login-submit"
           >
-            Sign In
+            {t('studentLogin.signIn')}
           </Button>
         </form>
 
         <div className="login-footer">
           <p className="demo-credentials">
-            Demo: <code>shirin@university.edu</code> / <code>student123</code>
+            {t('studentLogin.demo')}
           </p>
           <div className="login-links">
             <Link to="/login" className="back-home">
-              Admin Login
+              {t('studentLogin.adminLogin')}
             </Link>
             <span className="link-separator">|</span>
             <Link to="/" className="back-home">
-              Back to Home
+              {t('studentLogin.backHome')}
             </Link>
           </div>
         </div>
