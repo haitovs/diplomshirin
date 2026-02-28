@@ -5,9 +5,20 @@ import { useTheme } from '../../context/ThemeContext';
 import Button from '../common/Button';
 import './Header.css';
 
+const LANGS = [
+  { code: 'en', label: 'EN' },
+  { code: 'tk', label: 'TK' },
+  { code: 'ru', label: 'RU' },
+];
+
 function Header() {
   const { theme, toggleTheme } = useTheme();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  function changeLang(code) {
+    i18n.changeLanguage(code);
+    localStorage.setItem('lang', code);
+  }
 
   const navLinks = [
     { to: '/', label: t('header.nav.home') },
@@ -42,6 +53,19 @@ function Header() {
 
         {/* Actions */}
         <div className="header-actions">
+          {/* Language Switcher */}
+          <div className="lang-switcher">
+            {LANGS.map(({ code, label }) => (
+              <button
+                key={code}
+                className={`lang-btn ${i18n.language === code ? 'active' : ''}`}
+                onClick={() => changeLang(code)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
           <button
             className="theme-toggle"
             onClick={toggleTheme}

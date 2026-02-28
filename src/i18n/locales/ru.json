@@ -1,0 +1,380 @@
+{
+  "header": {
+    "logo": "Архив Дипломов",
+    "nav": {
+      "home": "Главная",
+      "archive": "Архив",
+      "submit": "Отправить",
+      "builder": "Конструктор",
+      "preview": "Предпросмотр"
+    },
+    "browseArchive": "Просмотр архива",
+    "toggleTheme": "Переключить тему"
+  },
+  "footer": {
+    "brand": "Архив Дипломов",
+    "description": "Централизованная платформа для хранения, поиска и проверки на оригинальность студенческих дипломных работ.",
+    "product": "Продукт",
+    "resources": "Ресурсы",
+    "productLinks": {
+      "builder": "Конструктор",
+      "preview": "Предпросмотр",
+      "templates": "Шаблоны"
+    },
+    "resourceLinks": {
+      "howItWorks": "Как это работает",
+      "features": "Возможности"
+    },
+    "social": {
+      "github": "GitHub",
+      "twitter": "Twitter",
+      "email": "Написать"
+    },
+    "copyright": "© {{year}} Архив Дипломов. Сделано с ❤ для студентов.",
+    "note": "Дипломный проект",
+    "adminLogin": "Вход для администратора"
+  },
+  "home": {
+    "badge": "Архив Дипломных Работ",
+    "heroTitle1": "Студенческий Дипломный",
+    "heroTitle2": "Репозиторий",
+    "heroAmpersand": " и ",
+    "heroTitle3": "Проверка",
+    "heroTitle4": "на Плагиат",
+    "subtitle": "Централизованная платформа для хранения, поиска и проверки на оригинальность студенческих дипломных работ. Отправьте свой проект, проверьте на сходство и исследуйте архив.",
+    "browseArchive": "Просмотр архива",
+    "studentLogin": "Вход для студентов",
+    "howItWorks": "Как это работает",
+    "platformCapabilities": "Возможности платформы",
+    "features": {
+      "similarityDetection": {
+        "title": "Обнаружение сходства",
+        "description": "Продвинутый мульти-алгоритмический анализ для выявления совпадающего контента среди всех работ"
+      },
+      "centralizedArchive": {
+        "title": "Централизованный архив",
+        "description": "Единый репозиторий с поиском для всех студенческих дипломных работ по кафедрам и годам"
+      },
+      "deepComparison": {
+        "title": "Глубокое сравнение",
+        "description": "Алгоритмы TF-IDF, n-gram и LCS обеспечивают детальный анализ сходства по полям"
+      },
+      "studentProfiles": {
+        "title": "Профили студентов",
+        "description": "Каждая отправленная работа привязана к аккаунту студента для полной отслеживаемости"
+      },
+      "adminApproval": {
+        "title": "Одобрение администратором",
+        "description": "Процесс рецензирования гарантирует, что только проверенные работы попадают в архив"
+      },
+      "smartSearch": {
+        "title": "Умный поиск",
+        "description": "Полнотекстовый поиск с оценкой релевантности по названиям, описаниям и технологиям"
+      }
+    },
+    "steps": {
+      "submit": {
+        "title": "Отправьте свою работу",
+        "description": "Войдите как студент и отправьте свой дипломный проект с деталями и описанием"
+      },
+      "similarity": {
+        "title": "Проверка на сходство",
+        "description": "Система анализирует вашу работу на оригинальность среди всех существующих"
+      },
+      "review": {
+        "title": "Проверка администратором",
+        "description": "Администратор проверяет и одобряет вашу работу для публичного архива"
+      }
+    },
+    "cta": {
+      "title": "Готовы отправить свою дипломную работу?",
+      "description": "Войдите, отправьте свой проект и сохраните его в архиве университета",
+      "button": "Начать",
+      "similarityChecking": "Проверка на оригинальность",
+      "fullTextSearch": "Полнотекстовый поиск",
+      "adminReview": "Проверка администратором"
+    },
+    "portfolio": {
+      "title": "Конструктор портфолио",
+      "description": "Нужно профессиональное портфолио? Используйте наш бесплатный конструктор для создания потрясающего PDF портфолио с вашими навыками, проектами и опытом.",
+      "button": "Создать портфолио"
+    }
+  },
+  "archive": {
+    "title": "Архив Дипломных Работ",
+    "subtitle": "Просматривайте и находите дипломные проекты студентов",
+    "searchPlaceholder": "Поиск по названию, описанию или технологиям...",
+    "searchButton": "Найти",
+    "clearSearch": "✕",
+    "allCategories": "Все категории",
+    "allYears": "Все года",
+    "foundResults": "Найдено <strong>{{count}}</strong> результатов по запросу \"<em>{{query}}</em>\"",
+    "noResults": "Дипломные работы не найдены",
+    "views": "{{count}} просмотров",
+    "match": "{{value}}% совпадений",
+    "ctaTitle": "Хотите поделиться дипломной работой?",
+    "ctaButton": "Отправить работу",
+    "error": "Ошибка: {{error}}"
+  },
+  "submit": {
+    "authRequired": "Требуется авторизация студента",
+    "authMessage": "Вы должны войти в систему с учетной записью студента, чтобы отправить дипломную работу.",
+    "authButton": "Вход для студентов",
+    "backHome": "На главную",
+    "title": "Отправка дипломной работы",
+    "submittingAs": "Отправка от имени {{name}} ({{email}})",
+    "steps": {
+      "basicInfo": "Основная информация",
+      "academicDetails": "Академические детали",
+      "mediaLinks": "Медиа и ссылки",
+      "review": "Проверка"
+    },
+    "step1": {
+      "heading": "Основная информация",
+      "titleLabel": "Название",
+      "titlePlaceholder": "например: Умная система навигации по кампусу с помощью IoT",
+      "titleRequired": "Название обязательно",
+      "descriptionLabel": "Краткое описание",
+      "descriptionPlaceholder": "Короткий итог о чем ваша дипломная работа (1-3 предложения)",
+      "descriptionRequired": "Описание обязательно",
+      "categoryLabel": "Категория",
+      "categoryPlaceholder": "Выберите категорию",
+      "categoryRequired": "Категория обязательна",
+      "yearLabel": "Год",
+      "checking": "Проверка на похожие работы..."
+    },
+    "step2": {
+      "heading": "Академические детали",
+      "supervisorLabel": "Научный руководитель / Консультант",
+      "supervisorPlaceholder": "Проф. Д-р Имя Фамилия",
+      "supervisorRequired": "Имя научного руководителя обязательно",
+      "defenseDateLabel": "Дата защиты",
+      "abstractLabel": "Аннотация",
+      "abstractPlaceholder": "Предоставьте формальную аннотацию, обобщающую проблему, подход и результаты вашей работы...",
+      "abstractRequired": "Аннотация обязательна",
+      "fullDescriptionLabel": "Полное описание",
+      "fullDescriptionPlaceholder": "Детальное описание вашего проекта — функции, архитектура, детали реализации...",
+      "fullDescriptionHint": "Необязательно, но рекомендуется для тщательной проверки",
+      "methodologyLabel": "Методология",
+      "methodologyPlaceholder": "Опишите методологию исследования, инструменты, фреймворки и используемый подход...",
+      "keyFindingsLabel": "Ключевые выводы / Результаты",
+      "keyFindingsPlaceholder": "Опишите основные результаты, метрики и итоги вашей работы..."
+    },
+    "step3": {
+      "heading": "Технологии и Медиа",
+      "technologiesLabel": "Используемые технологии",
+      "technologiesPlaceholder": "React, Node.js, Python, TensorFlow, MongoDB...",
+      "technologiesHint": "Разделяйте несколько технологий запятыми",
+      "screenshotsLabel": "URL-адреса скриншотов",
+      "screenshotsPlaceholder": "https://example.com/image1.jpg, https://...",
+      "screenshotsHint": "Разделяйте несколько ссылок запятыми",
+      "demoUrlLabel": "Ссылка на демо",
+      "demoPlaceholder": "https://your-demo.com",
+      "githubUrlLabel": "Ссылка на GitHub",
+      "githubPlaceholder": "https://github.com/...",
+      "documentationUrlLabel": "Ссылка на документацию",
+      "documentationPlaceholder": "https://docs.google.com/... или ссылка на загруженный PDF"
+    },
+    "step4": {
+      "heading": "Проверка и Отправка",
+      "reviewNotice": "Ваша отправка перейдет в состояние 'Ожидание' и должна быть одобрена администратором перед появлением в публичном архиве.",
+      "submitButton": "Отправить на проверку",
+      "submitting": "Отправка...",
+      "successTitle": "Работа получена!",
+      "successMessage": "Ваша дипломная работа отправлена и ожидает проверки администратором. Вы будете уведомлены после ее одобрения.",
+      "browseArchive": "Просмотр архива",
+      "submitAnother": "Отправить еще одну"
+    },
+    "nav": {
+      "back": "Назад",
+      "next": "Далее",
+      "review": "Обзор"
+    },
+    "similarity": {
+      "unique": "Ваше название кажется уникальным — близких совпадений не найдено!",
+      "warningTitle": "Обнаружены похожие работы:",
+      "dangerTitle": "Найдены очень похожие работы:",
+      "matchPercent": "{{title}} ({{similarity}}%)"
+    },
+    "submitError": "Не удалось отправить. Пожалуйста, попробуйте снова.",
+    "charCount": "{{current}} / {{max}}"
+  },
+  "login": {
+    "title": "Вход для администратора",
+    "subtitle": "Войдите для доступа к панели администратора",
+    "username": "Имя пользователя",
+    "usernamePlaceholder": "Введите имя пользователя",
+    "password": "Пароль",
+    "passwordPlaceholder": "Введите пароль",
+    "signIn": "Войти",
+    "signingIn": "Вход...",
+    "demo": "Демо данные: admin / admin",
+    "backHome": "← На главную"
+  },
+  "studentLogin": {
+    "title": "Вход для студентов",
+    "subtitle": "Войдите, чтобы отправить вашу дипломную работу",
+    "email": "Электронная почта",
+    "emailPlaceholder": "your.email@university.edu",
+    "password": "Пароль",
+    "passwordPlaceholder": "Введите пароль",
+    "signIn": "Войти",
+    "signingIn": "Вход...",
+    "demo": "Демо: shirin@university.edu / student123",
+    "adminLogin": "Вход для администратора",
+    "backHome": "На главную"
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Страница не найдена",
+    "message": "Упс! Страница, которую вы ищете, не существует или была перемещена.",
+    "backHome": "На главную",
+    "browseProjects": "Смотреть проекты"
+  },
+  "diplomaDetail": {
+    "backToArchive": "← Вернуться в архив",
+    "about": "Об этом проекте",
+    "technologies": "Используемые технологии",
+    "projectLinks": "Ссылки проекта",
+    "author": "Автор",
+    "loading": "Загрузка...",
+    "error": "Ошибка: {{error}}",
+    "notFound": "Работа не найдена",
+    "liveDemo": "Живое демо",
+    "sourceCode": "Исходный код",
+    "documentation": "Документация",
+    "views": "{{count}} просмотров",
+    "supervisor": "Научный руководитель",
+    "abstract": "Аннотация",
+    "methodology": "Методология",
+    "keyFindings": "Ключевые выводы",
+    "defenseDate": "Дата защиты"
+  },
+  "admin": {
+    "sidebar": {
+      "similarityChecker": "Проверка оригинальности",
+      "dashboard": "Панель",
+      "projects": "Проекты",
+      "students": "Студенты",
+      "logout": "Выйти"
+    },
+    "dashboard": {
+      "title": "Панель",
+      "subtitle": "Обзор архива дипломных работ",
+      "totalWorks": "Всего работ",
+      "approved": "Одобрено",
+      "pending": "В ожидании",
+      "students": "Студентов",
+      "byCategory": "По категории",
+      "byYear": "По году",
+      "recentSubmissions": "Недавние отправки",
+      "topViewed": "Самые просматриваемые работы",
+      "noData": "Пока нет данных",
+      "loading": "Загрузка панели...",
+      "error": "Ошибка: {{error}}",
+      "viewsCount": "{{count}} просмотров"
+    },
+    "projects": {
+      "title": "Управление дипломными работами",
+      "addNew": "Добавить новую",
+      "all": "Все",
+      "pending": "В ожидании",
+      "approved": "Одобренные",
+      "tableTitle": "Название",
+      "tableStudent": "Студент",
+      "tableCategory": "Категория",
+      "tableYear": "Год",
+      "tableStatus": "Статус",
+      "tableViews": "Просмотры",
+      "tableActions": "Действия",
+      "noData": "Дипломные работы не найдены",
+      "editTitle": "Редактировать работу",
+      "addTitle": "Добавить новую работу",
+      "titleLabel": "Название *",
+      "studentLabel": "Студент *",
+      "selectStudent": "Выберите студента",
+      "categoryLabel": "Категория *",
+      "yearLabel": "Год",
+      "statusLabel": "Статус",
+      "descriptionLabel": "Описание *",
+      "technologiesLabel": "Технологии (через запятую)",
+      "cancel": "Отмена",
+      "save": "Сохранить",
+      "confirmDelete": "Вы уверены, что хотите удалить эту работу?",
+      "loading": "Загрузка..."
+    },
+    "students": {
+      "title": "Управление студентами",
+      "addStudent": "Добавить студента",
+      "avatar": "Аватар",
+      "name": "Имя",
+      "email": "Почта",
+      "department": "Кафедра",
+      "year": "Год",
+      "skills": "Навыки",
+      "actions": "Действия",
+      "noData": "Студенты не найдены",
+      "editTitle": "Редактировать студента",
+      "addTitle": "Добавить нового студента",
+      "nameLabel": "Имя *",
+      "emailLabel": "Почта *",
+      "departmentLabel": "Кафедра",
+      "graduationYearLabel": "Год выпуска",
+      "bioLabel": "О себе",
+      "skillsLabel": "Навыки (через запятую)",
+      "skillsPlaceholder": "React, Python, Machine Learning...",
+      "linkedinLabel": "LinkedIn",
+      "githubLabel": "GitHub",
+      "cancel": "Отмена",
+      "save": "Сохранить",
+      "confirmDelete": "Вы уверены, что хотите удалить этого студента?",
+      "loading": "Загрузка..."
+    },
+    "similarityChecker": {
+      "title": "Проверка оригинальности",
+      "subtitle": "Проверка дипломных работ на оригинальность по всей базе данных",
+      "inputSection": "Ввод работы",
+      "textInput": "Ввод текста",
+      "fileUpload": "Загрузка файла",
+      "chooseFile": "Выберите файл .txt",
+      "fileLoaded": "Файл загружен ({{length}} символов)",
+      "titleLabel": "Название",
+      "titlePlaceholder": "Введите название дипломной работы...",
+      "descriptionLabel": "Описание",
+      "descriptionPlaceholder": "Введите описание или аннотацию...",
+      "fullTextLabel": "Полный текст",
+      "fullTextPlaceholder": "Вставьте полный текст дипломной работы...",
+      "compareAgainst": "Сравнить с",
+      "allWorks": "Все работы",
+      "approvedOnly": "Только одобренные",
+      "approvedPending": "Одобренные + Ожидающие",
+      "checkButton": "Проверить на оригинальность",
+      "checking": "Проверка...",
+      "clearButton": "Очистить",
+      "noInput": "Пожалуйста, введите хотя бы название, описание или полный текст",
+      "fileReadError": "Не удалось прочитать файл",
+      "verdicts": {
+        "highSimilarity": "Обнаружено высокое сходство",
+        "mediumSimilarity": "Найдено среднее сходство",
+        "lowSimilarity": "Найдено низкое сходство",
+        "unique": "Кажется уникальным",
+        "noData": "Нет работ для сравнения"
+      },
+      "maxSimilarity": "Максимальное сходство: {{value}}%",
+      "comparedAgainst": "Сравнено с: {{count}} работами",
+      "highRisk": "{{count}} высокий риск",
+      "mediumRisk": "{{count}} средний риск",
+      "lowRisk": "{{count}} низкий риск",
+      "matchingWorks": "Совпадающие работы ({{count}})",
+      "noMatches": "Не найдено совпадений выше порога 10%. Эта работа кажется уникальной!",
+      "fieldTitle": "Название",
+      "fieldDescription": "Описание",
+      "fieldCombined": "Комбинированный"
+    }
+  },
+  "common": {
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "required": "*"
+  }
+}
