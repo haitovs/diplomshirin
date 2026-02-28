@@ -362,11 +362,7 @@
       },
       "maxSimilarity": "Max similarity: {{value}}%",
       "comparedAgainst": "Compared against: {{count}} works",
-      "hig
-      
-      
-      
-      hRisk": "{{count}} high risk",
+      "highRisk": "{{count}} high risk",
       "mediumRisk": "{{count}} medium risk",
       "lowRisk": "{{count}} low risk",
       "matchingWorks": "Matching Works ({{count}})",
