@@ -107,10 +107,38 @@ export const statsAPI = {
   getDashboard: () => fetchAPI('/stats'),
 };
 
+// Upload API
+export const uploadAPI = {
+  screenshots: (files) => {
+    const formData = new FormData();
+    files.forEach(f => formData.append('screenshots', f));
+    return fetch(`${API_BASE}/upload/screenshots`, {
+      method: 'POST',
+      body: formData,
+    }).then(r => {
+      if (!r.ok) throw new Error('Upload failed');
+      return r.json();
+    });
+  },
+
+  document: (file) => {
+    const formData = new FormData();
+    formData.append('document', file);
+    return fetch(`${API_BASE}/upload/document`, {
+      method: 'POST',
+      body: formData,
+    }).then(r => {
+      if (!r.ok) throw new Error('Upload failed');
+      return r.json();
+    });
+  },
+};
+
 export default {
   diplomaWorks: diplomaWorksAPI,
   students: studentsAPI,
   search: searchAPI,
   auth: authAPI,
   stats: statsAPI,
+  upload: uploadAPI,
 };

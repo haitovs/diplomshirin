@@ -25,14 +25,15 @@ router.get('/', (req, res) => {
       query += ' AND dw.year = ?';
       params.push(parseInt(year));
     }
-    if (status) {
+    if (status && status !== 'all') {
       query += ' AND dw.status = ?';
       params.push(status);
-    } else {
+    } else if (!status) {
       // Default: only approved works for public
       query += ' AND dw.status = ?';
       params.push('approved');
     }
+    // status === 'all' → no filter, return all statuses
     if (student_id) {
       query += ' AND dw.student_id = ?';
       params.push(parseInt(student_id));

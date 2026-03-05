@@ -101,10 +101,10 @@ function ManageStudents() {
                   </td>
                   <td className="actions-cell">
                     <button className="action-btn edit" onClick={() => { setEditingStudent(student); setShowForm(true); }} title={t('admin.students.editTitle')}>
-                      <Edit size={18} />
+                      <Edit size={24} />
                     </button>
                     <button className="action-btn delete" onClick={() => handleDelete(student.id)} title={t('admin.students.confirmDelete')}>
-                      <Trash2 size={18} />
+                      <Trash2 size={24} />
                     </button>
                   </td>
                 </tr>

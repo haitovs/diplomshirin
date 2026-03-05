@@ -101,6 +101,10 @@
   overflow-y: auto;
 }
 
+.admin-main h1 {
+  margin-top: 0;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
   .admin-sidebar {

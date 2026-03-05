@@ -1,7 +1,11 @@
 .preview-page {
   min-height: calc(100vh - var(--header-height));
   padding: var(--space-6);
-  background: var(--bg-tertiary);
+  background: #f3f4f6;
+}
+
+[data-theme="dark"] .preview-page {
+  background: #1e1e2e;
 }
 
 .preview-actions {

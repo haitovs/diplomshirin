@@ -11,6 +11,7 @@ const studentsRoutes = require('./routes/students');
 const searchRoutes = require('./routes/search');
 const statsRoutes = require('./routes/stats');
 const authRoutes = require('./routes/auth');
+const uploadRoutes = require('./routes/upload');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -19,12 +20,16 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+// Serve uploaded files
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // API Routes
 app.use('/api/diploma-works', diplomaWorksRoutes);
 app.use('/api/students', studentsRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/stats', statsRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/upload', uploadRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

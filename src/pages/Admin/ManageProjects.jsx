@@ -87,7 +87,7 @@ function ManageProjects() {
       <div className="page-header">
         <h1>{t('admin.projects.title')}</h1>
         <button className="add-btn" onClick={() => { setEditingWork(null); setShowForm(true); }}>
-          <Plus size={20} /> {t('admin.projects.addNew')}
+          <Plus size={24} /> {t('admin.projects.addNew')}
         </button>
       </div>
 
@@ -145,18 +145,18 @@ function ManageProjects() {
                     {work.status === 'pending' && (
                       <>
                         <button className="action-btn approve" onClick={() => handleApprove(work.id)} title="Approve">
-                          <CheckCircle size={20} />
+                          <CheckCircle size={24} />
                         </button>
                         <button className="action-btn reject" onClick={() => handleReject(work.id)} title="Reject">
-                          <XCircle size={20} />
+                          <XCircle size={24} />
                         </button>
                       </>
                     )}
                     <button className="action-btn edit" onClick={() => { setEditingWork(work); setShowForm(true); }} title="Edit">
-                      <Edit size={20} />
+                      <Edit size={24} />
                     </button>
                     <button className="action-btn delete" onClick={() => handleDelete(work.id)} title="Delete">
-                      <Trash2 size={20} />
+                      <Trash2 size={24} />
                     </button>
                   </td>
                 </tr>

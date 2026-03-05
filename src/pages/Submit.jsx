@@ -10,18 +10,21 @@ import {
   Code,
   FileText,
   GraduationCap,
+  Image,
   Link as LinkIcon,
   Loader2,
   Lock,
   Send,
+  Upload,
   User,
+  X,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Button from '../components/common/Button';
 import { useAuth } from '../context/AuthContext';
-import { diplomaWorksAPI, searchAPI } from '../services/api';
+import { diplomaWorksAPI, searchAPI, uploadAPI } from '../services/api';
 import './Submit.css';
 
 const STEP_CONFIG = [
@@ -47,6 +50,13 @@ function Submit() {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState({});
+
+  const [screenshotFiles, setScreenshotFiles] = useState([]);
+  const [screenshotPreviews, setScreenshotPreviews] = useState([]);
+  const [docFile, setDocFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const screenshotInputRef = useRef(null);
+  const docInputRef = useRef(null);
 
   const [form, setForm] = useState({
     title: '',
@@ -119,16 +129,64 @@ function Submit() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  function handleScreenshotFiles(e) {
+    const files = Array.from(e.target.files);
+    const validFiles = files.filter(f => f.type.startsWith('image/'));
+    if (validFiles.length === 0) return;
+
+    setScreenshotFiles(prev => [...prev, ...validFiles]);
+
+    // Generate previews
+    validFiles.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        setScreenshotPreviews(prev => [...prev, { name: file.name, url: ev.target.result }]);
+      };
+      reader.readAsDataURL(file);
+    });
+    e.target.value = '';
+  }
+
+  function removeScreenshot(index) {
+    setScreenshotFiles(prev => prev.filter((_, i) => i !== index));
+    setScreenshotPreviews(prev => prev.filter((_, i) => i !== index));
+  }
+
+  function handleDocFile(e) {
+    const file = e.target.files[0];
+    if (file) setDocFile(file);
+    e.target.value = '';
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     setSubmitting(true);
 
     try {
+      let screenshotUrls = form.screenshots ? form.screenshots.split(',').map(s => s.trim()).filter(Boolean) : [];
+      let docUrl = form.documentation_url || '';
+
+      // Upload screenshot files if any
+      if (screenshotFiles.length > 0) {
+        setUploading(true);
+        const uploadResult = await uploadAPI.screenshots(screenshotFiles);
+        screenshotUrls = [...screenshotUrls, ...uploadResult.urls];
+      }
+
+      // Upload document file if any
+      if (docFile) {
+        setUploading(true);
+        const uploadResult = await uploadAPI.document(docFile);
+        docUrl = uploadResult.url;
+      }
+      setUploading(false);
+
       const data = {
         ...form,
         student_id: user.id,
         technologies: form.technologies.split(',').map(t => t.trim()).filter(Boolean),
-        screenshots: form.screenshots.split(',').map(s => s.trim()).filter(Boolean),
+        screenshots: screenshotUrls,
+        documentation_url: docUrl,
       };
       await diplomaWorksAPI.create(data);
       setSubmitted(true);
@@ -136,6 +194,7 @@ function Submit() {
       setErrors({ submit: err.message });
     } finally {
       setSubmitting(false);
+      setUploading(false);
     }
   }
 
@@ -192,6 +251,9 @@ function Submit() {
                 key_findings: '', defense_date: '', technologies: '', screenshots: '',
                 demo_url: '', github_url: '', documentation_url: '',
               });
+              setScreenshotFiles([]);
+              setScreenshotPreviews([]);
+              setDocFile(null);
               setSimilarityCheck(null);
               setErrors({});
             }}>
@@ -459,14 +521,52 @@ function Submit() {
                 </div>
 
                 <div className="field">
-                  <label>{t('submit.step3.screenshotsLabel')}</label>
+                  <label><Image size={13} /> {t('submit.step3.screenshotsLabel')}</label>
                   <input
-                    type="text"
-                    value={form.screenshots}
-                    onChange={e => updateForm('screenshots', e.target.value)}
-                    placeholder={t('submit.step3.screenshotsPlaceholder')}
+                    ref={screenshotInputRef}
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleScreenshotFiles}
+                    style={{ display: 'none' }}
                   />
-                  <span className="field-hint">{t('submit.step3.screenshotsHint')}</span>
+                  <div
+                    className="upload-zone"
+                    onClick={() => screenshotInputRef.current?.click()}
+                    onDragOver={e => { e.preventDefault(); e.currentTarget.classList.add('dragover'); }}
+                    onDragLeave={e => e.currentTarget.classList.remove('dragover')}
+                    onDrop={e => {
+                      e.preventDefault();
+                      e.currentTarget.classList.remove('dragover');
+                      const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+                      if (files.length > 0) {
+                        setScreenshotFiles(prev => [...prev, ...files]);
+                        files.forEach(file => {
+                          const reader = new FileReader();
+                          reader.onload = (ev) => {
+                            setScreenshotPreviews(prev => [...prev, { name: file.name, url: ev.target.result }]);
+                          };
+                          reader.readAsDataURL(file);
+                        });
+                      }
+                    }}
+                  >
+                    <Upload size={20} />
+                    <span>{t('submit.step3.uploadScreenshots')}</span>
+                    <small>{t('submit.step3.uploadHint')}</small>
+                  </div>
+                  {screenshotPreviews.length > 0 && (
+                    <div className="upload-previews">
+                      {screenshotPreviews.map((preview, i) => (
+                        <div key={i} className="upload-preview-item">
+                          <img src={preview.url} alt={preview.name} />
+                          <button type="button" className="remove-preview" onClick={() => removeScreenshot(i)}>
+                            <X size={14} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="field-row two-col">
@@ -493,11 +593,37 @@ function Submit() {
                 <div className="field">
                   <label><FileText size={13} /> {t('submit.step3.documentationUrlLabel')}</label>
                   <input
-                    type="url"
-                    value={form.documentation_url}
-                    onChange={e => updateForm('documentation_url', e.target.value)}
-                    placeholder={t('submit.step3.documentationPlaceholder')}
+                    ref={docInputRef}
+                    type="file"
+                    accept=".pdf,.doc,.docx,.txt"
+                    onChange={handleDocFile}
+                    style={{ display: 'none' }}
                   />
+                  <div
+                    className="upload-zone upload-zone-sm"
+                    onClick={() => docInputRef.current?.click()}
+                    onDragOver={e => { e.preventDefault(); e.currentTarget.classList.add('dragover'); }}
+                    onDragLeave={e => e.currentTarget.classList.remove('dragover')}
+                    onDrop={e => {
+                      e.preventDefault();
+                      e.currentTarget.classList.remove('dragover');
+                      const file = e.dataTransfer.files[0];
+                      if (file) setDocFile(file);
+                    }}
+                  >
+                    <Upload size={18} />
+                    <span>{docFile ? docFile.name : t('submit.step3.uploadDocument')}</span>
+                    <small>{t('submit.step3.uploadDocHint')}</small>
+                  </div>
+                  {docFile && (
+                    <div className="uploaded-file-info">
+                      <FileText size={14} />
+                      <span>{docFile.name}</span>
+                      <button type="button" className="remove-file" onClick={() => setDocFile(null)}>
+                        <X size={14} />
+                      </button>
+                    </div>
+                  )}
                 </div>
 
                 <div className="form-nav">
@@ -530,6 +656,8 @@ function Submit() {
                   {form.demo_url && <ReviewCard label="Demo URL" value={form.demo_url} />}
                   {form.github_url && <ReviewCard label="GitHub" value={form.github_url} />}
                   {form.documentation_url && <ReviewCard label="Documentation" value={form.documentation_url} />}
+                  {screenshotFiles.length > 0 && <ReviewCard label="Screenshots" value={`${screenshotFiles.length} file(s) to upload`} />}
+                  {docFile && <ReviewCard label="Document" value={docFile.name} />}
                 </div>
 
                 <div className="review-notice">
@@ -541,8 +669,8 @@ function Submit() {
                   <Button type="button" variant="secondary" icon={ChevronLeft} onClick={goBack}>
                     {t('submit.nav.back')}
                   </Button>
-                  <Button type="submit" variant="primary" icon={Send} iconPosition="right" loading={submitting}>
-                    {submitting ? t('submit.step4.submitting') : t('submit.step4.submitButton')}
+                  <Button type="submit" variant="primary" icon={Send} iconPosition="right" loading={submitting || uploading}>
+                    {uploading ? t('submit.step4.uploading') : submitting ? t('submit.step4.submitting') : t('submit.step4.submitButton')}
                   </Button>
                 </div>
               </motion.div>
