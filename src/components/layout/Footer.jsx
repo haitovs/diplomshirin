@@ -1,10 +1,12 @@
 import { FolderOpen, Github, Heart, Mail, Twitter } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Footer.css';
 
 function Footer() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const currentYear = new Date().getFullYear();
 
   const footerLinks = {
@@ -72,27 +74,35 @@ function Footer() {
             <div className="footer-column">
               <h4 className="footer-title">{t('footer.resources')}</h4>
               <ul className="footer-list">
-                {footerLinks.resources.map(link => (
-                  <li key={link.label}>
-                    <a
-                      href={link.to}
-                      className="footer-link"
-                      onClick={(e) => {
-                        const hash = link.to.split('#')[1];
-                        if (hash) {
+                {footerLinks.resources.map(link => {
+                  const hash = link.to.split('#')[1];
+                  return (
+                    <li key={link.label}>
+                      <a
+                        href={link.to}
+                        className="footer-link"
+                        onClick={(e) => {
+                          if (!hash) return;
                           e.preventDefault();
-                          if (window.location.pathname !== '/') {
-                            window.location.href = link.to;
+                          const scrollToHash = () => {
+                            const el = document.getElementById(hash);
+                            if (el) {
+                              el.scrollIntoView({ behavior: 'smooth' });
+                            }
+                          };
+                          if (location.pathname === '/') {
+                            scrollToHash();
                           } else {
-                            document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+                            navigate('/');
+                            setTimeout(scrollToHash, 300);
                           }
-                        }
-                      }}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                        }}
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>
