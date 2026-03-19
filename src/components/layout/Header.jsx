@@ -1,6 +1,7 @@
-import { GraduationCap, Moon, Sun } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, NavLink } from 'react-router-dom';
+import logoImg from '../../assets/logo.png';
 import { useTheme } from '../../context/ThemeContext';
 import Button from '../common/Button';
 import './Header.css';
@@ -34,7 +35,7 @@ function Header() {
       <div className="container header-container">
         {/* Logo */}
         <Link to="/" className="logo">
-          <GraduationCap size={24} />
+          <img src={logoImg} alt="Logo" className="logo-img" />
           <span className="logo-text">{t('header.logo')}</span>
         </Link>
 

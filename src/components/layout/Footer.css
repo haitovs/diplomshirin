@@ -35,6 +35,13 @@
   background: var(--gradient-primary);
   color: white;
   border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.footer-logo .logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .footer-logo .logo-text {

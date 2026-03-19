@@ -1,4 +1,5 @@
-import { FolderOpen, Github, Heart, Mail, Twitter } from 'lucide-react';
+import { Github, Heart, Mail, Twitter } from 'lucide-react';
+import logoImg from '../../assets/logo.png';
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Footer.css';
@@ -35,7 +36,7 @@ function Footer() {
           <div className="footer-brand">
             <Link to="/" className="footer-logo">
               <div className="logo-icon">
-                <FolderOpen size={24} />
+                <img src={logoImg} alt="Logo" className="logo-img" />
               </div>
               <span className="logo-text">{t('footer.brand')}</span>
             </Link>
