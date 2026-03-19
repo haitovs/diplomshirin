@@ -50,6 +50,17 @@
   overflow: hidden;
 }
 
+/* Force all text inside preview to use hardcoded dark colors regardless of theme */
+.portfolio-preview h1,
+.portfolio-preview h2,
+.portfolio-preview h3,
+.portfolio-preview h4,
+.portfolio-preview p,
+.portfolio-preview span,
+.portfolio-preview div {
+  color: inherit;
+}
+
 /* Header */
 .portfolio-header {
   padding: var(--space-10);
@@ -80,12 +91,22 @@
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-light);
   margin: 0 0 var(--space-2);
+  color: white !important;
 }
 
 .portfolio-title {
   font-size: var(--font-size-lg);
   opacity: 0.9;
   margin: 0 0 var(--space-4);
+  color: white !important;
+}
+
+.portfolio-header,
+.portfolio-header h1,
+.portfolio-header p,
+.portfolio-header span,
+.portfolio-header div {
+  color: white !important;
 }
 
 .contact-info {
@@ -227,6 +248,7 @@
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   margin: 0;
+  color: #1f2937 !important;
 }
 
 .timeline-item .company {
@@ -276,6 +298,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  color: #1f2937 !important;
 }
 
 .project-item h3 a {
@@ -306,6 +329,7 @@
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
   margin: 0;
+  color: #1f2937 !important;
 }
 
 .education-item p {
@@ -334,6 +358,7 @@
 .cert-item h4 {
   font-weight: var(--font-weight-semibold);
   margin: 0 0 var(--space-1);
+  color: #1f2937 !important;
 }
 
 .cert-item p {

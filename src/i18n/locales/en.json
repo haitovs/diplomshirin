@@ -6,7 +6,8 @@
       "archive": "Archive",
       "submit": "Submit",
       "builder": "Builder",
-      "preview": "Preview"
+      "preview": "Preview",
+      "guide": "Guide"
     },
     "browseArchive": "Browse Archive",
     "toggleTheme": "Toggle theme"
@@ -375,6 +376,105 @@
       "fieldTitle": "Title",
       "fieldDescription": "Description",
       "fieldCombined": "Combined"
+    }
+  },
+  "guide": {
+    "badge": "Documentation",
+    "title": "How the Platform Works",
+    "subtitle": "A complete guide to every page in the Diploma Work Archive system — what each page does and why it exists.",
+    "publicPages": {
+      "title": "Public Pages",
+      "subtitle": "Pages accessible to all users — students and visitors"
+    },
+    "adminPages": {
+      "title": "Admin Panel",
+      "subtitle": "Administrative tools for managing the diploma archive"
+    },
+    "adminSection": "Admin Panel",
+    "whatItDoes": "What it does: ",
+    "whyNeeded": "Why it's needed: ",
+    "pages": {
+      "home": {
+        "title": "Home Page",
+        "what": "The landing page introduces the platform, highlights key features like similarity detection and centralized archiving, and shows the step-by-step submission process.",
+        "why": "First impressions matter. This page helps new visitors understand the purpose of the system and guides them to the right action — browsing the archive or submitting their work."
+      },
+      "archive": {
+        "title": "Diploma Archive",
+        "what": "Displays all approved diploma works in a searchable, filterable grid. Users can browse by category, year, technology, and search by keywords.",
+        "why": "The core of the system. Students can discover existing research to avoid duplication, find inspiration, and faculty can review the body of completed work."
+      },
+      "submit": {
+        "title": "Submit Work",
+        "what": "A multi-step form where authenticated students submit their diploma work — basic info, academic details (supervisor, abstract, methodology), and media files (screenshots, documents).",
+        "why": "Provides a structured way to collect standardized diploma submissions. The multi-step design reduces errors and the similarity check prevents duplicate topics."
+      },
+      "builder": {
+        "title": "Portfolio Builder",
+        "what": "An interactive editor where students build a personal portfolio with sections for skills, projects, experience, education, and more. Includes export to JSON and PDF.",
+        "why": "Helps students create professional portfolios that showcase their work beyond just the diploma. Useful for job applications and professional networking."
+      },
+      "preview": {
+        "title": "Portfolio Preview",
+        "what": "Renders the portfolio as a clean, printable document with customizable templates and accent colors. Supports PDF download.",
+        "why": "Students need to see how their portfolio looks before sharing it. The preview ensures the final output is professional and print-ready."
+      }
+    },
+    "admin": {
+      "dashboard": {
+        "title": "Dashboard",
+        "what": "Shows key statistics — total works, pending reviews, student count, and category/year distribution charts. Lists recent submissions and top-viewed works.",
+        "why": "Gives administrators a quick overview of the system's health and activity. Helps prioritize which submissions to review first."
+      },
+      "projects": {
+        "title": "Manage Projects",
+        "what": "A table of all diploma works with filtering by status (All, Pending, Approved). Administrators can approve, reject, edit, or delete submissions.",
+        "why": "Quality control is essential. This page ensures only verified, high-quality diploma works appear in the public archive. The approval workflow prevents spam and incomplete submissions."
+      },
+      "students": {
+        "title": "Manage Students",
+        "what": "Lists all registered students with their department, graduation year, and skills. Admins can add, edit, or remove student accounts.",
+        "why": "Student data management is needed to link diploma works to their authors and maintain accurate records of who submitted what."
+      },
+      "similarity": {
+        "title": "Similarity Checker",
+        "what": "Compares a given title and description against all existing diploma works using text similarity algorithms. Returns matching works with similarity scores.",
+        "why": "Prevents duplicate research topics. Before approving a new submission, administrators can verify that the topic hasn't already been covered by another student."
+      }
+    },
+    "footerNote": "This platform was built as a diploma project to digitize and streamline the management of university diploma works, making research accessible and preventing topic duplication."
+  },
+  "builder": {
+    "title": "Portfolio Builder",
+    "preview": "Preview",
+    "loadSample": "Load Sample",
+    "reset": "Reset",
+    "resetConfirm": "Reset portfolio to empty? This cannot be undone.",
+    "import": "Import",
+    "exportJSON": "Export JSON",
+    "downloadPDF": "Download PDF",
+    "generating": "Generating...",
+    "sections": {
+      "basics": "Basic Info",
+      "skills": "Skills",
+      "projects": "Projects",
+      "experience": "Experience",
+      "education": "Education",
+      "certifications": "Certifications",
+      "languages": "Languages",
+      "socialLinks": "Social Links",
+      "settings": "Settings"
+    },
+    "descriptions": {
+      "basics": "Add your personal information and professional summary",
+      "skills": "List your technical and soft skills with proficiency levels",
+      "projects": "Showcase your best projects with descriptions and links",
+      "experience": "Add your work history and professional experience",
+      "education": "Include your educational background and achievements",
+      "certifications": "Add professional certifications and courses",
+      "languages": "List languages you speak and your proficiency",
+      "socialLinks": "Connect your social media and professional profiles",
+      "settings": "Customize your portfolio appearance and template"
     }
   },
   "common": {

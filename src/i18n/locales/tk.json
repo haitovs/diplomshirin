@@ -6,7 +6,8 @@
       "archive": "Arhiw",
       "submit": "Tabşyrmak",
       "builder": "Gurluşykçy",
-      "preview": "Syn"
+      "preview": "Syn",
+      "guide": "Gollanma"
     },
     "browseArchive": "Arhiwi gözden geçirmek",
     "toggleTheme": "Temany üýtgetmek"
@@ -375,6 +376,105 @@
       "fieldTitle": "Sözbaşy",
       "fieldDescription": "Düşündiriş",
       "fieldCombined": "Birleşdirilen"
+    }
+  },
+  "guide": {
+    "badge": "Gollanma",
+    "title": "Platforma nädip işleýär",
+    "subtitle": "Diplom işleriniň arhiwi ulgamynyň her sahypasy barada doly gollanma — her sahypanyň näme edýändigini we näme üçin zerurdygyny düşündirýär.",
+    "publicPages": {
+      "title": "Açyk sahypalar",
+      "subtitle": "Ähli ulanyjylar üçin elýeterli sahypalar — talyplar we myhmanlar"
+    },
+    "adminPages": {
+      "title": "Dolandyryş paneli",
+      "subtitle": "Diplom arhiwini dolandyrmak üçin administratiw gurallar"
+    },
+    "adminSection": "Dolandyryş paneli",
+    "whatItDoes": "Näme edýär: ",
+    "whyNeeded": "Näme üçin gerek: ",
+    "pages": {
+      "home": {
+        "title": "Baş sahypa",
+        "what": "Baş sahypa platformany tanyşdyrýar, meňzeşlik barlagy we merkezleşdirilen arhiwleme ýaly esasy aýratynlyklary görkezýär we ädimme-ädim tabşyryş prosesini suratlandyrýar.",
+        "why": "Birinji täsir möhümdir. Bu sahypa täze gelýänlere ulgamyň maksadyna düşünmäge we dogry hereket etmäge — arhiwi görmäge ýa-da işini tabşyrmaga kömek edýär."
+      },
+      "archive": {
+        "title": "Diplom arhiwi",
+        "what": "Tassyklanan ähli diplom işlerini gözleg we süzgüçli gözenek görnüşinde görkezýär. Ulanyjylar kategoriýa, ýyl, tehnologiýa boýunça süzüp, açar sözler bilen gözläp bilerler.",
+        "why": "Ulgamyň esasy bölegi. Talyplar gaýtalanmanyň öňüni almak, ylham tapmak üçin bar bolan gözlegleri tapyp bilerler, mugallymlar bolsa ýerine ýetirilen işleri gözden geçirip bilerler."
+      },
+      "submit": {
+        "title": "Iş tabşyrmak",
+        "what": "Tassyklanan talyplar diplom işlerini tabşyrýan köp ädimli forma — esasy maglumat, akademiki maglumatlar (ylmy ýolbaşçy, gysgaça beýan, usulýet) we media faýllar (ekran suratlary, resminamalar).",
+        "why": "Standartlaşdyrylan diplom tabşyryklaryny gurluşly ýygnamak üçin üpjün edýär. Köp ädimli dizaýn ýalňyşlyklary azaldýar we meňzeşlik barlagy gaýtalanýan temalaryň öňüni alýar."
+      },
+      "builder": {
+        "title": "Portfolio gurluşykçy",
+        "what": "Talyplar başarnyklar, taslamalar, iş tejribesi, bilim we başgalar üçin bölümler bilen şahsy portfolio döredýän interaktiw redaktor. JSON we PDF eksportyny öz içine alýar.",
+        "why": "Talyplara diňe diplom işinden daşgary işlerini görkezmek üçin professional portfolio döretmäge kömek edýär. Iş ýüz tutmalary we professional aragatnaşyk üçin peýdaly."
+      },
+      "preview": {
+        "title": "Portfolio syn",
+        "what": "Portfoliony sazlanyp bolýan şablonlar we reňk aksentleri bilen arassa, çap edilip bolýan resminama hökmünde görkezýär. PDF ýüklemeýi goldaýar.",
+        "why": "Talyplar portfolionyň paýlaşmazdan öňüň nähili görünýändigini görmeli. Syn netijäniň professional we çapa taýýardygyny üpjün edýär."
+      }
+    },
+    "admin": {
+      "dashboard": {
+        "title": "Dolandyryş paneli",
+        "what": "Esasy statistikalary görkezýär — jemi işler, garaşylýan synlar, talyp sany we kategoriýa/ýyl paýlanyşy diagrammalary. Soňky tabşyryklary we iň köp görülen işleri sanawlaýar.",
+        "why": "Administratorlara ulgamyň ýagdaýy we işjeňligi barada çalt syn berýär. Haýsy tabşyryklaryň ilki gözden geçirilmelidigini kesgitlemäge kömek edýär."
+      },
+      "projects": {
+        "title": "Taslamalary dolandyrmak",
+        "what": "Ähli diplom işleriniň status boýunça süzgüçli tablisasy (Hemmesi, Garaşylýan, Tassyklanan). Administratorlar tabşyryklary tassyklap, ret edip, redaktirläp ýa-da pozup bilerler.",
+        "why": "Hil gözegçiligi zerurdyr. Bu sahypa diňe barlagdan geçen, ýokary hilli diplom işleriniň açyk arhiwde görünmegini üpjün edýär."
+      },
+      "students": {
+        "title": "Talyplary dolandyrmak",
+        "what": "Ähli hasaba alnan talyplary kafedra, uçuryş ýyly we başarnyklary bilen sanawlaýar. Administratorlar hasaplary goşup, redaktirläp ýa-da pozup bilerler.",
+        "why": "Talyp maglumatlaryny dolandyrmak diplom işlerini awtorlary bilen baglanyşdyrmak we takyk ýazgylary ýöretmek üçin zerurdyr."
+      },
+      "similarity": {
+        "title": "Meňzeşlik barlagçysy",
+        "what": "Berlen at we beýany ähli bar bolan diplom işleri bilen tekst meňzeşlik algoritmleri ulanyp deňeşdirýär. Meňzeşlik ballary bilen gabat gelýän işleri gaýtarýar.",
+        "why": "Gaýtalanýan gözleg temalarynyň öňüni alýar. Täze tabşyrygy tassyklamazdan öň, administratorlar temanyň öň beýleki talyp tarapyndan beýan edilmändigini barlap bilerler."
+      }
+    },
+    "footerNote": "Bu platforma uniwersitet diplom işleriniň dolandyrylmagyny sanlylaşdyrmak we tertipleşdirmek, gözlegleri elýeterli etmek we temalaryň gaýtalanmagynyň öňüni almak üçin diplom taslamasy hökmünde döredildi."
+  },
+  "builder": {
+    "title": "Portfolio gurluşykçy",
+    "preview": "Syn",
+    "loadSample": "Nusga ýükle",
+    "reset": "Arassala",
+    "resetConfirm": "Portfolio arassalansyn? Bu hereketi yzyna gaýtaryp bolmaz.",
+    "import": "Import",
+    "exportJSON": "JSON eksport",
+    "downloadPDF": "PDF ýükle",
+    "generating": "Döredilýär...",
+    "sections": {
+      "basics": "Esasy maglumat",
+      "skills": "Başarnyklar",
+      "projects": "Taslamalar",
+      "experience": "Iş tejribesi",
+      "education": "Bilim",
+      "certifications": "Şahadatnamalar",
+      "languages": "Diller",
+      "socialLinks": "Sosial ulgamlar",
+      "settings": "Sazlamalar"
+    },
+    "descriptions": {
+      "basics": "Şahsy maglumatlaryňyzy we hünär gysgaça beýanyňyzy goşuň",
+      "skills": "Tehniki we ýumşak başarnyklaryňyzy derejesi bilen görkeziň",
+      "projects": "Iň gowy taslamalaryňyzy beýany we salgylanmalary bilen görkeziň",
+      "experience": "Iş taryhyňyzy we hünär tejribäňizi goşuň",
+      "education": "Bilim maglumatlaryňyzy we üstünlikleriňizi goşuň",
+      "certifications": "Hünär şahadatnamalaryňyzy we okuwlaryňyzy goşuň",
+      "languages": "Bilýän dilleriňizi we derejesini görkeziň",
+      "socialLinks": "Sosial ulgam profillerinizi birikdiriň",
+      "settings": "Portfolio görünüşini we şablonyny sazlaň"
     }
   },
   "common": {

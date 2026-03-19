@@ -7,6 +7,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import Builder from './pages/Builder';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Guide from './pages/Guide';
 import NotFound from './pages/NotFound';
 import Preview from './pages/Preview';
 // Diploma Archive pages
@@ -47,6 +48,7 @@ function App() {
                   <Route path="archive" element={<Archive />} />
                   <Route path="archive/:id" element={<DiplomaDetail />} />
                   <Route path="submit" element={<Submit />} />
+                  <Route path="guide" element={<Guide />} />
                   {/* Portfolio showcase routes */}
                   <Route path="projects" element={<Projects />} />
                   <Route path="projects/:slug" element={<ProjectDetail />} />

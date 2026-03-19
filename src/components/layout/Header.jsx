@@ -25,7 +25,8 @@ function Header() {
     { to: '/archive', label: t('header.nav.archive') },
     { to: '/submit', label: t('header.nav.submit') },
     { to: '/builder', label: t('header.nav.builder') },
-    { to: '/preview', label: t('header.nav.preview') }
+    { to: '/preview', label: t('header.nav.preview') },
+    { to: '/guide', label: t('header.nav.guide') }
   ];
 
   return (

@@ -20,6 +20,7 @@ import {
     X
 } from 'lucide-react';
 import { useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import BasicInfoEditor from '../components/builder/BasicInfoEditor';
 import CertificationsEditor from '../components/builder/CertificationsEditor';
@@ -33,16 +34,16 @@ import SocialLinksEditor from '../components/builder/SocialLinksEditor';
 import { usePortfolio } from '../context/PortfolioContext';
 import './Builder.css';
 
-const sections = [
-  { id: 'basics', label: 'Basic Info', icon: User },
-  { id: 'skills', label: 'Skills', icon: Code },
-  { id: 'projects', label: 'Projects', icon: FolderOpen },
-  { id: 'experience', label: 'Experience', icon: Briefcase },
-  { id: 'education', label: 'Education', icon: GraduationCap },
-  { id: 'certifications', label: 'Certifications', icon: Award },
-  { id: 'languages', label: 'Languages', icon: Languages },
-  { id: 'socialLinks', label: 'Social Links', icon: LinkIcon },
-  { id: 'settings', label: 'Settings', icon: Settings }
+const SECTION_IDS = [
+  { id: 'basics', icon: User },
+  { id: 'skills', icon: Code },
+  { id: 'projects', icon: FolderOpen },
+  { id: 'experience', icon: Briefcase },
+  { id: 'education', icon: GraduationCap },
+  { id: 'certifications', icon: Award },
+  { id: 'languages', icon: Languages },
+  { id: 'socialLinks', icon: LinkIcon },
+  { id: 'settings', icon: Settings }
 ];
 
 const sectionComponents = {
@@ -58,6 +59,7 @@ const sectionComponents = {
 };
 
 function Builder() {
+  const { t } = useTranslation();
   const {
     activeSection,
     setActiveSection,
@@ -74,7 +76,7 @@ function Builder() {
   const fileInputRef = useRef(null);
 
   const ActiveEditor = sectionComponents[activeSection];
-  const activeLabel = sections.find(s => s.id === activeSection)?.label;
+  const activeLabel = t(`builder.sections.${activeSection}`);
 
   const handleSectionChange = (sectionId) => {
     setActiveSection(sectionId);
@@ -196,7 +198,7 @@ function Builder() {
         <div className="sidebar-header">
           <Link to="/" className="sidebar-logo">
             <FolderOpen size={24} />
-            <span>Portfolio Builder</span>
+            <span>{t('builder.title')}</span>
           </Link>
           <button
             className="sidebar-toggle desktop-only"
@@ -207,14 +209,14 @@ function Builder() {
         </div>
 
         <nav className="sidebar-sections">
-          {sections.map(({ id, label, icon: Icon }) => (
+          {SECTION_IDS.map(({ id, icon: Icon }) => (
             <button
               key={id}
               className={`section-btn ${activeSection === id ? 'active' : ''}`}
               onClick={() => handleSectionChange(id)}
             >
               <Icon size={20} />
-              <span className="section-label">{label}</span>
+              <span className="section-label">{t(`builder.sections.${id}`)}</span>
               {id === 'basics' && portfolio.basics.name && (
                 <span className="section-check">✓</span>
               )}
@@ -225,7 +227,7 @@ function Builder() {
         <div className="sidebar-actions">
           <Link to="/preview" className="action-btn preview-btn">
             <Eye size={18} />
-            <span>Preview</span>
+            <span>{t('builder.preview')}</span>
           </Link>
         </div>
 
@@ -236,19 +238,19 @@ function Builder() {
             title="Load sample portfolio"
           >
             <FileJson size={16} />
-            <span>Load Sample</span>
+            <span>{t('builder.loadSample')}</span>
           </button>
           <button
             className="footer-btn danger"
             onClick={() => {
-              if (confirm('Reset portfolio to empty? This cannot be undone.')) {
+              if (confirm(t('builder.resetConfirm'))) {
                 resetPortfolio();
               }
             }}
-            title="Reset to empty"
+            title={t('builder.reset')}
           >
             <RotateCcw size={16} />
-            <span>Reset</span>
+            <span>{t('builder.reset')}</span>
           </button>
         </div>
       </aside>
@@ -276,22 +278,22 @@ function Builder() {
               onChange={handleImportJSON}
               style={{ display: 'none' }}
             />
-            <button className="toolbar-btn" onClick={() => fileInputRef.current?.click()} title="Import JSON">
+            <button className="toolbar-btn" onClick={() => fileInputRef.current?.click()} title={t('builder.import')}>
               <Upload size={16} />
-              <span>Import</span>
+              <span>{t('builder.import')}</span>
             </button>
-            <button className="toolbar-btn" onClick={exportJSON} title="Export JSON">
+            <button className="toolbar-btn" onClick={exportJSON} title={t('builder.exportJSON')}>
               <FileJson size={16} />
-              <span>Export JSON</span>
+              <span>{t('builder.exportJSON')}</span>
             </button>
             <button
               className="toolbar-btn toolbar-btn-primary"
               onClick={handleDownloadPDF}
               disabled={isExporting}
-              title="Download PDF"
+              title={t('builder.downloadPDF')}
             >
               {isExporting ? <Loader2 size={16} className="spin" /> : <Download size={16} />}
-              <span>{isExporting ? 'Generating...' : 'Download PDF'}</span>
+              <span>{isExporting ? t('builder.generating') : t('builder.downloadPDF')}</span>
             </button>
           </div>
         </div>
@@ -309,7 +311,7 @@ function Builder() {
               <div className="editor-header">
                 <h1>{activeLabel}</h1>
                 <p className="editor-description">
-                  {getEditorDescription(activeSection)}
+                  {t(`builder.descriptions.${activeSection}`)}
                 </p>
               </div>
 
@@ -320,21 +322,6 @@ function Builder() {
       </main>
     </div>
   );
-}
-
-function getEditorDescription(section) {
-  const descriptions = {
-    basics: 'Add your personal information and professional summary',
-    skills: 'List your technical and soft skills with proficiency levels',
-    projects: 'Showcase your best projects with descriptions and links',
-    experience: 'Add your work history and professional experience',
-    education: 'Include your educational background and achievements',
-    certifications: 'Add professional certifications and courses',
-    languages: 'List languages you speak and your proficiency',
-    socialLinks: 'Connect your social media and professional profiles',
-    settings: 'Customize your portfolio appearance and template'
-  };
-  return descriptions[section] || '';
 }
 
 export default Builder;
