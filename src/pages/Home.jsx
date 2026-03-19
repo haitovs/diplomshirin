@@ -109,7 +109,7 @@ function Home() {
       </section>
 
       {/* How It Works */}
-      <section className="how-it-works">
+      <section id="how-it-works" className="how-it-works">
         <div className="container">
           <h2 className="section-title">{t('home.howItWorks')}</h2>
           <div className="steps-grid">
@@ -132,7 +132,7 @@ function Home() {
       </section>
 
       {/* Features */}
-      <section className="features">
+      <section id="features" className="features">
         <div className="container">
           <h2 className="section-title">{t('home.platformCapabilities')}</h2>
           <div className="features-grid">

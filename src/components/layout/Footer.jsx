@@ -74,7 +74,23 @@ function Footer() {
               <ul className="footer-list">
                 {footerLinks.resources.map(link => (
                   <li key={link.label}>
-                    <Link to={link.to} className="footer-link">{link.label}</Link>
+                    <a
+                      href={link.to}
+                      className="footer-link"
+                      onClick={(e) => {
+                        const hash = link.to.split('#')[1];
+                        if (hash) {
+                          e.preventDefault();
+                          if (window.location.pathname !== '/') {
+                            window.location.href = link.to;
+                          } else {
+                            document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }
+                      }}
+                    >
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>
