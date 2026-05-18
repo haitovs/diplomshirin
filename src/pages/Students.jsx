@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Users } from 'lucide-react';
+import { Inbox, Users } from 'lucide-react';
 import StudentCard from '../components/features/StudentCard';
 import { useData } from '../context/DataContext';
 import './Students.css';
@@ -8,7 +8,12 @@ function Students() {
   const { students } = useData();
 
   return (
-    <div className="students-page">
+    <motion.div
+      className="students-page"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="container">
         {/* Header */}
         <div className="page-header">
@@ -24,20 +29,30 @@ function Students() {
         </div>
 
         {/* Students Grid */}
-        <div className="students-grid">
-          {students.map((student, index) => (
-            <motion.div
-              key={student.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
-            >
-              <StudentCard student={student} />
-            </motion.div>
-          ))}
-        </div>
+        {students.length > 0 ? (
+          <div className="students-grid">
+            {students.map((student, index) => (
+              <motion.div
+                key={student.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+              >
+                <StudentCard student={student} />
+              </motion.div>
+            ))}
+          </div>
+        ) : (
+          <div className="empty-state">
+            <div className="empty-icon">
+              <Inbox size={48} />
+            </div>
+            <h3>No students yet</h3>
+            <p>Check back soon as new student profiles are added.</p>
+          </div>
+        )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

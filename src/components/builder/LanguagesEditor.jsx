@@ -61,7 +61,7 @@ function LanguagesEditor() {
   return (
     <div className="editor-form">
       {languages.length > 0 ? (
-        <div className="items-list">
+        <div className="items-list items-list-2col">
           {languages.map((lang) => (
             <div key={lang.id} className="item-card">
               <div className="item-header">

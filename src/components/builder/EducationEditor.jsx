@@ -58,7 +58,7 @@ function EducationEditor() {
   return (
     <div className="editor-form">
       {education.length > 0 ? (
-        <div className="items-list">
+        <div className="items-list items-list-2col">
           {education.map((edu) => (
             <div key={edu.id} className="item-card">
               <div className="item-header">

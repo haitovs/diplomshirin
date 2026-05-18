@@ -56,7 +56,7 @@ function CertificationsEditor() {
   return (
     <div className="editor-form">
       {certifications.length > 0 ? (
-        <div className="items-list">
+        <div className="items-list items-list-2col">
           {certifications.map((cert) => (
             <div key={cert.id} className="item-card">
               <div className="item-header">

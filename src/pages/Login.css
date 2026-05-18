@@ -12,9 +12,9 @@
   max-width: 420px;
   padding: var(--space-10);
   background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  border: var(--card-border);
   border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-lg);
 }
 
 /* Header */
@@ -36,12 +36,16 @@
 }
 
 .login-header h1 {
-  font-size: var(--font-size-2xl);
+  font-size: var(--fs-3xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.015em;
   margin-bottom: var(--space-2);
 }
 
 .login-header p {
   color: var(--text-secondary);
+  font-size: var(--fs-base);
+  line-height: var(--line-height-body);
   margin: 0;
 }
 

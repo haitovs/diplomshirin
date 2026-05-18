@@ -2,10 +2,10 @@
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  background: var(--bg-secondary);
+  background: color-mix(in srgb, var(--bg-secondary) 88%, transparent);
   border-bottom: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .header-container {
@@ -23,20 +23,33 @@
   gap: var(--space-2);
   color: var(--primary-500);
   font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-xl);
+  font-size: var(--fs-xl);
+  letter-spacing: -0.01em;
   text-decoration: none;
   flex-shrink: 0;
 }
 
 .logo svg,
-.logo .logo-img {
+.logo .logo-icon {
   flex-shrink: 0;
 }
 
+.logo .logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--color-primary, var(--primary-500));
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
 .logo .logo-img {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .logo-text {
@@ -56,9 +69,10 @@
 .nav-link {
   padding: var(--space-2) var(--space-4);
   color: var(--text-secondary);
+  font-size: var(--fs-sm);
   font-weight: var(--font-weight-medium);
   border-radius: var(--radius-lg);
-  transition: all var(--transition-fast);
+  transition: color var(--transition-fast), background var(--transition-fast);
 }
 
 .nav-link:hover {

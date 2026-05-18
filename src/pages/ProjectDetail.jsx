@@ -58,7 +58,12 @@ function ProjectDetail() {
   };
 
   return (
-    <div className="project-detail-page">
+    <motion.div
+      className="project-detail-page"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="container">
         {/* Back Button */}
         <Link to="/projects" className="back-link">
@@ -119,9 +124,10 @@ function ProjectDetail() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               <div className="gallery-main">
-                <img 
-                  src={project.screenshots[activeImage]} 
+                <img
+                  src={project.screenshots[activeImage]}
                   alt={`${project.title} screenshot ${activeImage + 1}`}
+                  loading="lazy"
                 />
                 {project.screenshots.length > 1 && (
                   <>
@@ -142,7 +148,7 @@ function ProjectDetail() {
                       className={`thumb ${activeImage === idx ? 'active' : ''}`}
                       onClick={() => setActiveImage(idx)}
                     >
-                      <img src={img} alt={`Thumbnail ${idx + 1}`} />
+                      <img src={img} alt={`Thumbnail ${idx + 1}`} loading="lazy" />
                     </button>
                   ))}
                 </div>
@@ -240,10 +246,11 @@ function ProjectDetail() {
               >
                 <h3>Created By</h3>
                 <Link to={`/students/${student.id}`} className="author-info">
-                  <img 
-                    src={student.avatar} 
-                    alt={student.name} 
+                  <img
+                    src={student.avatar}
+                    alt={student.name}
                     className="author-avatar"
+                    loading="lazy"
                   />
                   <div className="author-details">
                     <span className="author-name">{student.name}</span>
@@ -278,7 +285,7 @@ function ProjectDetail() {
           </motion.div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

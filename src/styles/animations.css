@@ -1,5 +1,22 @@
 /* ===================================
    Animation Keyframes
+   ===================================
+
+   --motion-once: 1
+   ----------------
+   Best practice: an element should be animated by EITHER framer-motion
+   OR a CSS .animate-* class — never both. Combining them causes a
+   "double-render" effect where the element animates twice in sequence
+   (CSS fires on mount, framer-motion replays on the same element).
+
+   Rules:
+   - Components wrapped in <motion.div ...> must NOT also use any of:
+       .animate-fade-in, .animate-fade-in-up, .animate-fade-in-down,
+       .animate-fade-in-left, .animate-fade-in-right,
+       .animate-scale-in, .animate-scale-in-bounce
+   - All entrance animations below use `forwards` + iteration-count:1
+     so they hold the final state and never replay.
+   - Use .animate-* classes ONLY on elements without framer-motion.
    =================================== */
 
 /* Fade In */
@@ -183,32 +200,48 @@
    Animation Utility Classes
    =================================== */
 
+/* Entrance animations: run exactly once, hold the end state.
+   Do NOT combine with framer-motion on the same element. */
 .animate-fade-in {
-  animation: fadeIn var(--transition-normal) ease forwards;
+  animation: fadeIn var(--transition-normal) ease both;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
 }
 
 .animate-fade-in-up {
-  animation: fadeInUp var(--transition-normal) ease forwards;
+  animation: fadeInUp var(--transition-normal) ease both;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
 }
 
 .animate-fade-in-down {
-  animation: fadeInDown var(--transition-normal) ease forwards;
+  animation: fadeInDown var(--transition-normal) ease both;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
 }
 
 .animate-fade-in-left {
-  animation: fadeInLeft var(--transition-normal) ease forwards;
+  animation: fadeInLeft var(--transition-normal) ease both;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
 }
 
 .animate-fade-in-right {
-  animation: fadeInRight var(--transition-normal) ease forwards;
+  animation: fadeInRight var(--transition-normal) ease both;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
 }
 
 .animate-scale-in {
-  animation: scaleIn var(--transition-normal) ease forwards;
+  animation: scaleIn var(--transition-normal) ease both;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
 }
 
 .animate-scale-in-bounce {
-  animation: scaleInBounce 0.5s ease forwards;
+  animation: scaleInBounce 0.5s ease both;
+  animation-iteration-count: 1;
+  animation-fill-mode: backwards;
 }
 
 .animate-spin {
@@ -264,4 +297,18 @@
 
 .animate-on-scroll.visible {
   opacity: 1;
+}
+
+/* ===================================
+   Reduced Motion (a11y)
+   =================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

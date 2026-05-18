@@ -114,9 +114,6 @@ function Footer() {
           <p className="footer-copyright">
             {t('footer.copyright', { year: currentYear })} <Heart size={14} className="heart-icon" />
           </p>
-          <p className="footer-note">
-            {t('footer.note')}
-          </p>
           <Link to="/login" className="admin-link">{t('footer.adminLogin')}</Link>
         </div>
       </div>

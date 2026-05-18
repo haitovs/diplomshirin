@@ -3,6 +3,7 @@ import {
     LayoutDashboard,
     LogOut,
     Shield,
+    ShieldCheck,
     Users
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -30,7 +31,9 @@ function AdminLayout() {
       <aside className="admin-sidebar">
         <div className="sidebar-header">
           <div className="admin-user">
-            <img src={user.avatar} alt={user.name} className="admin-avatar" />
+            <div className="admin-avatar admin-avatar-icon" aria-hidden="true">
+              <ShieldCheck size={24} strokeWidth={2.2} />
+            </div>
             <div className="admin-info">
               <span className="admin-name">{user.name}</span>
               <span className="admin-role">{user.role}</span>
@@ -53,7 +56,7 @@ function AdminLayout() {
         </nav>
 
         <div className="sidebar-footer">
-          <button className="sidebar-link" onClick={logout}>
+          <button className="sidebar-link sidebar-logout" onClick={logout}>
             <LogOut size={20} />
             <span>{t('admin.sidebar.logout')}</span>
           </button>

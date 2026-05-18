@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowLeft, Check, Rocket } from 'lucide-react';
+import { AlertCircle, ArrowLeft, Check, Loader2, Rocket } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
@@ -25,6 +25,8 @@ function SubmitProject() {
   const { categories, students, addProject, addStudent } = useData();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
   const [isNewStudent, setIsNewStudent] = useState(false);
   
   const [formData, setFormData] = useState({
@@ -108,49 +110,58 @@ function SubmitProject() {
     setStep(1);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateStep2()) return;
 
-    let studentId = formData.studentId;
+    setSubmitting(true);
+    setSubmitError(null);
 
-    // Create new student if needed
-    if (isNewStudent) {
-      const newStudent = addStudent({
-        name: formData.studentName,
-        email: formData.studentEmail,
-        department: formData.studentDepartment,
-        skills: formData.studentSkills,
-        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${formData.studentName.replace(/\s/g, '')}`,
-        graduationYear: formData.year,
-        featured: false
+    try {
+      let studentId = formData.studentId;
+
+      // Create new student if needed
+      if (isNewStudent) {
+        const newStudent = addStudent({
+          name: formData.studentName,
+          email: formData.studentEmail,
+          department: formData.studentDepartment,
+          skills: formData.studentSkills,
+          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${formData.studentName.replace(/\s/g, '')}`,
+          graduationYear: formData.year,
+          featured: false
+        });
+        studentId = newStudent.id;
+      }
+
+      // Create project
+      addProject({
+        id: generateId('proj'),
+        title: formData.title,
+        slug: generateSlug(formData.title),
+        description: formData.description,
+        fullDescription: formData.fullDescription || formData.description,
+        categoryId: formData.categoryId,
+        studentId: studentId,
+        year: formData.year,
+        technologies: formData.technologies,
+        screenshots: formData.screenshots.filter(s => s.trim()),
+        demoUrl: formData.demoUrl,
+        githubUrl: formData.githubUrl,
+        documentationUrl: '',
+        featured: false,
+        createdAt: new Date().toISOString(),
+        rating: (4 + Math.random()).toFixed(1),
+        views: Math.floor(Math.random() * 100) + 10
       });
-      studentId = newStudent.id;
+
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(err?.message || 'Something went wrong. Please try again.');
+    } finally {
+      setSubmitting(false);
     }
-
-    // Create project
-    addProject({
-      id: generateId('proj'),
-      title: formData.title,
-      slug: generateSlug(formData.title),
-      description: formData.description,
-      fullDescription: formData.fullDescription || formData.description,
-      categoryId: formData.categoryId,
-      studentId: studentId,
-      year: formData.year,
-      technologies: formData.technologies,
-      screenshots: formData.screenshots.filter(s => s.trim()),
-      demoUrl: formData.demoUrl,
-      githubUrl: formData.githubUrl,
-      documentationUrl: '',
-      featured: false,
-      createdAt: new Date().toISOString(),
-      rating: (4 + Math.random()).toFixed(1),
-      views: Math.floor(Math.random() * 100) + 10
-    });
-
-    setSubmitted(true);
   };
 
   const categoryOptions = categories.map(c => ({ value: c.id, label: c.name }));
@@ -168,8 +179,13 @@ function SubmitProject() {
 
   if (submitted) {
     return (
-      <div className="submit-project-page">
-        <motion.div 
+      <motion.div
+        className="submit-project-page"
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <motion.div
           className="success-card"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -198,12 +214,17 @@ function SubmitProject() {
             </Button>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     );
   }
 
   return (
-    <div className="submit-project-page">
+    <motion.div
+      className="submit-project-page"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="container">
         <Link to="/" className="back-link">
           <ArrowLeft size={18} />
@@ -418,12 +439,25 @@ function SubmitProject() {
                   />
                 </div>
 
+                {submitError && (
+                  <div className="submit-project-error" role="alert">
+                    <AlertCircle size={16} />
+                    <span>{submitError}</span>
+                  </div>
+                )}
+
                 <div className="form-actions">
-                  <Button type="button" variant="secondary" onClick={prevStep}>
+                  <Button type="button" variant="secondary" onClick={prevStep} disabled={submitting}>
                     Back
                   </Button>
-                  <Button type="submit" variant="primary" icon={Rocket}>
-                    Submit Project
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    icon={submitting ? Loader2 : Rocket}
+                    loading={submitting}
+                    disabled={submitting}
+                  >
+                    {submitting ? 'Submitting…' : 'Submit Project'}
                   </Button>
                 </div>
               </motion.div>
@@ -431,7 +465,7 @@ function SubmitProject() {
           </form>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

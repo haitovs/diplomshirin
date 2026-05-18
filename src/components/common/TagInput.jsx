@@ -61,12 +61,13 @@ function TagInput({
           {value.map(tag => (
             <span key={tag} className="tag">
               {tag}
-              <button 
+              <button
                 type="button"
                 className="tag-remove"
                 onClick={(e) => { e.stopPropagation(); removeTag(tag); }}
+                aria-label={`Remove ${tag}`}
               >
-                <X size={12} />
+                <X size={12} aria-hidden="true" />
               </button>
             </span>
           ))}
@@ -88,12 +89,13 @@ function TagInput({
         </div>
         
         {inputValue && (
-          <button 
+          <button
             type="button"
             className="add-tag-btn"
             onClick={() => addTag(inputValue)}
+            aria-label="Add tag"
           >
-            <Plus size={16} />
+            <Plus size={16} aria-hidden="true" />
           </button>
         )}
       </div>

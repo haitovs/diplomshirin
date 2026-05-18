@@ -1,3 +1,4 @@
+import { Phone } from 'lucide-react';
 import { usePortfolio } from '../../context/PortfolioContext';
 import ImageUpload from '../common/ImageUpload';
 import Input from '../common/Input';
@@ -40,6 +41,10 @@ function BasicInfoEditor() {
         />
         <Input
           label="Phone Number"
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel"
+          icon={Phone}
           value={basics.phone}
           onChange={(e) => handleChange('phone', e.target.value)}
           placeholder="+1 (555) 123-4567"

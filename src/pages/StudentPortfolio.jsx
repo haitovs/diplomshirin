@@ -38,7 +38,12 @@ function StudentPortfolio() {
   }
 
   return (
-    <div className="student-portfolio-page">
+    <motion.div
+      className="student-portfolio-page"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="container">
         {/* Back Link */}
         <Link to="/students" className="back-link">
@@ -54,10 +59,11 @@ function StudentPortfolio() {
           transition={{ duration: 0.5 }}
         >
           <div className="profile-avatar-container">
-            <img 
-              src={student.avatar} 
+            <img
+              src={student.avatar}
               alt={student.name}
               className="profile-avatar"
+              loading="lazy"
             />
             {student.featured && (
               <div className="featured-badge">
@@ -173,7 +179,7 @@ function StudentPortfolio() {
           )}
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

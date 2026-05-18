@@ -1,5 +1,5 @@
 .student-portfolio-page {
-  padding: var(--space-8) 0 var(--space-20);
+  padding: var(--space-8) 0 var(--section-py);
 }
 
 .student-portfolio-page .back-link {
@@ -22,8 +22,9 @@
   gap: var(--space-10);
   padding: var(--space-10);
   background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  border: var(--card-border);
   border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-sm);
   margin-bottom: var(--space-10);
 }
 
@@ -60,8 +61,10 @@
 }
 
 .profile-name {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
+  font-size: var(--fs-4xl);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.02em;
+  line-height: var(--line-height-tight);
   margin-bottom: var(--space-3);
 }
 
@@ -103,8 +106,9 @@
 }
 
 .profile-section .section-title {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
+  font-size: var(--fs-2xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.015em;
   margin-bottom: var(--space-6);
 }
 
@@ -124,8 +128,9 @@
   padding: var(--space-12);
   text-align: center;
   background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-sm);
   color: var(--text-secondary);
 }
 

@@ -68,7 +68,7 @@ function ProjectsEditor() {
   return (
     <div className="editor-form">
       {projects.length > 0 ? (
-        <div className="items-list">
+        <div className="items-list items-list-2col">
           {projects.map((project) => (
             <div key={project.id} className="item-card">
               {project.image && (

@@ -97,8 +97,10 @@ function SimilarityChecker() {
   return (
     <div className="similarity-checker">
       <div className="sc-header">
-        <h1><Shield size={28} /> {t('admin.similarityChecker.title')}</h1>
-        <p>{t('admin.similarityChecker.subtitle')}</p>
+        <div className="sc-heading">
+          <h1><Shield size={28} /> {t('admin.similarityChecker.title')}</h1>
+          <p>{t('admin.similarityChecker.subtitle')}</p>
+        </div>
       </div>
 
       {/* Input Section */}
@@ -141,6 +143,7 @@ function SimilarityChecker() {
               onChange={(e) => setTitle(e.target.value)}
               placeholder={t('admin.similarityChecker.titlePlaceholder')}
             />
+            <span className="sc-hint">Short title of the project to fingerprint against existing works.</span>
           </div>
           <div className="sc-field">
             <label>{t('admin.similarityChecker.descriptionLabel')}</label>
@@ -150,6 +153,7 @@ function SimilarityChecker() {
               placeholder={t('admin.similarityChecker.descriptionPlaceholder')}
               rows={3}
             />
+            <span className="sc-hint">Abstract or summary — used for semantic similarity scoring.</span>
           </div>
           {mode === 'text' && (
             <div className="sc-field">
@@ -160,6 +164,7 @@ function SimilarityChecker() {
                 placeholder={t('admin.similarityChecker.fullTextPlaceholder')}
                 rows={6}
               />
+              <span className="sc-hint">Full paper text catches verbatim copying and paraphrasing.</span>
             </div>
           )}
           <div className="sc-field">
@@ -169,6 +174,7 @@ function SimilarityChecker() {
               <option value="approved">{t('admin.similarityChecker.approvedOnly')}</option>
               <option value="default">{t('admin.similarityChecker.approvedPending')}</option>
             </select>
+            <span className="sc-hint">Pick the corpus the submission is compared against.</span>
           </div>
         </div>
 

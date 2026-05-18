@@ -1,153 +1,201 @@
 .diploma-detail {
-  max-width: 900px;
+  max-width: var(--container-md);
   margin: 0 auto;
-  padding: 2rem;
+  padding: var(--space-8) var(--space-6) var(--space-16);
 }
 
 .back-link {
-  display: inline-block;
-  margin-bottom: 1.5rem;
-  color: #6366f1;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
   text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 .back-link:hover {
-  text-decoration: underline;
+  color: var(--primary-500);
 }
 
 .detail-header {
-  margin-bottom: 2rem;
+  margin-bottom: var(--space-8);
 }
 
 .detail-header h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #f1f5f9;
+  font-size: var(--fs-4xl);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.02em;
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-4);
+  color: var(--text-primary);
 }
 
 .meta {
   display: flex;
-  gap: 1rem;
+  gap: var(--space-3);
   flex-wrap: wrap;
 }
 
 .meta span {
-  padding: 0.5rem 1rem;
-  background: rgba(99, 102, 241, 0.2);
-  border-radius: 6px;
-  color: #a5b4fc;
-  font-size: 0.9rem;
+  padding: var(--space-2) var(--space-4);
+  background: rgba(99, 102, 241, 0.12);
+  border-radius: var(--radius-md);
+  color: var(--primary-600);
+  font-size: var(--fs-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+[data-theme="dark"] .meta span {
+  background: rgba(99, 102, 241, 0.18);
+  color: var(--primary-300);
 }
 
 .screenshots {
   display: flex;
-  gap: 1rem;
+  gap: var(--space-4);
   overflow-x: auto;
-  margin-bottom: 2rem;
-  padding-bottom: 1rem;
+  margin-bottom: var(--space-8);
+  padding-bottom: var(--space-3);
 }
 
 .screenshots img {
   height: 300px;
-  border-radius: 12px;
+  border-radius: var(--card-radius);
   object-fit: cover;
+  border: var(--card-border);
 }
 
 .diploma-detail section {
-  margin-bottom: 2rem;
-  padding: 1.5rem;
-  background: var(--card-bg, #1e293b);
-  border-radius: 12px;
-  border: 1px solid #334155;
+  margin-bottom: var(--space-6);
+  padding: var(--card-padding);
+  background: var(--bg-secondary);
+  border-radius: var(--card-radius);
+  border: var(--card-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .diploma-detail h2 {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  color: #f1f5f9;
+  font-size: var(--fs-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-4);
+  color: var(--text-primary);
 }
 
 .description p {
-  color: #94a3b8;
-  line-height: 1.7;
-  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  line-height: var(--line-height-body);
+  margin-bottom: var(--space-3);
+}
+
+.description p:last-child {
+  margin-bottom: 0;
 }
 
 .tech-list {
   display: flex;
-  gap: 0.5rem;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 
 .tech-tag {
-  padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  padding: var(--space-2) var(--space-4);
+  background: var(--gradient-primary);
   color: white;
-  border-radius: 20px;
-  font-size: 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-sm);
+  font-weight: var(--font-weight-medium);
 }
 
 .link-buttons {
   display: flex;
-  gap: 1rem;
+  gap: var(--space-3);
   flex-wrap: wrap;
 }
 
 .link-btn {
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--input-radius);
   text-decoration: none;
-  font-weight: 600;
-  transition: transform 0.3s;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--fs-sm);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
 }
 
 .link-btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  filter: brightness(1.04);
+}
+
+.link-btn:active {
+  transform: scale(0.98);
 }
 
 .link-btn.demo {
-  background: #10b981;
+  background: var(--success-500);
   color: white;
 }
 
 .link-btn.github {
-  background: #334155;
-  color: #f1f5f9;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
 }
 
 .link-btn.docs {
-  background: #6366f1;
+  background: var(--primary-500);
   color: white;
 }
 
 .author-card {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .author-avatar {
   width: 64px;
   height: 64px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
+  object-fit: cover;
 }
 
 .author-info h3 {
-  margin-bottom: 0.25rem;
-  color: #f1f5f9;
+  margin-bottom: var(--space-1);
+  color: var(--text-primary);
+  font-size: var(--fs-lg);
+  font-weight: var(--font-weight-semibold);
 }
 
 .author-info p {
-  color: #94a3b8;
-  font-size: 0.9rem;
+  color: var(--text-tertiary);
+  font-size: var(--fs-sm);
+  margin: 0;
 }
 
 .loading, .error, .not-found {
   text-align: center;
-  padding: 4rem;
-  color: #94a3b8;
+  padding: var(--space-16);
+  color: var(--text-tertiary);
+  font-size: var(--fs-base);
 }
 
 .error {
-  color: #f87171;
+  color: var(--error-500);
+}
+
+@media (max-width: 768px) {
+  .diploma-detail {
+    padding: var(--space-6) var(--space-4) var(--space-12);
+  }
+
+  .detail-header h1 {
+    font-size: var(--fs-3xl);
+  }
+
+  .screenshots img {
+    height: 220px;
+  }
 }

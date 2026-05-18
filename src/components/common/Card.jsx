@@ -1,14 +1,14 @@
 import { cn } from '../../utils/helpers';
 import './Card.css';
 
-function Card({ 
-  children, 
-  className = '', 
+function Card({
+  children,
+  className = '',
   variant = 'default',
   hover = true,
   padding = 'md',
   onClick,
-  ...props 
+  ...props
 }) {
   const cardClass = cn(
     'card-component',
@@ -19,10 +19,20 @@ function Card({
     className
   );
 
+  const handleKeyDown = onClick
+    ? (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onClick(e);
+        }
+      }
+    : undefined;
+
   return (
-    <div 
-      className={cardClass} 
+    <div
+      className={cardClass}
       onClick={onClick}
+      onKeyDown={handleKeyDown}
       role={onClick ? 'button' : undefined}
       tabIndex={onClick ? 0 : undefined}
       {...props}

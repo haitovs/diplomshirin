@@ -14,9 +14,9 @@
 /* ─── Submit Card ─── */
 .submit-card {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
+  border: var(--card-border);
   border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-lg);
   padding: var(--space-10);
 }
 
@@ -39,7 +39,9 @@
 }
 
 .submit-header h1 {
-  font-size: var(--font-size-2xl);
+  font-size: var(--fs-3xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.015em;
   color: var(--text-primary);
   margin-bottom: var(--space-2);
 }
@@ -520,7 +522,8 @@
 }
 
 .submit-auth-card h1 {
-  font-size: var(--font-size-xl);
+  font-size: var(--fs-2xl);
+  font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-3);
   color: var(--text-primary);
 }
@@ -572,7 +575,8 @@
 }
 
 .submit-success-card h1 {
-  font-size: var(--font-size-xl);
+  font-size: var(--fs-2xl);
+  font-weight: var(--font-weight-bold);
   margin-bottom: var(--space-3);
   color: var(--text-primary);
 }

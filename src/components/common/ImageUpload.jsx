@@ -85,23 +85,33 @@ function ImageUpload({
       {value ? (
         <div className="image-preview">
           <img src={value} alt="Preview" />
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="remove-btn"
             onClick={handleRemove}
+            aria-label="Remove image"
             title="Remove image"
           >
-            <X size={16} />
+            <X size={16} aria-hidden="true" />
           </button>
         </div>
       ) : (
-        <div 
+        <div
           className={cn('upload-zone', dragActive && 'drag-active', error && 'has-error')}
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
           onDrop={handleDrop}
           onClick={() => inputRef.current?.click()}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              inputRef.current?.click();
+            }
+          }}
+          role="button"
+          tabIndex={0}
+          aria-label={label ? `${label} upload area` : 'Image upload area'}
         >
           <input
             ref={inputRef}
@@ -109,9 +119,11 @@ function ImageUpload({
             accept="image/*"
             onChange={handleInputChange}
             className="file-input"
+            aria-hidden="true"
+            tabIndex={-1}
           />
           <div className="upload-content">
-            <div className="upload-icon">
+            <div className="upload-icon" aria-hidden="true">
               <ImageIcon size={24} />
             </div>
             <p className="upload-text">
@@ -121,8 +133,8 @@ function ImageUpload({
           </div>
         </div>
       )}
-      
-      {error && <span className="upload-error">{error}</span>}
+
+      {error && <span className="upload-error" role="alert">{error}</span>}
     </div>
   );
 }

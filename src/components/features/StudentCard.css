@@ -7,13 +7,14 @@
   background: var(--bg-secondary);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-xl);
-  transition: all var(--transition-normal);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .student-card:hover {
   box-shadow: var(--shadow-xl);
   transform: translateY(-4px);
-  border-color: var(--border-color-hover);
+  border-color: var(--primary-500);
 }
 
 /* Avatar */
@@ -30,12 +31,12 @@
   border-radius: var(--radius-full);
   object-fit: cover;
   border: 3px solid var(--bg-tertiary);
-  transition: all var(--transition-normal);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .student-card:hover .student-card-avatar img {
   border-color: var(--primary-400);
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .featured-indicator {

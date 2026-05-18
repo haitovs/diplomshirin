@@ -218,6 +218,14 @@ function Preview() {
     return icons[platform] || Globe;
   };
 
+  // Fade-in section helper — uses whileInView with viewport once to avoid double-render
+  const sectionMotion = (index = 0) => ({
+    initial: { opacity: 0, y: 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.15 },
+    transition: { duration: 0.5, delay: index * 0.08, ease: 'easeOut' }
+  });
+
   return (
     <div className="preview-page">
       {/* Header Actions */}
@@ -306,15 +314,15 @@ function Preview() {
 
           {/* Summary */}
           {basics.summary && (
-            <section className="portfolio-section">
+            <motion.section className="portfolio-section" {...sectionMotion(0)}>
               <h2>About Me</h2>
               <p className="summary-text">{basics.summary}</p>
-            </section>
+            </motion.section>
           )}
 
           {/* Skills */}
           {skills.length > 0 && (
-            <section className="portfolio-section">
+            <motion.section className="portfolio-section" {...sectionMotion(1)}>
               <h2>Skills</h2>
               <div className="skills-grid">
                 {skills.map(skill => (
@@ -324,20 +332,20 @@ function Preview() {
                       <span className="skill-level">{skill.level}%</span>
                     </div>
                     <div className="skill-bar">
-                      <div 
-                        className="skill-fill" 
+                      <div
+                        className="skill-fill"
                         style={{ width: `${skill.level}%`, backgroundColor: settings.primaryColor }}
                       />
                     </div>
                   </div>
                 ))}
               </div>
-            </section>
+            </motion.section>
           )}
 
           {/* Experience */}
           {experience.length > 0 && (
-            <section className="portfolio-section">
+            <motion.section className="portfolio-section" {...sectionMotion(2)}>
               <h2>Experience</h2>
               <div className="timeline">
                 {experience.map(exp => (
@@ -355,12 +363,12 @@ function Preview() {
                   </div>
                 ))}
               </div>
-            </section>
+            </motion.section>
           )}
 
           {/* Projects */}
           {projects.length > 0 && (
-            <section className="portfolio-section">
+            <motion.section className="portfolio-section" {...sectionMotion(3)}>
               <h2>Projects</h2>
               <div className="projects-grid">
                 {projects.map(project => (
@@ -389,12 +397,12 @@ function Preview() {
                   </div>
                 ))}
               </div>
-            </section>
+            </motion.section>
           )}
 
           {/* Education */}
           {education.length > 0 && (
-            <section className="portfolio-section">
+            <motion.section className="portfolio-section" {...sectionMotion(4)}>
               <h2>Education</h2>
               <div className="education-list">
                 {education.map(edu => (
@@ -405,12 +413,12 @@ function Preview() {
                   </div>
                 ))}
               </div>
-            </section>
+            </motion.section>
           )}
 
           {/* Certifications */}
           {certifications.length > 0 && (
-            <section className="portfolio-section">
+            <motion.section className="portfolio-section" {...sectionMotion(5)}>
               <h2>Certifications</h2>
               <div className="certifications-list">
                 {certifications.map(cert => (
@@ -420,12 +428,12 @@ function Preview() {
                   </div>
                 ))}
               </div>
-            </section>
+            </motion.section>
           )}
 
           {/* Languages */}
           {languages.length > 0 && (
-            <section className="portfolio-section">
+            <motion.section className="portfolio-section" {...sectionMotion(6)}>
               <h2>Languages</h2>
               <div className="languages-list">
                 {languages.map(lang => (
@@ -434,7 +442,7 @@ function Preview() {
                   </span>
                 ))}
               </div>
-            </section>
+            </motion.section>
           )}
         </div>
       </motion.div>

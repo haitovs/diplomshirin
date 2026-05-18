@@ -37,14 +37,20 @@ function Home() {
   const { t } = useTranslation();
 
   return (
-    <div className="home-page">
+    <motion.div
+      className="home-page"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       {/* Hero Section */}
       <section className="hero">
         <div className="container">
           <motion.div
             className="hero-content"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
             <span className="hero-badge">
@@ -77,7 +83,8 @@ function Home() {
           <motion.div
             className="hero-visual"
             initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="preview-mockup">
@@ -207,7 +214,7 @@ function Home() {
           </motion.div>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 }
 

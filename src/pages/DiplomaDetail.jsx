@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
@@ -32,7 +33,12 @@ function DiplomaDetail() {
   if (!work) return <div className="not-found">{t('diplomaDetail.notFound')}</div>;
 
   return (
-    <div className="diploma-detail">
+    <motion.div
+      className="diploma-detail"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <Link to="/archive" className="back-link">{t('diplomaDetail.backToArchive')}</Link>
 
       <header className="detail-header">
@@ -49,7 +55,7 @@ function DiplomaDetail() {
       {work.screenshots?.length > 0 && (
         <div className="screenshots">
           {work.screenshots.map((src, idx) => (
-            <img key={idx} src={src} alt={`Screenshot ${idx + 1}`} />
+            <img key={idx} src={src} alt={`Screenshot ${idx + 1}`} loading="lazy" />
           ))}
         </div>
       )}
@@ -106,7 +112,7 @@ function DiplomaDetail() {
         <h2>{t('diplomaDetail.author')}</h2>
         <div className="author-card">
           {work.student_avatar && (
-            <img src={work.student_avatar} alt="" className="author-avatar" />
+            <img src={work.student_avatar} alt="" className="author-avatar" loading="lazy" />
           )}
           <div className="author-info">
             <h3>{work.student_name}</h3>
@@ -115,7 +121,7 @@ function DiplomaDetail() {
           </div>
         </div>
       </section>
-    </div>
+    </motion.div>
   );
 }
 

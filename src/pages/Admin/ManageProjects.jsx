@@ -1,5 +1,5 @@
-import { CheckCircle, Edit, Plus, Trash2, XCircle } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { ArrowUpDown, CheckCircle, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Edit, Plus, Search, Trash2, X, XCircle } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { diplomaWorksAPI, studentsAPI } from '../../services/api';
 import './ManageProjects.css';
@@ -12,6 +12,69 @@ function ManageProjects() {
   const [filter, setFilter] = useState('all'); // all, pending, approved
   const [editingWork, setEditingWork] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [sortKey, setSortKey] = useState(null);
+  const [sortDir, setSortDir] = useState('asc');
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 10;
+
+  function handleSort(key) {
+    if (sortKey === key) {
+      setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortKey(key);
+      setSortDir('asc');
+    }
+  }
+
+  function getSortValue(work, key) {
+    switch (key) {
+      case 'title': return (work.title || '').toLowerCase();
+      case 'student': return (work.student_name || getStudentName(work.student_id) || '').toLowerCase();
+      case 'category': return (work.category || '').toLowerCase();
+      case 'year': return Number(work.year) || 0;
+      case 'status': return (work.status || '').toLowerCase();
+      case 'views': return Number(work.views) || 0;
+      default: return 0;
+    }
+  }
+
+  const filteredWorks = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    if (!q) return works;
+    return works.filter(w => {
+      const studentName = w.student_name || getStudentName(w.student_id) || '';
+      return (
+        (w.title || '').toLowerCase().includes(q) ||
+        (w.category || '').toLowerCase().includes(q) ||
+        studentName.toLowerCase().includes(q)
+      );
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [works, search, students]);
+
+  const sortedWorks = useMemo(() => {
+    if (!sortKey) return filteredWorks;
+    const copy = [...filteredWorks];
+    copy.sort((a, b) => {
+      const av = getSortValue(a, sortKey);
+      const bv = getSortValue(b, sortKey);
+      if (av < bv) return sortDir === 'asc' ? -1 : 1;
+      if (av > bv) return sortDir === 'asc' ? 1 : -1;
+      return 0;
+    });
+    return copy;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filteredWorks, sortKey, sortDir, students]);
+
+  const totalPages = Math.max(1, Math.ceil(sortedWorks.length / PAGE_SIZE));
+  const currentPage = Math.min(page, totalPages);
+  const pagedWorks = sortedWorks.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
+  useEffect(() => { setPage(1); }, [filter, search, sortKey, sortDir]);
+
+  const filtersActive = filter !== 'all' || search.trim().length > 0;
+  function clearFilters() { setFilter('all'); setSearch(''); }
 
   useEffect(() => {
     loadData();
@@ -85,32 +148,56 @@ function ManageProjects() {
   return (
     <div className="manage-projects">
       <div className="page-header">
-        <h1>{t('admin.projects.title')}</h1>
+        <div className="page-heading">
+          <h1>{t('admin.projects.title')}</h1>
+          <p className="page-subtitle">Review, approve, and manage diploma submissions.</p>
+        </div>
         <button className="add-btn" onClick={() => { setEditingWork(null); setShowForm(true); }}>
-          <Plus size={24} /> {t('admin.projects.addNew')}
+          <Plus size={18} /> {t('admin.projects.addNew')}
         </button>
       </div>
 
-      {/* Filters */}
-      <div className="filters">
-        <button
-          className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
-          onClick={() => setFilter('all')}
-        >
-          {t('admin.projects.all')}
-        </button>
-        <button
-          className={`filter-btn ${filter === 'pending' ? 'active' : ''}`}
-          onClick={() => setFilter('pending')}
-        >
-          {t('admin.projects.pending')}
-        </button>
-        <button
-          className={`filter-btn ${filter === 'approved' ? 'active' : ''}`}
-          onClick={() => setFilter('approved')}
-        >
-          {t('admin.projects.approved')}
-        </button>
+      {/* Filter Bar */}
+      <div className="filter-bar">
+        <div className="search-input">
+          <Search size={16} className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search by title, student, or category…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          {search && (
+            <button className="search-clear" onClick={() => setSearch('')} aria-label="Clear search">
+              <X size={14} />
+            </button>
+          )}
+        </div>
+        <div className="filters">
+          <button
+            className={`filter-btn ${filter === 'all' ? 'active' : ''}`}
+            onClick={() => setFilter('all')}
+          >
+            {t('admin.projects.all')}
+          </button>
+          <button
+            className={`filter-btn ${filter === 'pending' ? 'active' : ''}`}
+            onClick={() => setFilter('pending')}
+          >
+            {t('admin.projects.pending')}
+          </button>
+          <button
+            className={`filter-btn ${filter === 'approved' ? 'active' : ''}`}
+            onClick={() => setFilter('approved')}
+          >
+            {t('admin.projects.approved')}
+          </button>
+        </div>
+        {filtersActive && (
+          <button className="clear-filters-btn" onClick={clearFilters} title="Clear filters">
+            <X size={14} /> Clear filters
+          </button>
+        )}
       </div>
 
       {/* Works Table */}
@@ -121,49 +208,73 @@ function ManageProjects() {
           <table>
             <thead>
               <tr>
-                <th>{t('admin.projects.tableTitle')}</th>
-                <th>{t('admin.projects.tableStudent')}</th>
-                <th>{t('admin.projects.tableCategory')}</th>
-                <th>{t('admin.projects.tableYear')}</th>
-                <th>{t('admin.projects.tableStatus')}</th>
-                <th>{t('admin.projects.tableViews')}</th>
+                <SortableTh label={t('admin.projects.tableTitle')} sortKey="title" activeKey={sortKey} dir={sortDir} onSort={handleSort} />
+                <SortableTh label={t('admin.projects.tableStudent')} sortKey="student" activeKey={sortKey} dir={sortDir} onSort={handleSort} />
+                <SortableTh label={t('admin.projects.tableCategory')} sortKey="category" activeKey={sortKey} dir={sortDir} onSort={handleSort} />
+                <SortableTh label={t('admin.projects.tableYear')} sortKey="year" activeKey={sortKey} dir={sortDir} onSort={handleSort} />
+                <SortableTh label={t('admin.projects.tableStatus')} sortKey="status" activeKey={sortKey} dir={sortDir} onSort={handleSort} />
+                <SortableTh label={t('admin.projects.tableViews')} sortKey="views" activeKey={sortKey} dir={sortDir} onSort={handleSort} />
                 <th>{t('admin.projects.tableActions')}</th>
               </tr>
             </thead>
             <tbody>
-              {works.map(work => (
+              {pagedWorks.map(work => (
                 <tr key={work.id}>
                   <td className="title-cell">{work.title}</td>
                   <td>{work.student_name || getStudentName(work.student_id)}</td>
                   <td>{work.category}</td>
                   <td>{work.year}</td>
                   <td>
-                    <span className={`status-badge ${work.status}`}>{work.status}</span>
+                    <span className={`status-badge ${work.status}`}>
+                      <span className="status-dot" /> {work.status}
+                    </span>
                   </td>
                   <td>{work.views}</td>
                   <td className="actions-cell">
                     {work.status === 'pending' && (
                       <>
                         <button className="action-btn approve" onClick={() => handleApprove(work.id)} title="Approve">
-                          <CheckCircle size={24} />
+                          <CheckCircle size={18} />
                         </button>
                         <button className="action-btn reject" onClick={() => handleReject(work.id)} title="Reject">
-                          <XCircle size={24} />
+                          <XCircle size={18} />
                         </button>
                       </>
                     )}
                     <button className="action-btn edit" onClick={() => { setEditingWork(work); setShowForm(true); }} title="Edit">
-                      <Edit size={24} />
+                      <Edit size={18} />
                     </button>
                     <button className="action-btn delete" onClick={() => handleDelete(work.id)} title="Delete">
-                      <Trash2 size={24} />
+                      <Trash2 size={18} />
                     </button>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          {works.length === 0 && <div className="no-data">{t('admin.projects.noData')}</div>}
+          {sortedWorks.length === 0 && <div className="no-data">{t('admin.projects.noData')}</div>}
+          {sortedWorks.length > PAGE_SIZE && (
+            <div className="pagination">
+              <button
+                className="pagination-btn"
+                disabled={currentPage === 1}
+                onClick={() => setPage(p => Math.max(1, p - 1))}
+              >
+                <ChevronLeft size={16} /> Prev
+              </button>
+              <span className="pagination-info">
+                Page <strong>{currentPage}</strong> of <strong>{totalPages}</strong>
+                <span className="pagination-count"> · {sortedWorks.length} results</span>
+              </span>
+              <button
+                className="pagination-btn"
+                disabled={currentPage === totalPages}
+                onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+              >
+                Next <ChevronRight size={16} />
+              </button>
+            </div>
+          )}
         </div>
       )}
 
@@ -177,6 +288,24 @@ function ManageProjects() {
         />
       )}
     </div>
+  );
+}
+
+function SortableTh({ label, sortKey, activeKey, dir, onSort }) {
+  const isActive = activeKey === sortKey;
+  return (
+    <th
+      className={`sortable-th ${isActive ? 'active' : ''}`}
+      onClick={() => onSort(sortKey)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSort(sortKey); } }}
+    >
+      <span className="th-label">{label}</span>
+      <span className="th-sort-icon">
+        {isActive ? (dir === 'asc' ? <ChevronUp size={14} /> : <ChevronDown size={14} />) : <ArrowUpDown size={13} />}
+      </span>
+    </th>
   );
 }
 

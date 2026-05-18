@@ -3,6 +3,24 @@
   padding: var(--space-8) 0 var(--space-20);
 }
 
+/* Inline submit error banner */
+.submit-project-error {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: var(--radius-lg);
+  color: #dc2626;
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-3);
+}
+
+[data-theme="dark"] .submit-project-error {
+  color: #fca5a5;
+}
+
 .submit-project-page .back-link {
   display: inline-flex;
   align-items: center;

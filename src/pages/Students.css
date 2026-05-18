@@ -1,5 +1,5 @@
 .students-page {
-  padding: var(--space-10) 0 var(--space-20);
+  padding: var(--space-10) 0 var(--section-py);
   min-height: 80vh;
 }
 
@@ -19,17 +19,21 @@
   background: var(--gradient-primary);
   color: white;
   border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
 }
 
 .students-page .page-title {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-1);
+  font-size: var(--fs-4xl);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.02em;
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-2);
 }
 
 .students-page .page-subtitle {
-  font-size: var(--font-size-lg);
+  font-size: var(--fs-lg);
   color: var(--text-secondary);
+  line-height: var(--line-height-body);
   margin: 0;
 }
 
@@ -37,6 +41,38 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-6);
+}
+
+/* Empty state */
+.students-page .empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-20);
+  text-align: center;
+}
+
+.students-page .empty-state .empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: var(--bg-tertiary);
+  color: var(--text-tertiary);
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-6);
+}
+
+.students-page .empty-state h3 {
+  font-size: var(--fs-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--space-2);
+}
+
+.students-page .empty-state p {
+  color: var(--text-secondary);
 }
 
 @media (max-width: 1024px) {

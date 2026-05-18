@@ -46,13 +46,19 @@ function Guide() {
   const { t } = useTranslation();
 
   return (
-    <div className="guide-page">
+    <motion.div
+      className="guide-page"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       {/* Hero */}
       <section className="guide-hero">
         <motion.div
           className="guide-hero-content"
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           <div className="guide-hero-badge">
@@ -182,7 +188,7 @@ function Guide() {
           <p>{t('guide.footerNote')}</p>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

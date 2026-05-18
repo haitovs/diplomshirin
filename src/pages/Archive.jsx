@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion';
+import { SearchX } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -33,6 +35,29 @@ function Archive() {
     }
   }, [filters]);
 
+  // Debounced live search
+  useEffect(() => {
+    const q = searchQuery.trim();
+    const handle = setTimeout(async () => {
+      if (!q) {
+        setSearchResults(null);
+        loadData();
+        return;
+      }
+      try {
+        setLoading(true);
+        const results = await searchAPI.search(q, filters);
+        setSearchResults(results);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }, 250);
+    return () => clearTimeout(handle);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQuery, filters.category, filters.year]);
+
   async function loadData() {
     try {
       setLoading(true);
@@ -62,25 +87,6 @@ function Archive() {
     }
   }
 
-  async function handleSearch(e) {
-    e.preventDefault();
-    if (!searchQuery.trim()) {
-      setSearchResults(null);
-      loadData();
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const results = await searchAPI.search(searchQuery, filters);
-      setSearchResults(results);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   function clearSearch() {
     setSearchQuery('');
     setSearchResults(null);
@@ -89,8 +95,21 @@ function Archive() {
 
   const displayWorks = searchResults ? searchResults.results : works;
 
+  const hasActiveFilters = Boolean(searchQuery || filters.category || filters.year);
+
+  function clearAllFilters() {
+    setSearchQuery('');
+    setSearchResults(null);
+    setFilters({ category: '', year: '' });
+  }
+
   return (
-    <div className="archive-page">
+    <motion.div
+      className="archive-page"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <header className="archive-header">
         <h1>{t('archive.title')}</h1>
         <p>{t('archive.subtitle')}</p>
@@ -98,19 +117,20 @@ function Archive() {
 
       {/* Search Bar */}
       <section className="archive-search">
-        <form onSubmit={handleSearch} className="search-form">
-          <input
-            type="text"
-            placeholder={t('archive.searchPlaceholder')}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="search-input"
-          />
-          <button type="submit" className="search-btn">{t('archive.searchButton')}</button>
-          {searchQuery && (
-            <button type="button" onClick={clearSearch} className="clear-btn">{t('archive.clearSearch')}</button>
-          )}
-        </form>
+        <div className="search-form">
+          <div className="search-input-wrap">
+            <input
+              type="text"
+              placeholder={t('archive.searchPlaceholder')}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="search-input"
+            />
+            {searchQuery && (
+              <button type="button" onClick={clearSearch} className="clear-btn" aria-label="Clear">×</button>
+            )}
+          </div>
+        </div>
 
         <div className="filters">
           <select
@@ -172,16 +192,28 @@ function Archive() {
       {error && <div className="error">{t('archive.error', { error })}</div>}
 
       {/* Works Grid */}
-      {!loading && !error && (
+      {!loading && !error && displayWorks.length === 0 && (
+        <div className="empty-state">
+          <div className="empty-icon">
+            <SearchX size={48} />
+          </div>
+          <h3>{t('archive.noResults')}</h3>
+          <p>Try adjusting your search or filters.</p>
+          {hasActiveFilters && (
+            <button type="button" className="empty-clear-btn" onClick={clearAllFilters}>
+              Clear filters
+            </button>
+          )}
+        </div>
+      )}
+
+      {!loading && !error && displayWorks.length > 0 && (
         <div className="works-grid">
-          {displayWorks.length === 0 ? (
-            <div className="no-results">{t('archive.noResults')}</div>
-          ) : (
-            displayWorks.map(work => (
+          {displayWorks.map(work => (
               <Link to={`/archive/${work.id}`} key={work.id} className="work-card">
                 <div className="work-image">
                   {work.screenshots?.[0] ? (
-                    <img src={work.screenshots[0]} alt={work.title} />
+                    <img src={work.screenshots[0]} alt={work.title} loading="lazy" />
                   ) : (
                     <div className="placeholder-image">📄</div>
                   )}
@@ -198,7 +230,7 @@ function Archive() {
                   </div>
                   <div className="work-author">
                     {work.student_avatar && (
-                      <img src={work.student_avatar} alt="" className="author-avatar" />
+                      <img src={work.student_avatar} alt="" className="author-avatar" loading="lazy" />
                     )}
                     <span>{work.student_name}</span>
                   </div>
@@ -208,8 +240,7 @@ function Archive() {
                   </div>
                 </div>
               </Link>
-            ))
-          )}
+            ))}
         </div>
       )}
 
@@ -218,7 +249,7 @@ function Archive() {
         <h2>{t('archive.ctaTitle')}</h2>
         <Link to="/submit" className="submit-btn">{t('archive.ctaButton')}</Link>
       </section>
-    </div>
+    </motion.div>
   );
 }
 

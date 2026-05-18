@@ -21,27 +21,34 @@
 
 .select-field {
   width: 100%;
-  padding: var(--space-3) var(--space-4);
+  padding: 10px 14px;
   padding-right: var(--space-10);
-  background: var(--bg-tertiary);
-  border: 2px solid var(--border-color);
-  border-radius: var(--radius-lg);
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--input-radius);
   color: var(--text-primary);
   font-size: var(--font-size-sm);
   cursor: pointer;
   appearance: none;
-  transition: all var(--transition-fast);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.select-field:hover:not(:disabled):not(:focus) {
+  border-color: var(--border-color-hover);
 }
 
 .select-field:focus {
-  border-color: var(--primary-500);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: var(--input-focus-border);
+  box-shadow: var(--input-focus-shadow);
   outline: none;
 }
 
 .select-field:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  background: var(--bg-tertiary);
 }
 
 .select-chevron {
@@ -51,6 +58,34 @@
   transform: translateY(-50%);
   color: var(--text-tertiary);
   pointer-events: none;
+}
+
+/* Native <select> fallback: custom chevron via background-image
+   for any raw <select> not wrapped by the Select component. */
+select:not(.select-field) {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: var(--input-bg);
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3e%3cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--input-radius);
+  color: var(--text-primary);
+  font-size: var(--font-size-sm);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 14px;
+  cursor: pointer;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+select:not(.select-field):focus {
+  border-color: var(--input-focus-border);
+  box-shadow: var(--input-focus-shadow);
+  outline: none;
 }
 
 /* Error State */

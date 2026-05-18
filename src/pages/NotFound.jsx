@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowLeft, Home } from 'lucide-react';
+import { ArrowLeft, Compass, Home } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import Button from '../components/common/Button';
@@ -9,13 +9,21 @@ function NotFound() {
   const { t } = useTranslation();
 
   return (
-    <div className="not-found-page">
+    <motion.div
+      className="not-found-page"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <motion.div
         className="not-found-content"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.5, delay: 0.05 }}
       >
+        <div className="not-found-icon" aria-hidden="true">
+          <Compass size={56} />
+        </div>
         <div className="not-found-illustration">
           <span className="error-code">{t('notFound.code')}</span>
         </div>
@@ -34,7 +42,7 @@ function NotFound() {
           </Link>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
 

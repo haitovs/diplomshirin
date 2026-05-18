@@ -30,22 +30,26 @@
 
 .input-field {
   width: 100%;
-  padding: var(--space-3) var(--space-4);
-  background: var(--bg-tertiary);
-  border: 2px solid var(--border-color);
-  border-radius: var(--radius-lg);
+  padding: 10px 14px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--input-radius);
   color: var(--text-primary);
   font-size: var(--font-size-sm);
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
 }
 
 .input-field.has-icon {
   padding-left: var(--space-10);
 }
 
+.input-field:hover:not(:disabled):not(:focus) {
+  border-color: var(--border-color-hover);
+}
+
 .input-field:focus {
-  border-color: var(--primary-500);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: var(--input-focus-border);
+  box-shadow: var(--input-focus-shadow);
   outline: none;
 }
 
@@ -56,6 +60,7 @@
 .input-field:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  background: var(--bg-tertiary);
 }
 
 /* Error State */
@@ -64,7 +69,7 @@
 }
 
 .input-group.has-error .input-field:focus {
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
 }
 
 .input-error {

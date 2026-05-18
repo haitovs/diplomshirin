@@ -10,8 +10,8 @@ i18n.use(initReactI18next).init({
     tk: { translation: tk },
     ru: { translation: ru },
   },
-  lng: localStorage.getItem('lang') || 'en',
-  fallbackLng: 'en',
+  lng: localStorage.getItem('lang') || 'tk',
+  fallbackLng: 'tk',
   interpolation: {
     escapeValue: false, // React already escapes
   },

@@ -1,4 +1,4 @@
-import { CheckCircle, Clock, FolderOpen, Users } from 'lucide-react';
+import { CheckCircle, Clock, FolderOpen, TrendingUp, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { statsAPI } from '../../services/api';
@@ -30,51 +30,42 @@ function Dashboard() {
   if (error) return <div className="dashboard-error">{t('admin.dashboard.error', { error })}</div>;
   if (!stats) return null;
 
+  const maxCategory = Math.max(1, ...stats.byCategory.map(c => c.count));
+  const maxYear = Math.max(1, ...stats.byYear.map(y => y.count));
+
+  const statCards = [
+    { key: 'total', icon: FolderOpen, tone: 'blue', value: stats.overview.totalWorks, label: t('admin.dashboard.totalWorks'), delta: '+3 this week' },
+    { key: 'approved', icon: CheckCircle, tone: 'green', value: stats.overview.approvedWorks, label: t('admin.dashboard.approved'), delta: '+2 this week' },
+    { key: 'pending', icon: Clock, tone: 'orange', value: stats.overview.pendingWorks, label: t('admin.dashboard.pending'), delta: 'needs review' },
+    { key: 'students', icon: Users, tone: 'purple', value: stats.overview.totalStudents, label: t('admin.dashboard.students'), delta: '+1 this week' },
+  ];
+
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>{t('admin.dashboard.title')}</h1>
-        <p>{t('admin.dashboard.subtitle')}</p>
+        <div className="dashboard-heading">
+          <h1>{t('admin.dashboard.title')}</h1>
+          <p>{t('admin.dashboard.subtitle')}</p>
+        </div>
       </div>
 
       {/* Stats Cards */}
       <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-icon blue">
-            <FolderOpen size={24} />
+        {statCards.map(({ key, icon: Icon, tone, value, label, delta }) => (
+          <div key={key} className="stat-card">
+            <div className={`stat-icon ${tone}`}>
+              <Icon size={22} />
+            </div>
+            <div className="stat-content">
+              <span className="stat-value">{value}</span>
+              <span className="stat-label">{label}</span>
+              <span className={`stat-delta ${tone === 'orange' ? 'neutral' : 'positive'}`}>
+                <TrendingUp size={12} />
+                {delta}
+              </span>
+            </div>
           </div>
-          <div className="stat-content">
-            <span className="stat-value">{stats.overview.totalWorks}</span>
-            <span className="stat-label">{t('admin.dashboard.totalWorks')}</span>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon green">
-            <CheckCircle size={24} />
-          </div>
-          <div className="stat-content">
-            <span className="stat-value">{stats.overview.approvedWorks}</span>
-            <span className="stat-label">{t('admin.dashboard.approved')}</span>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon orange">
-            <Clock size={24} />
-          </div>
-          <div className="stat-content">
-            <span className="stat-value">{stats.overview.pendingWorks}</span>
-            <span className="stat-label">{t('admin.dashboard.pending')}</span>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-icon purple">
-            <Users size={24} />
-          </div>
-          <div className="stat-content">
-            <span className="stat-value">{stats.overview.totalStudents}</span>
-            <span className="stat-label">{t('admin.dashboard.students')}</span>
-          </div>
-        </div>
+        ))}
       </div>
 
       {/* Charts Row */}
@@ -87,12 +78,12 @@ function Dashboard() {
               <p className="no-data-text">{t('admin.dashboard.noData')}</p>
             ) : (
               stats.byCategory.map(c => (
-                <div key={c.category} className="chart-item">
+                <div key={c.category} className="chart-item" title={`${c.category}: ${c.count}`}>
                   <span className="chart-label">{c.category}</span>
                   <div className="chart-bar-container">
                     <div
                       className="chart-bar"
-                      style={{ width: `${Math.min((c.count / (stats.overview.approvedWorks || 1)) * 100, 100)}%` }}
+                      style={{ width: `${Math.min((c.count / maxCategory) * 100, 100)}%` }}
                     />
                   </div>
                   <span className="chart-value">{c.count}</span>
@@ -110,12 +101,12 @@ function Dashboard() {
               <p className="no-data-text">{t('admin.dashboard.noData')}</p>
             ) : (
               stats.byYear.map(y => (
-                <div key={y.year} className="chart-item">
+                <div key={y.year} className="chart-item" title={`${y.year}: ${y.count}`}>
                   <span className="chart-label">{y.year}</span>
                   <div className="chart-bar-container">
                     <div
                       className="chart-bar year"
-                      style={{ width: `${Math.min((y.count / (stats.overview.approvedWorks || 1)) * 100, 100)}%` }}
+                      style={{ width: `${Math.min((y.count / maxYear) * 100, 100)}%` }}
                     />
                   </div>
                   <span className="chart-value">{y.count}</span>

@@ -270,7 +270,12 @@ function Submit() {
     : FALLBACK_CATEGORIES;
 
   return (
-    <div className="submit-page">
+    <motion.div
+      className="submit-page"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="submit-container">
         <motion.div
           className="submit-card"
@@ -678,7 +683,7 @@ function Submit() {
           </form>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

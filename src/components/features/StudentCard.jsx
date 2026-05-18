@@ -12,7 +12,7 @@ function StudentCard({ student }) {
     <article className="student-card">
       {/* Avatar */}
       <Link to={`/students/${student.id}`} className="student-card-avatar">
-        <img src={student.avatar} alt={student.name} />
+        <img src={student.avatar} alt={student.name} loading="lazy" />
         {student.featured && (
           <span className="featured-indicator" title="Featured Student" />
         )}

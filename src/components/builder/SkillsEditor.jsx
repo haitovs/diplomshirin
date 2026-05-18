@@ -47,7 +47,7 @@ function SkillsEditor() {
   return (
     <div className="editor-form">
       {skills.length > 0 ? (
-        <div className="items-list">
+        <div className="items-list items-list-2col">
           {skills.map((skill) => (
             <div key={skill.id} className="item-card">
               <div className="skill-bar">

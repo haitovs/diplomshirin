@@ -1,5 +1,5 @@
 .project-detail-page {
-  padding: var(--space-8) 0 var(--space-20);
+  padding: var(--space-8) 0 var(--section-py);
 }
 
 /* Back Link */
@@ -29,14 +29,17 @@
 }
 
 .project-title {
-  font-size: var(--font-size-4xl);
-  font-weight: var(--font-weight-bold);
+  font-size: var(--fs-4xl);
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: -0.02em;
+  line-height: var(--line-height-tight);
   margin-bottom: var(--space-4);
 }
 
 .project-short-desc {
-  font-size: var(--font-size-lg);
+  font-size: var(--fs-lg);
   color: var(--text-secondary);
+  line-height: var(--line-height-body);
   max-width: 800px;
   margin-bottom: var(--space-6);
 }
@@ -76,8 +79,9 @@
 /* Gallery */
 .project-gallery {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
 }
 
@@ -161,14 +165,16 @@
 .project-description,
 .project-technologies {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-sm);
   padding: var(--space-8);
 }
 
 .project-description h2,
 .project-technologies h2 {
-  font-size: var(--font-size-xl);
+  font-size: var(--fs-xl);
+  font-weight: var(--font-weight-semibold);
   margin-bottom: var(--space-6);
 }
 
@@ -200,16 +206,19 @@
 
 .sidebar-card {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-xl);
-  padding: var(--space-6);
+  border: var(--card-border);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow-sm);
+  padding: var(--card-padding);
 }
 
 .sidebar-card h3 {
-  font-size: var(--font-size-base);
+  font-size: var(--fs-xs);
   font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   margin-bottom: var(--space-5);
-  color: var(--text-secondary);
+  color: var(--text-tertiary);
 }
 
 /* Action Buttons */
@@ -276,7 +285,9 @@
 }
 
 .related-projects h2 {
-  font-size: var(--font-size-2xl);
+  font-size: var(--fs-2xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.015em;
   margin-bottom: var(--space-8);
 }
 
@@ -323,7 +334,7 @@
 
 @media (max-width: 768px) {
   .project-title {
-    font-size: var(--font-size-2xl);
+    font-size: var(--fs-3xl);
   }
   
   .project-stats {

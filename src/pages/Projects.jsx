@@ -1,14 +1,16 @@
 import { motion } from 'framer-motion';
+import { SearchX } from 'lucide-react';
 import { FolderOpen } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import Button from '../components/common/Button';
 import ProjectCard from '../components/features/ProjectCard';
 import ProjectFilter from '../components/features/ProjectFilter';
 import { useData } from '../context/DataContext';
 import './Projects.css';
 
 function Projects() {
-  const { filteredProjects, setFilters, setSearchQuery } = useData();
+  const { filteredProjects, setFilters, setSearchQuery, clearFilters, searchQuery, filters } = useData();
   const [searchParams] = useSearchParams();
   const [viewMode, setViewMode] = useState('grid');
 
@@ -16,7 +18,7 @@ function Projects() {
   useEffect(() => {
     const category = searchParams.get('category');
     const search = searchParams.get('search');
-    
+
     if (category) {
       setFilters(prev => ({ ...prev, category }));
     }
@@ -25,8 +27,23 @@ function Projects() {
     }
   }, [searchParams, setFilters, setSearchQuery]);
 
+  const hasActiveFilters = Boolean(
+    searchQuery ||
+    (filters && (filters.category || filters.year || filters.technology))
+  );
+
+  const handleClearFilters = () => {
+    setSearchQuery('');
+    if (typeof clearFilters === 'function') clearFilters();
+  };
+
   return (
-    <div className="projects-page">
+    <motion.div
+      className="projects-page"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
       <div className="container">
         {/* Header */}
         <div className="page-header">
@@ -42,9 +59,9 @@ function Projects() {
         </div>
 
         {/* Filter */}
-        <ProjectFilter 
-          viewMode={viewMode} 
-          onViewModeChange={setViewMode} 
+        <ProjectFilter
+          viewMode={viewMode}
+          onViewModeChange={setViewMode}
         />
 
         {/* Projects Grid */}
@@ -64,14 +81,21 @@ function Projects() {
         ) : (
           <div className="empty-state">
             <div className="empty-icon">
-              <FolderOpen size={48} />
+              <SearchX size={48} />
             </div>
             <h3>No projects found</h3>
-            <p>Try adjusting your search or filter criteria</p>
+            <p>Try adjusting your search or filter criteria.</p>
+            {hasActiveFilters && (
+              <div className="empty-state-action">
+                <Button variant="primary" size="sm" onClick={handleClearFilters}>
+                  Clear filters
+                </Button>
+              </div>
+            )}
           </div>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 

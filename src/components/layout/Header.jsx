@@ -35,7 +35,9 @@ function Header() {
       <div className="container header-container">
         {/* Logo */}
         <Link to="/" className="logo">
-          <img src={logoImg} alt="Logo" className="logo-img" />
+          <div className="logo-icon">
+            <img src={logoImg} alt="Logo" className="logo-img" />
+          </div>
           <span className="logo-text">{t('header.logo')}</span>
         </Link>
 
